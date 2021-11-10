@@ -13,6 +13,14 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+// EMPLOYEE ROUTES
+app.get("/employee", (req, res) => {
+  res.render("employees/new");
+});
+
+app.post("/employee", (req, res) => {});
+
+// MISC ROUTES
 app.listen(3000, () => {
   console.log("Listening on port 3000");
 });
