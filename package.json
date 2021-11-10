@@ -1,0 +1,20 @@
+{
+  "name": "PolisCine",
+  "version": "1.0.0",
+  "description": "Final proyect app for the seminar of software engineering I",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlejandroAv19/PolisCine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlejandroAv19/PolisCine/issues"
+  },
+  "homepage": "https://github.com/AlejandroAv19/PolisCine#readme"
+}
