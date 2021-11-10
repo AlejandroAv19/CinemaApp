@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/AlejandroAv19/PolisCine/issues"
   },
-  "homepage": "https://github.com/AlejandroAv19/PolisCine#readme"
+  "homepage": "https://github.com/AlejandroAv19/PolisCine#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
