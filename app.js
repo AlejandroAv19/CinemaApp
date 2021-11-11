@@ -1,6 +1,21 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+
+// DB CONNECTION
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.k8zct.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    console.log("Database Connected");
+  })
+  .catch((e) => {
+    console.log("error", e);
+  });
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
