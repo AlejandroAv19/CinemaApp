@@ -1,8 +1,9 @@
 const express = require("express");
 const path = require("path");
-const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+
+const app = express();
 dotenv.config();
 
 // DB CONNECTION
@@ -17,9 +18,14 @@ mongoose
     console.log("error", e);
   });
 
+// DB MODELS
+const Employee = require("./models/employee");
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({ extended: true }));
 
+// ROUTES
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -33,7 +39,11 @@ app.get("/employee", (req, res) => {
   res.render("employees/new");
 });
 
-app.post("/employee", (req, res) => {});
+app.post("/employee", async (req, res) => {
+  const newEmployee = new Employee(req.body);
+  await newEmployee.save();
+  res.redirect("/");
+});
 
 // MISC ROUTES
 app.listen(3000, () => {
