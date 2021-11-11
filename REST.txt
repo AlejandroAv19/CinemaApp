@@ -1,0 +1,9 @@
+EMPLOYEE REST ROUTES
+NAME    | PATH                | VERB   | PURPOSE
+Index   | /employees          | GET    | Display all comments
+New     | /employees/new      | GET    | Form to create a new employee
+Create  | /employees          | POST   | Creates new employee
+Show    | /employees/:id      | GET    | Details for one specific employee
+Edit    | /employees/:id/edit | GET    | Form to edit specific employee
+Update  | /employee/:id       | PATCH  | Updates specific employee
+Destroy | /employee/:id       | DELETE | Deletes specific item
