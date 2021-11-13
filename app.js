@@ -3,20 +3,14 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const methodOverride = require("method-override");
 
 const app = express();
 dotenv.config();
-
-// EXPRESS ROUTING
-const employeeRoutes = require("./routes/employees");
-app.use("/employees", employeeRoutes);
 
 // ESPRESS SET & USE
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
 
 // DB CONNECTION
 mongoose
@@ -38,6 +32,9 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login");
 });
+
+const employeeRoutes = require("./routes/employees");
+app.use("/employees", employeeRoutes);
 
 // MISC ROUTES
 app.listen(3000, () => {
