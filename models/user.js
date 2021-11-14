@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  hireDate: { type: Date, default: Date.now, required: true },
+  hireDate: { type: String, required: true },
   userType: {
     type: String,
-    emun: ["Employee", "Admin", "Stock Manager"],
+    emun: ["employee", "admin", "stock manager"],
     required: true,
   },
   username: { type: String, required: true },
