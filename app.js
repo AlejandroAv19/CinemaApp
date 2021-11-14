@@ -1,11 +1,9 @@
-// NPM PACKAGES
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 const { dbConnection } = require("./config/dbConection");
-
-const app = express();
 dotenv.config();
+const app = express();
 
 // ESPRESS SET & USE
 app.set("view engine", "ejs");
@@ -24,8 +22,8 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-const employeeRoutes = require("./routes/employees");
-app.use("/employees", employeeRoutes);
+const userRoutes = require("./routes/users");
+app.use("/users", userRoutes);
 
 // MISC ROUTES
 app.listen(3000, () => {
