@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Editing User With ID: <%= user._id %></h1>
+    <form action="/users/<%=user._id%>?_method=PATCH" method="post">
+      <!--NAME-->
+      <div>
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" value="<%= user.name %>" />
+      </div>
+      <!--HIRE DATE-->
+      <div>
+        <label for="hireDate">Hire Date: </label>
+        <input
+          type="date"
+          name="hireDate"
+          id="hireDate"
+          value="<%= user.hireDate %>"
+        />
+      </div>
+      <!--USER TYPE-->
+      <div>
+        <p>User Type:</p>
+        <!-- TODO: Validation to recover the previous userType-->
+        <label for="employee">Employee: </label>
+        <input type="radio" name="userType" id="employee" value="employee" />
+        <label for="stock_manager">Stock Manager: </label>
+        <input
+          type="radio"
+          name="userType"
+          id="stock_manager"
+          value="stock manager"
+        />
+        <label for="admin">Admin: </label>
+        <input type="radio" name="userType" id="admin" value="admin" />
+      </div>
+      <!--USERNAME-->
+      <div>
+        <label for="username">Username: </label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          value="<%= user.username %>"
+        />
+      </div>
+      <!--PASSWORD-->
+      <div>
+        <label for="password">Password: </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value="<%= user.password %>"
+        />
+      </div>
+      <div>
+        <button>Update user</button>
+      </div>
+    </form>
+  </body>
+</html>

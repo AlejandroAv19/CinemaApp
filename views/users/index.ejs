@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Users</title>
+  </head>
+  <body>
+    <h1>Showing all Users</h1>
+    <% for(let user of users){ %>
+    <div style="border: 1px solid black">
+      <p>Name: <%= user.name %></p>
+      <p>Hire Date: <%= user.hireDate %></p>
+      <p>User Type: <%= user.userType %></p>
+      <p>Username: <%= user.username %></p>
+      <p>Password: <%= user.password %></p>
+      <form action="/users/<%= user._id %>">
+        <button>Show User</button>
+      </form>
+    </div>
+    <% } %>
+  </body>
+</html>
