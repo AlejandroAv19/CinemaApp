@@ -3,16 +3,18 @@ const methodOverride = require("method-override");
 const router = express.Router();
 const passport = require("passport");
 
+const { isLoggedIn } = require("../config/middleware");
+
 router.use(methodOverride("_method"));
 router.use(express.urlencoded({ extended: true }));
 
-// CONTROLLERS
+// CONTROLLER
 const users = require("../controllers/users");
 
 // ROUTES
 router.route("/").get(users.index).post(users.create);
 
-router.get("/new", users.newForm);
+router.get("/new", isLoggedIn, users.newForm);
 
 router.route("/:id").get(users.show).patch(users.update).delete(users.delete);
 
