@@ -10,8 +10,10 @@ module.exports.newForm = (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-  const newUser = new User(req.body);
-  await newUser.save();
+  const { name, hireDate, userType, username, password } = req.body;
+  const newUser = new User({ name, hireDate, userType, username });
+  const user = await User.register(newUser, password);
+  await user.save();
   res.redirect("/");
 };
 
@@ -38,4 +40,12 @@ module.exports.delete = async (req, res) => {
   const id = req.params.id;
   await User.findByIdAndDelete(id);
   res.redirect("/");
+};
+
+module.exports.loginForm = (req, res) => {
+  res.render("users/login");
+};
+
+module.exports.login = (req, res) => {
+  res.redirect("/home");
 };

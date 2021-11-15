@@ -1,6 +1,7 @@
 const express = require("express");
 const methodOverride = require("method-override");
 const router = express.Router();
+const passport = require("passport");
 
 router.use(methodOverride("_method"));
 router.use(express.urlencoded({ extended: true }));
@@ -16,5 +17,10 @@ router.get("/new", users.newForm);
 router.route("/:id").get(users.show).patch(users.update).delete(users.delete);
 
 router.get("/:id/edit", users.updateForm);
+
+router
+  .route("/login")
+  .get(users.loginForm)
+  .post(passport.authenticate("local", { failureRedirect: "/" }), users.login);
 
 module.exports = router;
