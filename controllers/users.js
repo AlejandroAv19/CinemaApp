@@ -47,5 +47,7 @@ module.exports.loginForm = (req, res) => {
 };
 
 module.exports.login = (req, res) => {
-  res.redirect("/home");
+  const userType = req.user.userType;
+  res.cookie("userType", userType);
+  res.render("home", { userType });
 };

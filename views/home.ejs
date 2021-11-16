@@ -7,11 +7,17 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>Hi, <%= userType %></h1>
     <form action="/users/new" method="get">
       <button>User - Create</button>
     </form>
     <form action="/users" method="get">
       <button>User - Show All</button>
+    </form>
+    <form action="">
+      <button <% if(userType !="admin" ){%>
+        disabled <% } %> >Only Admin Button
+      </button>
     </form>
   </body>
 </html>

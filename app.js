@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const flash = require("connect-flash");
+const cookieParser = require("cookie-parser");
 
 // MODEL
 const User = require("./models/user");
@@ -17,10 +18,10 @@ const app = express();
 // ESPRESS SET & USE
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use("/users", userRoutes);
 app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: "SuperSecret" }));
 app.use(flash());
+app.use(cookieParser());
 
 // PASSPORT
 app.use(passport.initialize());
@@ -35,6 +36,7 @@ dbConnection();
 
 // ROUTES
 const userRoutes = require("./routes/users");
+app.use("/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.render("users/login");
