@@ -14,10 +14,6 @@ const users = require("../controllers/users");
 // ROUTES
 router.route("/").get(isLoggedIn, users.home).post(isLoggedIn, users.create);
 
-//router.get("/home", users.home);
-
-//router.get("/new", isLoggedIn, users.newForm);
-
 router
   .route("/:id")
   .get(isLoggedIn, users.show)
