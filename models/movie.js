@@ -6,7 +6,7 @@ const movieSchema = new mongoose.Schema({
   sinopsis: { type: String, required: true },
   rating: { type: String, required: true },
   language: { type: String, required: true },
-  duraion: { type: Number, required: true },
+  duration: { type: Number, required: true },
 });
 
 module.exports = mongoose.model("Movie", movieSchema);
