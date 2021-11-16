@@ -12,6 +12,8 @@ router.use(express.urlencoded({ extended: true }));
 const users = require("../controllers/users");
 
 // ROUTES
+router.get("/home", users.home);
+
 router.route("/").get(users.index).post(users.create);
 
 router.get("/new", isLoggedIn, users.newForm);
