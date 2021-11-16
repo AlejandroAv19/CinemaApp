@@ -12,19 +12,18 @@ router.use(express.urlencoded({ extended: true }));
 const users = require("../controllers/users");
 
 // ROUTES
-router.get("/home", users.home);
+router.route("/").get(isLoggedIn, users.home).post(isLoggedIn, users.create);
 
-router.route("/").get(users.index).post(users.create);
+//router.get("/home", users.home);
 
-router.get("/new", isLoggedIn, users.newForm);
-
-router.route("/:id").get(users.show).patch(users.update).delete(users.delete);
-
-router.get("/:id/edit", users.updateForm);
+//router.get("/new", isLoggedIn, users.newForm);
 
 router
-  .route("/login")
-  .get(users.loginForm)
-  .post(passport.authenticate("local", { failureRedirect: "/" }), users.login);
+  .route("/:id")
+  .get(isLoggedIn, users.show)
+  .patch(isLoggedIn, users.update)
+  .delete(isLoggedIn, users.delete);
+
+router.get("/:id/edit", isLoggedIn, users.updateForm);
 
 module.exports = router;

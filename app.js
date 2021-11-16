@@ -30,6 +30,9 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// MIDDLEWARE
+const { isLoggedIn } = require("./config/middleware");
+
 // DB CONNECTION
 const { dbConnection } = require("./config/dbConection");
 dbConnection();
@@ -38,11 +41,23 @@ dbConnection();
 const userRoutes = require("./routes/users");
 app.use("/users", userRoutes);
 
+// LOGIN FORM
 app.get("/", (req, res) => {
-  res.render("users/login");
+  res.render("login");
 });
 
-app.get("/home", (req, res) => {
+// LOGIN LOGIC
+app.post(
+  "/",
+  passport.authenticate("local", { failureRedirect: "/" }),
+  (req, res) => {
+    const userType = req.user.userType;
+    res.cookie("userType", userType);
+    res.render("home", { userType });
+  }
+);
+
+app.get("/home", isLoggedIn, (req, res) => {
   res.render("home");
 });
 

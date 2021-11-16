@@ -5,6 +5,7 @@ module.exports.home = async (req, res) => {
   res.render("users/home", { users });
 };
 
+/*
 module.exports.index = async (req, res) => {
   const users = await User.find({});
   res.render("users/index", { users });
@@ -13,13 +14,14 @@ module.exports.index = async (req, res) => {
 module.exports.newForm = (req, res) => {
   res.render("users/new");
 };
+*/
 
 module.exports.create = async (req, res) => {
   const { name, hireDate, userType, username, password } = req.body;
   const newUser = new User({ name, hireDate, userType, username });
   const user = await User.register(newUser, password);
   await user.save();
-  res.redirect("/users/home");
+  res.redirect("/users");
 };
 
 module.exports.show = async (req, res) => {
@@ -37,18 +39,20 @@ module.exports.updateForm = async (req, res) => {
 module.exports.update = async (req, res) => {
   const id = req.params.id;
   await User.findByIdAndUpdate(id, req.body);
-  res.redirect("/users/home");
+  res.redirect("/users");
 };
 
 module.exports.delete = async (req, res) => {
   const id = req.params.id;
   await User.findByIdAndDelete(id);
-  res.redirect("/users/home");
+  res.redirect("/users");
 };
 
+/*
 module.exports.loginForm = (req, res) => {
   res.render("users/login");
 };
+*/
 
 module.exports.login = (req, res) => {
   const userType = req.user.userType;
