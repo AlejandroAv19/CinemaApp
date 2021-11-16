@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Editing Auditorium With ID: <%= auditorium._id %></h1>
+    <form action="/auditoriums/<%=auditorium._id%>?_method=PATCH" method="post">
+      <div>
+        <label for="number">Number: </label>
+        <input
+          type="number"
+          name="number"
+          id="number"
+          value="<%= auditorium.number %>"
+        />
+      </div>
+      <div>
+        <label for="capacity">Capacity: </label>
+        <input
+          type="number"
+          name="capacity"
+          id="capacity"
+          value="<%= auditorium.capacity %>"
+        />
+      </div>
+      <div>
+        <label for="proyectionType">Proyection Type: </label>
+        <input
+          type="text"
+          name="proyectionType"
+          id="proyectionType"
+          value="<%= auditorium.proyectionType %>"
+        />
+      </div>
+      <div>
+        <button>Update auditorium</button>
+      </div>
+    </form>
+  </body>
+</html>
