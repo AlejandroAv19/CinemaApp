@@ -44,6 +44,15 @@ app.use("/users", userRoutes);
 const providerRoutes = require("./routes/providers");
 app.use("/providers", providerRoutes);
 
+const productRoutes = require("./routes/products");
+app.use("/products", productRoutes);
+
+const movieRoutes = require("./routes/movies");
+app.use("/movies", movieRoutes);
+
+const auditoriumRoutes = require("./routes/auditoriums");
+app.use("/auditoriums", auditoriumRoutes);
+
 // LOGIN FORM
 app.get("/", (req, res) => {
   res.render("login");
