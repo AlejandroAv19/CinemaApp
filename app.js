@@ -41,6 +41,9 @@ dbConnection();
 const userRoutes = require("./routes/users");
 app.use("/users", userRoutes);
 
+const providerRoutes = require("./routes/providers");
+app.use("/providers", providerRoutes);
+
 // LOGIN FORM
 app.get("/", (req, res) => {
   res.render("login");
