@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Products Home</h1>
+    <h2>New Product</h2>
+    <form action="/products" method="POST">
+      <div>
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" />
+      </div>
+      <div>
+        <label for="price">Price: </label>
+        <input type="number" name="price" id="price" />
+      </div>
+      <div>
+        <label for="stock">Stock: </label>
+        <input type="number" name="stock" id="stock" />
+      </div>
+      <div>
+        <label for="description">Description: </label>
+        <input type="text" name="description" id="description" />
+      </div>
+      <div>
+        <button>Create New Product</button>
+      </div>
+    </form>
+    <!---->
+    <h2>Showing all products</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Description</th>
+          <th>Show</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(product of products){ %>
+        <tr>
+          <td><%= product.name %></td>
+          <td>$ <%= product.price %></td>
+          <td><%= product.stock %></td>
+          <td><%= product.description %></td>
+          <td>
+            <form action="/products/<%= product._id%>">
+              <button>Show</button>
+            </form>
+          </td>
+          <td>
+            <form action="/products/<%= product._id%>/edit">
+              <button>Update</button>
+            </form>
+          </td>
+          <td>
+            <form
+              action="/products/<%= product._id%>?_method=DELETE"
+              method="post"
+            >
+              <button>Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
+</html>
