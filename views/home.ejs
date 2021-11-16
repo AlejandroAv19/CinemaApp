@@ -4,12 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Home</title>
   </head>
   <body>
-    <h1>Hi, <%= userType %></h1>
+    <h1>Welcome!</h1>
+
+    <form action="/users/home">
+      <button>Users</button>
+    </form>
+    <!--
     <form action="/users/new" method="get">
-      <button>User - Create</button>
+      <button>New User</button>
     </form>
     <form action="/users" method="get">
       <button>User - Show All</button>
@@ -19,5 +24,6 @@
         disabled <% } %> >Only Admin Button
       </button>
     </form>
+    -->
   </body>
 </html>
