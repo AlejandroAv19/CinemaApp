@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Ticket</title>
+    <link rel="stylesheet" href="/css/tickets.css" />
+  </head>
+  <body>
+    <!-- MOVIE SELECTION -->
+    <h1>Movie Selection</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Sinposis</th>
+          <th>Rating</th>
+          <th>Language</th>
+          <th>Duration</th>
+          <th>Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(movie of movies){ %>
+        <tr>
+          <td class="m_title"><%= movie.title %></td>
+          <td><%= movie.year %></td>
+          <td><%= movie.sinopsis %></td>
+          <td><%= movie.rating %></td>
+          <td><%= movie.language %></td>
+          <td><%= movie.duration %></td>
+          <td>
+            <button onclick="addMovie('<%= movie.title %>')">Select</button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <!-- AUDITORIUM SELECTION -->
+    <h2>Auditorium Selection</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Capacity</th>
+          <th>Proyection Type</th>
+          <th>Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(auditorium of auditoriums){ %>
+        <tr>
+          <td><%= auditorium.number %></td>
+          <td><%= auditorium.capacity %></td>
+          <td><%= auditorium.proyectionType %></td>
+          <td>
+            <button onclick="addAuditorium('<%= auditorium.number %>')">
+              Select
+            </button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <!-- SEATS SELECTION -->
+    <h1>Select The Seats</h1>
+    <div>
+      <input type="number" id="seats_number" />
+      <button onclick="addSeats()">Confirm</button>
+    </div>
+    <h1>Total Overview</h1>
+    <table class="table" id="table_overview">
+      <thead>
+        <tr>
+          <th>Movie</th>
+          <th>Auditorium Number</th>
+          <th>Number of Seats</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="table_body">
+        <td id="overview_movie"></td>
+        <td id="overview_auditorium"></td>
+        <td id="overview_number_seats"></td>
+        <td id="overview_total"></td>
+      </tbody>
+    </table>
+    <script src="/scripts/tickets.js"></script>
+  </body>
+</html>

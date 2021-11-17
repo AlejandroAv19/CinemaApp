@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({ secret: "SuperSecret" }));
 app.use(flash());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
 // PASSPORT
 app.use(passport.initialize());
@@ -71,6 +72,20 @@ app.post(
 
 app.get("/home", isLoggedIn, (req, res) => {
   res.render("home");
+});
+
+// SALES
+const Movie = require("./models/movie");
+const Auditorium = require("./models/auditorium");
+
+app.get("/sales", isLoggedIn, (req, res) => {
+  res.render("sales/home");
+});
+
+app.get("/sales/tickets", isLoggedIn, async (req, res) => {
+  const movies = await Movie.find();
+  const auditoriums = await Auditorium.find();
+  res.render("sales/tickets", { movies, auditoriums });
 });
 
 app.listen(3000, () => {
