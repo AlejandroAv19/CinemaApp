@@ -7,14 +7,15 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- EDIT FORM -->
     <h1>Editing User With ID: <%= user._id %></h1>
     <form action="/users/<%=user._id%>?_method=PATCH" method="post">
-      <!--NAME-->
+      <!-- EDIT NAME-->
       <div>
         <label for="name">Name: </label>
         <input type="text" name="name" id="name" value="<%= user.name %>" />
       </div>
-      <!--HIRE DATE-->
+      <!-- EDIT HIRE DATE-->
       <div>
         <label for="hireDate">Hire Date: </label>
         <input
@@ -24,7 +25,7 @@
           value="<%= user.hireDate %>"
         />
       </div>
-      <!--USER TYPE-->
+      <!-- EDIT USER TYPE-->
       <div>
         <p>User Type:</p>
         <!-- TODO: Validation to recover the previous userType-->
@@ -40,7 +41,7 @@
         <label for="admin">Admin: </label>
         <input type="radio" name="userType" id="admin" value="admin" />
       </div>
-      <!--USERNAME-->
+      <!-- EDIT USERNAME-->
       <div>
         <label for="username">Username: </label>
         <input
@@ -48,16 +49,6 @@
           name="username"
           id="username"
           value="<%= user.username %>"
-        />
-      </div>
-      <!--PASSWORD-->
-      <div>
-        <label for="password">Password: </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value="<%= user.password %>"
         />
       </div>
       <div>
