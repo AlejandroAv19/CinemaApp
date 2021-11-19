@@ -1,13 +1,24 @@
 const Product = require("../models/product");
+const Provider = require("../models/provider");
 
 module.exports.home = async (req, res) => {
   const products = await Product.find({});
-  res.render("products/home", { products });
+  const providers = await Provider.find({});
+  res.render("products/home", { products, providers });
 };
 
 module.exports.create = async (req, res) => {
-  const newProduct = new Product(req.body);
+  // RETRIEVING THE INFORMATION FROM THE FORM
+  const { name, price, stock, description, provider } = req.body;
+  // CREATING AND SAVING THE PRODUCT
+  const newProduct = new Product({ name, price, stock, description });
   await newProduct.save();
+  // FINDING THE PROVIDER
+  const providerFound = await Provider.findOne({ name: provider });
+  // ADDING THE NEW PRODUCT
+  providerFound.products.push(newProduct);
+  await providerFound.save();
+  // REDIRECTING
   res.redirect("/products");
 };
 
