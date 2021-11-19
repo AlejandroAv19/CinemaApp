@@ -8,8 +8,36 @@
   </head>
   <body>
     <h1>Products Home</h1>
-    <h2>New Product</h2>
+    <div>
+      <h2>New Product</h2>
+      <!-- SHOWING PROVIDERS -->
+      <h3>(REQUIRED) Select a provider</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(provider of providers){ %>
+          <tr>
+            <td id="provider_name"><%= provider.name %></td>
+            <td>
+              <button onclick="setProvider()">Select</button>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <!-- NEW PRODUCT INFORMATION -->
+    <h3>New Product Information</h3>
     <form action="/products" method="POST">
+      <div>
+        <label for="provider">Provider: </label>
+        <input id="provider" type="text" name="provider" readonly />
+      </div>
       <div>
         <label for="name">Name: </label>
         <input type="text" name="name" id="name" />
@@ -30,7 +58,7 @@
         <button>Create New Product</button>
       </div>
     </form>
-    <!---->
+    <!-- SHOWING ALL PRODUCTS -->
     <h2>Showing all products</h2>
     <table>
       <thead>
@@ -73,5 +101,6 @@
         <% } %>
       </tbody>
     </table>
+    <script src="/scripts/products.js"></script>
   </body>
 </html>
