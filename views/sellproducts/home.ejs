@@ -7,6 +7,48 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Selling products!</h1>
+    <!-- SHOWING ALL PRODUCTS -->
+    <h1>List of products</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Description</th>
+          <th>Add</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(product of products){ %>
+        <tr>
+          <td id="selection_product_name"><%= product.name %></td>
+          <td id="selection_product_price"><%= product.price %></td>
+          <td><%= product.stock %></td>
+          <td><%= product.description %></td>
+          <td><button onclick="addProduct()">Add</button></td>
+          <td><button onclick="removeProduct()">Remove</button></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <!-- PURCHASE OVERVIEW -->
+    <h1>Purchase Overview</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="overview_table_body">
+        <td id="overview_name"></td>
+        <td id="overview_quantity"></td>
+        <td id="overview_subtotal"></td>
+      </tbody>
+    </table>
+    <script src="/scripts/sellproducts.js"></script>
   </body>
 </html>
