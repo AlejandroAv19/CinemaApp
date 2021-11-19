@@ -23,12 +23,24 @@
       <tbody>
         <% for(product of products){ %>
         <tr>
-          <td id="selection_product_name"><%= product.name %></td>
-          <td id="selection_product_price"><%= product.price %></td>
+          <td class="selection_product_name"><%= product.name %></td>
+          <td class="selection_product_price"><%= product.price %></td>
           <td><%= product.stock %></td>
           <td><%= product.description %></td>
-          <td><button onclick="addProduct()">Add</button></td>
-          <td><button onclick="removeProduct()">Remove</button></td>
+          <td>
+            <button
+              onclick="addProduct('<%= product.name %>','<%= product.price %>')"
+            >
+              Add
+            </button>
+          </td>
+          <td>
+            <button
+              onclick="removeProduct('<%= product.name %>','<%= product.price %>')"
+            >
+              Remove
+            </button>
+          </td>
         </tr>
         <% } %>
       </tbody>
@@ -43,11 +55,7 @@
           <th>Subtotal</th>
         </tr>
       </thead>
-      <tbody id="overview_table_body">
-        <td id="overview_name"></td>
-        <td id="overview_quantity"></td>
-        <td id="overview_subtotal"></td>
-      </tbody>
+      <tbody class="overview_table_body"></tbody>
     </table>
     <script src="/scripts/sellproducts.js"></script>
   </body>
