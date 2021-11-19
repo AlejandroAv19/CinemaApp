@@ -5,17 +5,6 @@ module.exports.home = async (req, res) => {
   res.render("users/home", { users });
 };
 
-/*
-module.exports.index = async (req, res) => {
-  const users = await User.find({});
-  res.render("users/index", { users });
-};
-
-module.exports.newForm = (req, res) => {
-  res.render("users/new");
-};
-*/
-
 module.exports.create = async (req, res) => {
   const { name, hireDate, userType, username, password } = req.body;
   const newUser = new User({ name, hireDate, userType, username });
