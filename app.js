@@ -10,6 +10,9 @@ const cookieParser = require("cookie-parser");
 
 // MODEL
 const User = require("./models/user");
+const Ticket = require("./models/ticket");
+const Movie = require("./models/movie");
+const Auditorium = require("./models/auditorium");
 
 // CONFIG
 dotenv.config();
@@ -75,8 +78,6 @@ app.get("/home", isLoggedIn, (req, res) => {
 });
 
 // SALES
-const Movie = require("./models/movie");
-const Auditorium = require("./models/auditorium");
 
 app.get("/sales", isLoggedIn, (req, res) => {
   res.render("sales/home");
@@ -86,6 +87,21 @@ app.get("/sales/tickets", isLoggedIn, async (req, res) => {
   const movies = await Movie.find();
   const auditoriums = await Auditorium.find();
   res.render("sales/tickets", { movies, auditoriums });
+});
+
+app.post("/sales/tickets", isLoggedIn, async (req, res) => {
+  const { movie, auditorium, seats, price } = req.body;
+  const movieFound = await Movie.findOne({ title: movie });
+  const auditoriumFound = await Auditorium.findOne({ number: auditorium });
+  const ticket = new Ticket({
+    movie: movieFound,
+    auditorium: auditoriumFound,
+    date: Date.now(),
+    seats,
+    total: price,
+  });
+  await ticket.save();
+  res.redirect("/sales");
 });
 
 app.listen(3000, () => {

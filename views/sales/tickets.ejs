@@ -70,6 +70,7 @@
       <input type="number" id="seats_number" />
       <button onclick="addSeats()">Confirm</button>
     </div>
+    <!-- TOTAL OVERVIEW -->
     <h1>Total Overview</h1>
     <table class="table" id="table_overview">
       <thead>
@@ -87,6 +88,15 @@
         <td id="overview_total"></td>
       </tbody>
     </table>
+    <!-- SENDING THE INFORMATION -->
+    <form action="/sales/tickets" method="post" novalidate>
+      <input id="from_movie" type="text" name="movie" hidden />
+      <input id="form_auditorium" type="number" name="auditorium" hidden />
+      <input id="form_seats" type="number" name="seats" hidden />
+      <input id="form_total" type="number" name="price" hidden />
+      <button onclick="sendInfo()">Go!</button>
+    </form>
+
     <script src="/scripts/tickets.js"></script>
   </body>
 </html>
