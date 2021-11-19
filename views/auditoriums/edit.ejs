@@ -7,8 +7,10 @@
     <title>Document</title>
   </head>
   <body>
+    <!-- EDIT AUDITORIUM FORM -->
     <h1>Editing Auditorium With ID: <%= auditorium._id %></h1>
     <form action="/auditoriums/<%=auditorium._id%>?_method=PATCH" method="post">
+      <!-- NUMBER -->
       <div>
         <label for="number">Number: </label>
         <input
@@ -18,6 +20,7 @@
           value="<%= auditorium.number %>"
         />
       </div>
+      <!-- CAPACITY -->
       <div>
         <label for="capacity">Capacity: </label>
         <input
@@ -27,6 +30,7 @@
           value="<%= auditorium.capacity %>"
         />
       </div>
+      <!-- PROYECTION TYPE -->
       <div>
         <label for="proyectionType">Proyection Type: </label>
         <input
@@ -36,6 +40,7 @@
           value="<%= auditorium.proyectionType %>"
         />
       </div>
+      <!-- SUBMIT -->
       <div>
         <button>Update auditorium</button>
       </div>
