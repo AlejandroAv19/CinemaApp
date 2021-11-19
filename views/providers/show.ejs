@@ -7,9 +7,36 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Showing Provider With the ID: <%= provider._id %></h1>
-    <p>Name: <%= provider.name %></p>
-    <p>Phone Number: <%= provider.phone %></p>
-    <p>Email: <%= provider.email %></p>
+    <!-- SHOWING THE PROVIDER INFORMATION -->
+    <div>
+      <h1>Showing Provider With the ID: <%= provider._id %></h1>
+      <p>Name: <%= provider.name %></p>
+      <p>Phone Number: <%= provider.phone %></p>
+      <p>Email: <%= provider.email %></p>
+    </div>
+    <!-- SHOWING THE PRODUCT LINKED TO THE PROVIDER -->
+    <div>
+      <h1>Showing products related to this provider</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(product of provider.products){%>
+          <tr>
+            <td><%= product.name %></td>
+            <td><%= product.price %></td>
+            <td><%= product.stock %></td>
+            <td><%= product.description %></td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
