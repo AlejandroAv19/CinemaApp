@@ -57,6 +57,9 @@ app.use("/movies", movieRoutes);
 const auditoriumRoutes = require("./routes/auditoriums");
 app.use("/auditoriums", auditoriumRoutes);
 
+const sellProductsRoutes = require("./routes/sellproducts");
+app.use("/sellproducts", sellProductsRoutes);
+
 // LOGIN FORM
 app.get("/", (req, res) => {
   res.render("login");
