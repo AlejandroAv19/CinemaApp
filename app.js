@@ -71,7 +71,9 @@ app.post(
   passport.authenticate("local", { failureRedirect: "/" }),
   (req, res) => {
     const userType = req.user.userType;
+    const username = req.user.username;
     res.cookie("userType", userType);
+    res.cookie("username", username);
     res.render("home", { userType });
   }
 );
