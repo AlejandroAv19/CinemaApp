@@ -60,6 +60,9 @@ app.use("/auditoriums", auditoriumRoutes);
 const sellProductsRoutes = require("./routes/sellproducts");
 app.use("/sellproducts", sellProductsRoutes);
 
+const salesRoutes = require("./routes/sales");
+app.use("/sales", salesRoutes);
+
 // LOGIN FORM
 app.get("/", (req, res) => {
   res.render("login");
@@ -83,7 +86,7 @@ app.get("/home", isLoggedIn, (req, res) => {
 });
 
 // SALES
-
+/*
 app.get("/sales", isLoggedIn, (req, res) => {
   res.render("sales/home");
 });
@@ -108,6 +111,7 @@ app.post("/sales/tickets", isLoggedIn, async (req, res) => {
   await ticket.save();
   res.redirect("/sales");
 });
+*/
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");
