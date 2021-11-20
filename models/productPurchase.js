@@ -6,7 +6,7 @@ const productPurchaseSchema = new Schema({
     {
       item: { type: Schema.Types.ObjectId, ref: "Product" },
       quantity: { type: Number },
-      total: { type: Number },
+      subtotal: { type: Number },
     },
   ],
 });
