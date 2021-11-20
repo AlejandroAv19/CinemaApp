@@ -7,6 +7,6 @@ router.use(express.urlencoded({ extended: true }));
 
 const sellproducts = require("../controllers/sellproducts");
 
-router.route("/").get(isLoggedIn, sellproducts.home);
+router.route("/").get(isLoggedIn, sellproducts.home).post(sellproducts.create);
 
 module.exports = router;
