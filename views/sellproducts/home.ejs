@@ -57,6 +57,16 @@
       </thead>
       <tbody class="overview_table_body"></tbody>
     </table>
+    <!-- CONFIRM PURCHASE -->
+    <div>
+      <p>
+        <strong>Total: <ins id="total">0</ins> </strong>
+      </p>
+    </div>
+    <form id="form_purchase" action="/sellproducts" method="post" novalidate>
+      <button onclick="purchase()">Confirm Purchase</button>
+    </form>
+
     <script src="/scripts/sellproducts.js"></script>
   </body>
 </html>
