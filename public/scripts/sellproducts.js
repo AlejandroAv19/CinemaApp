@@ -25,6 +25,9 @@ const addProduct = (name, price) => {
     row.appendChild(td_quantity);
     row.appendChild(td_subtotal);
     table.appendChild(row);
+    // ADDING TO TOTAL
+    let totalDisplay = document.querySelector("#total");
+    totalDisplay.innerHTML = parseInt(totalDisplay.innerHTML) + parseInt(price);
   } else {
     // SI LA FILA YA EXISTE
     if (document.querySelector(`#${nameReplace}`)) {
@@ -32,6 +35,10 @@ const addProduct = (name, price) => {
       selectedQuantity.innerHTML = parseInt(selectedQuantity.innerHTML) + 1;
       let selectedSubtotal = document.querySelector(`#${nameReplace}_subtotal`);
       selectedSubtotal.innerHTML = parseInt(selectedQuantity.innerHTML) * price;
+      // ADDING TO TOTAL
+      let totalDisplay = document.querySelector("#total");
+      totalDisplay.innerHTML =
+        parseInt(totalDisplay.innerHTML) + parseInt(price);
     } else {
       // SI NO EXISTE SE CREA
       const row = document.createElement("tr");
@@ -54,6 +61,10 @@ const addProduct = (name, price) => {
       row.appendChild(td_quantity);
       row.appendChild(td_subtotal);
       table.appendChild(row);
+      // ADDING TO TOTAL
+      let totalDisplay = document.querySelector("#total");
+      totalDisplay.innerHTML =
+        parseInt(totalDisplay.innerHTML) + parseInt(price);
     }
   }
 };
@@ -67,8 +78,51 @@ const removeProduct = (name, price) => {
     selectedQuantity.innerHTML = parseInt(selectedQuantity.innerHTML) - 1;
     selectedSubtotal.innerHTML =
       parseInt(selectedQuantity.innerHTML) * parseInt(price);
+    // SUBSTRACTING TO TOTAL
+    let totalDisplay = document.querySelector("#total");
+    totalDisplay.innerHTML = parseInt(totalDisplay.innerHTML) - parseInt(price);
     if (selectedQuantity.innerHTML == 0) {
       productRow.remove();
     }
+  }
+};
+
+const purchase = () => {
+  let overviewTable = document.querySelector(".overview_table_body");
+  for (item of overviewTable.childNodes) {
+    const item_name = item.childNodes[0].innerHTML;
+    const item_quantity = item.childNodes[1].innerHTML;
+    const item_subtotal = item.childNodes[2].innerHTML;
+
+    // CREATING THE ELEMENTS
+    const i1 = document.createElement("input");
+    const i2 = document.createElement("input");
+    const i3 = document.createElement("input");
+
+    //SETTING THE TYPE
+    i1.type = "text";
+    i2.type = "number";
+    i3.type = "number";
+
+    // SETTING THE NAME
+    i1.name = "name";
+    i2.name = "quantity";
+    i3.name = "subtotal";
+
+    // SETTING THE VALUE
+    i1.value = item_name;
+    i2.value = item_quantity;
+    i3.value = item_subtotal;
+
+    // HIDDENT THE ELEMENTS
+    i1.hidden = true;
+    i2.hidden = true;
+    i3.hidden = true;
+
+    //APPENDING THE ELEMENTS
+    let purchaseForm = document.querySelector("#form_purchase");
+    purchaseForm.appendChild(i1);
+    purchaseForm.appendChild(i2);
+    purchaseForm.appendChild(i3);
   }
 };
