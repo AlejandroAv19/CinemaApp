@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 const ProductPurchase = require("../models/productPurchase");
+const Sale = require("../models/sale");
+const User = require("../models/user");
 
 module.exports.home = async (req, res) => {
   const products = await Product.find({});
@@ -33,9 +35,21 @@ module.exports.create = async (req, res) => {
         subtotal: subtotal[i],
       });
     }
+
     // ONCE FINISHED PUSHEN SAVE THE DOCUMENT
     await purchase.save();
-    //RECEIPT CREATION
+
+    //SALE CREATION
+    // SEARCH USER
+    const user = await User.findOne({ username: req.cookies.username });
+    const total = req.body.total;
+    const sale = new Sale({
+      details: purchase,
+      madeBy: user,
+      type: "product",
+      total,
+    });
+    await sale.save();
   }
   res.redirect("/home");
 };
