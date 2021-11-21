@@ -88,7 +88,9 @@ const removeProduct = (name, price) => {
 };
 
 const purchase = () => {
+  // TARGETING THE OVERVIEW TABLE
   let overviewTable = document.querySelector(".overview_table_body");
+  // FOR EVERY ITEM IN THE OVERVIEW
   for (item of overviewTable.childNodes) {
     const item_name = item.childNodes[0].innerHTML;
     const item_quantity = item.childNodes[1].innerHTML;
@@ -125,4 +127,13 @@ const purchase = () => {
     purchaseForm.appendChild(i2);
     purchaseForm.appendChild(i3);
   }
+  // RETRIEVING THE TOTAL
+  const total = document.querySelector("#total").innerHTML;
+  let i4 = document.createElement("input");
+  i4.type = "number";
+  i4.name = "total";
+  i4.value = total;
+  i4.hidden = true;
+  let purchaseForm = document.querySelector("#form_purchase");
+  purchaseForm.appendChild(i4);
 };
