@@ -47,9 +47,27 @@ module.exports.create = async (req, res) => {
       details: purchase,
       madeBy: user,
       type: "product",
+      date: Date.now(),
       total,
     });
     await sale.save();
   }
   res.redirect("/home");
+};
+
+module.exports.show = async (req, res) => {
+  const id = req.params.id;
+  const purchase = await ProductPurchase.findById(id).populate({
+    path: "items",
+    populate: {
+      path: "item",
+      model: "Product",
+    },
+  });
+  /*
+  console.log(purchase);
+  for (item of purchase.items) console.log(item);
+  */
+  console.log(purchase);
+  res.render("sellproducts/show", { purchase });
 };
