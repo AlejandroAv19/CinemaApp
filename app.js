@@ -63,6 +63,12 @@ app.use("/sellproducts", sellProductsRoutes);
 const salesRoutes = require("./routes/sales");
 app.use("/sales", salesRoutes);
 
+const showRoutes = require("./routes/shows");
+app.use("/shows", showRoutes);
+
+const sellTicketsRoutes = require("./routes/selltickets");
+app.use("/selltickets", sellTicketsRoutes);
+
 // LOGIN FORM
 app.get("/", (req, res) => {
   res.render("login");
