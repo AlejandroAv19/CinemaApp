@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Showing one ticket purchase</h1>
+    <table>
+      <thead>
+        <tr>
+          <td>Movie</td>
+          <td>Auditorium</td>
+          <td>Day</td>
+          <td>Number of Tickets</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= purchase.movie %></td>
+          <td><%= purchase.auditorium %></td>
+          <td><%= purchase.day %></td>
+          <td><%= purchase.ticketsNumber %></td>
+          <td><%= purchase.total %></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
