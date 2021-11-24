@@ -10,9 +10,6 @@ const cookieParser = require("cookie-parser");
 
 // MODEL
 const User = require("./models/user");
-const Ticket = require("./models/ticket");
-const Movie = require("./models/movie");
-const Auditorium = require("./models/auditorium");
 
 // CONFIG
 dotenv.config();
