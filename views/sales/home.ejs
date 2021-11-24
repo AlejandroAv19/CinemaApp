@@ -21,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for(sale of sales){ %>
+        <% for(sale of sales){ %> <% if(sale.type === "product"){ %>
         <tr>
           <td>
             <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
@@ -31,9 +31,33 @@
           <td><%= sale.total %></td>
           <td><a href="/sellproducts/<%= sale.details._id %>">Show</a></td>
         </tr>
-        <% } %>
+        <% } %> <% } %>
       </tbody>
     </table>
     <h2>Tickets Sales</h2>
+    <table>
+      <thead>
+        <tr>
+          <td>Done By</td>
+          <td>Type</td>
+          <td>Date</td>
+          <td>Total</td>
+          <td>Details</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(sale of sales){ %> <% if(sale.type === "ticket"){ %>
+        <tr>
+          <td>
+            <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
+          </td>
+          <td><%= sale.type %></td>
+          <td><%= sale.date %></td>
+          <td><%= sale.total %></td>
+          <td><a href="/selltickets/<%= sale.details._id %>">Show</a></td>
+        </tr>
+        <% } %> <% } %>
+      </tbody>
+    </table>
   </body>
 </html>
