@@ -64,10 +64,5 @@ module.exports.show = async (req, res) => {
       model: "Product",
     },
   });
-  /*
-  console.log(purchase);
-  for (item of purchase.items) console.log(item);
-  */
-  console.log(purchase);
   res.render("sellproducts/show", { purchase });
 };
