@@ -7,6 +7,11 @@ router.use(express.urlencoded({ extended: true }));
 
 const selltickets = require("../controllers/selltickets");
 
-router.route("/").get(isLoggedIn, selltickets.home);
+router
+  .route("/")
+  .get(isLoggedIn, selltickets.home)
+  .post(isLoggedIn, selltickets.create);
+
+router.route("/:id").get(isLoggedIn, selltickets.show);
 
 module.exports = router;
