@@ -32,7 +32,9 @@
           <td><%= movie.language %></td>
           <td><%= movie.duration %></td>
           <td>
-            <button onclick="showShows('<%= movie.title %>', '<% shows%>')">
+            <button
+              onclick="showsAndOverview('<%= movie.title%>', '<%=shows%>')"
+            >
               Select
             </button>
           </td>
@@ -49,12 +51,55 @@
           <td>Day</td>
           <td>Showtime</td>
           <td>Seats Available</td>
+          <td>Select</td>
         </tr>
       </thead>
-      <tbody id="shows_body">
-        <!-- solamente necesito mostrar los que tengan por nombre el seleccionado -->
+      <tbody id="shows_body"></tbody>
+    </table>
+    <!-- SELECTING TICKETS -->
+    <h2>Number of tickets</h2>
+    <button id="substract">-</button>
+    <input id="number_tickets" type="number" value="1" readonly />
+    <button id="add">+</button>
+    <button id="confirm_number_tickets">Confirm</button>
+    <!-- PURCHASE OVERVIEW -->
+    <h2>Purchase Overview</h2>
+    <table>
+      <thead>
+        <tr>
+          <td>Movie</td>
+          <td>Auditorium</td>
+          <td>Day</td>
+          <td>Showtime</td>
+          <td>Number of tickets</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody id="purchase_overview">
+        <tr>
+          <td id="overview_movie"></td>
+          <td id="overview_auditorium"></td>
+          <td id="overview_day"></td>
+          <td id="overview_showtime"></td>
+          <td id="overview_number_tickets"></td>
+          <td id="overview_total"></td>
+        </tr>
       </tbody>
     </table>
+    <form action="/selltickets" method="post" novalidate>
+      <input type="text" name="movie" id="movie_form" hidden />
+      <input type="number" name="auditorium" id="auditorium_form" hidden />
+      <input type="text" name="day" id="day_form" hidden />
+      <input type="text" name="showtime" id="showtime_form" hidden />
+      <input
+        type="number"
+        name="ticketsNumber"
+        id="tickets_number_form"
+        hidden
+      />
+      <input type="number" name="total" id="total_form" hidden />
+      <button id="confirm_purchase">Confirm Purchase</button>
+    </form>
     <script src="/scripts/selltickets.js"></script>
   </body>
 </html>
