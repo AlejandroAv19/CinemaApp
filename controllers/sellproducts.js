@@ -23,6 +23,21 @@ module.exports.create = async (req, res) => {
     purchase.items.push({ item, quantity, subtotal });
     // SAVE THE DOCUMENT
     await purchase.save();
+
+    //SALE CREATION
+    // SEARCH USER
+    const user = await User.findOne({ username: req.cookies.username });
+    console.log(user);
+    const total = req.body.total;
+    console.log(total);
+    const sale = new Sale({
+      details: purchase,
+      madeBy: user,
+      type: "product",
+      date: Date.now(),
+      total,
+    });
+    await sale.save();
   } else {
     // IF THERE IS MORE THAN ONE ELEMENT
     for (let i = 0; i < length; i++) {
