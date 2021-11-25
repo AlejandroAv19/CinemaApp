@@ -21,7 +21,9 @@
       <tbody>
         <% for(item of purchase.items){ %>
         <tr>
-          <td><%= item.item._id %></td>
+          <td>
+            <a href="/products/<%= item.item._id%> "><%= item.item._id %></a>
+          </td>
           <td><%= item.item.name %></td>
           <td><%= item.quantity %></td>
           <td><%= item.item.pricePerUnit %></td>
