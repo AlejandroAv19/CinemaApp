@@ -13,7 +13,6 @@ module.exports.home = async (req, res) => {
 module.exports.create = async (req, res) => {
   // MAKING THE TICKET PURCHASE
   const newTicketPurchase = new TicketPurchase(req.body);
-  await newTicketPurchase.save();
 
   // MAKING THE SALE
   const user = await User.findOne({ username: req.cookies.username });
@@ -24,7 +23,24 @@ module.exports.create = async (req, res) => {
     date: Date.now(),
     total: req.body.total,
   });
-  await newSale.save();
+
+  // SUBSTRACT SEATS AVAILABLE
+  const { auditorium, day, showtime, ticketsNumber } = req.body;
+  const showFound = await Show.findOne({ auditorium, day, showtime });
+
+  // IF THERE ARE AVAILABLE SEATS
+  if (parseInt(ticketsNumber) <= parseInt(showFound.availableSeats)) {
+    await newTicketPurchase.save();
+    await newSale.save();
+    const updateShow = await Show.findOneAndUpdate(
+      { auditorium, day, showtime },
+      {
+        availableSeats:
+          parseInt(showFound.availableSeats) - parseInt(ticketsNumber),
+      }
+    );
+  }
+
   res.redirect("/home");
 };
 
