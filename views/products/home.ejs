@@ -22,9 +22,11 @@
         <tbody>
           <% for(provider of providers){ %>
           <tr>
-            <td id="provider_name"><%= provider.name %></td>
+            <td><%= provider.name %></td>
             <td>
-              <button onclick="setProvider()">Select</button>
+              <button onclick="setProvider('<%= provider.name %>')">
+                Select
+              </button>
             </td>
           </tr>
           <% } %>
