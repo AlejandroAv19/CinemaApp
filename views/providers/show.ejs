@@ -21,7 +21,7 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Price</th>
+            <th>Price Per Unit</th>
             <th>Stock</th>
             <th>Description</th>
           </tr>
@@ -30,7 +30,7 @@
           <% for(product of provider.products){%>
           <tr>
             <td><%= product.name %></td>
-            <td><%= product.price %></td>
+            <td><%= product.pricePerUnit %></td>
             <td><%= product.stock %></td>
             <td><%= product.description %></td>
           </tr>
