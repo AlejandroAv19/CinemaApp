@@ -66,6 +66,9 @@ app.use("/shows", showRoutes);
 const sellTicketsRoutes = require("./routes/selltickets");
 app.use("/selltickets", sellTicketsRoutes);
 
+const productOrdersRoutes = require("./routes/productorders");
+app.use("/productorders", productOrdersRoutes);
+
 // LOGIN FORM
 app.get("/", (req, res) => {
   res.render("login");
