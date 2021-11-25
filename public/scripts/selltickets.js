@@ -11,42 +11,32 @@ const showsAndOverview = (movieTitle, shows) => {
 
       const auditoriumTable = document.createElement("td");
       auditoriumTable.innerHTML = show.auditorium;
-      auditoriumTable.id = "shows_auditorium" + auditoriumTable.innerHTML;
 
       const dayTable = document.createElement("td");
       dayTable.innerHTML = show.day;
-      dayTable.id = "shows_day" + auditoriumTable.innerHTML;
 
       const showtimeTable = document.createElement("td");
       showtimeTable.innerHTML = show.showtime;
-      showtimeTable.id = "shows_showtime" + auditoriumTable.innerHTML;
 
       const seatsTable = document.createElement("td");
       seatsTable.innerHTML = show.availableSeats;
-      seatsTable.id = "shows_seats" + auditoriumTable.innerHTML;
 
       const selectButton = document.createElement("button");
-      selectButton.innerHTML = "Select?";
+      selectButton.innerHTML = "Select";
       selectButton.addEventListener("click", function () {
-        // PASSING THE AUDITORIUM TO THE OVERVIEW
-        const id = "#" + "shows_auditorium" + auditoriumTable.innerHTML;
-        const auditoriumNumber = document.querySelector(id);
+        // AUDITORIUM
         const auditoriumOverview = document.querySelector(
           "#overview_auditorium"
         );
-        auditoriumOverview.innerHTML = auditoriumNumber.innerHTML;
-        // PASSING THE DAY TO THE OVERVIEW
-        const day = document.querySelector(
-          "#" + "shows_day" + auditoriumTable.innerHTML
-        );
+        auditoriumOverview.innerHTML = auditoriumTable.innerHTML;
+
+        // DAY
         const dayOverview = document.querySelector("#overview_day");
-        dayOverview.innerHTML = day.innerHTML;
-        // PASSING THE SHOWTIME TO THE OVERVIEW
-        const showtime = document.querySelector(
-          "#" + "shows_showtime" + auditoriumTable.innerHTML
-        );
+        dayOverview.innerHTML = dayTable.innerHTML;
+
+        //SHOWTIME
         const showtimeOverview = document.querySelector("#overview_showtime");
-        showtimeOverview.innerHTML = showtime.innerHTML;
+        showtimeOverview.innerHTML = showtimeTable.innerHTML;
       });
 
       row.appendChild(auditoriumTable);
@@ -61,17 +51,6 @@ const showsAndOverview = (movieTitle, shows) => {
   // ADD TO OVERVIEW
   const overviewMovieName = document.querySelector("#overview_movie");
   overviewMovieName.innerHTML = movieTitle;
-};
-
-const addAuditorium = (test) => {
-  console.log(test);
-  /*
-  const showsAuditorium = document.querySelector(
-    ".shows_auditorium" + auditorium
-  );
-  const overviewAuditorium = document.querySelector("#overview_auditorium");
-  overviewAuditorium.innerHTML = showsAuditorium;
-  */
 };
 
 // ---------------------------- NEW VERSION OF DOM MANIPULATION ----------------------------
