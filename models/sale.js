@@ -8,10 +8,10 @@ const saleSchema = new Schema({
   },
   Purchase: {
     type: String,
-    enum: ["ProductPurchase", "TicketPurchase"],
+    enum: ["ProductPurchase", "TicketPurchase", "ProductOrder"],
   },
   madeBy: { type: Schema.Types.ObjectId, ref: "User" },
-  type: { type: String, enum: ["product", "ticket"] },
+  type: { type: String, enum: ["product", "ticket", "productOrder"] },
   date: { type: String },
   total: { type: Number },
 });
