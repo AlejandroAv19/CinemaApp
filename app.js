@@ -91,34 +91,6 @@ app.get("/home", isLoggedIn, (req, res) => {
   res.render("home");
 });
 
-// SALES
-/*
-app.get("/sales", isLoggedIn, (req, res) => {
-  res.render("sales/home");
-});
-
-app.get("/sales/tickets", isLoggedIn, async (req, res) => {
-  const movies = await Movie.find();
-  const auditoriums = await Auditorium.find();
-  res.render("sales/tickets", { movies, auditoriums });
-});
-
-app.post("/sales/tickets", isLoggedIn, async (req, res) => {
-  const { movie, auditorium, seats, price } = req.body;
-  const movieFound = await Movie.findOne({ title: movie });
-  const auditoriumFound = await Auditorium.findOne({ number: auditorium });
-  const ticket = new Ticket({
-    movie: movieFound,
-    auditorium: auditoriumFound,
-    date: Date.now(),
-    seats,
-    total: price,
-  });
-  await ticket.save();
-  res.redirect("/sales");
-});
-*/
-
 app.listen(3000, () => {
   console.log("Listening on port 3000");
 });
