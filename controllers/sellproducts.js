@@ -27,9 +27,7 @@ module.exports.create = async (req, res) => {
     //SALE CREATION
     // SEARCH USER
     const user = await User.findOne({ username: req.cookies.username });
-    console.log(user);
     const total = req.body.total;
-    console.log(total);
     const sale = new Sale({
       details: purchase,
       madeBy: user,
@@ -38,6 +36,15 @@ module.exports.create = async (req, res) => {
       total,
     });
     await sale.save();
+
+    // SUBSTRACTING STOCK FOR THE PRODUCT
+    const actualStock = item.stock;
+    const newStock = parseInt(actualStock) - parseInt(quantity);
+    const productUpdate = await Product.findOneAndUpdate(
+      { name },
+      { stock: newStock }
+    );
+    await productUpdate.save();
   } else {
     // IF THERE IS MORE THAN ONE ELEMENT
     for (let i = 0; i < length; i++) {
@@ -49,6 +56,15 @@ module.exports.create = async (req, res) => {
         quantity: quantity[i],
         subtotal: subtotal[i],
       });
+
+      // SUBSTRACTING STOCK FOR THE PRODUCT
+      const actualStock = item.stock;
+      const newStock = parseInt(actualStock) - parseInt(quantity[i]);
+      const productUpdate = await Product.findOneAndUpdate(
+        { name: name[i] },
+        { stock: newStock }
+      );
+      await productUpdate.save();
     }
 
     // ONCE FINISHED PUSHEN SAVE THE DOCUMENT
