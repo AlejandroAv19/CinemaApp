@@ -24,19 +24,19 @@
         <% for(product of products){ %>
         <tr>
           <td class="selection_product_name"><%= product.name %></td>
-          <td class="selection_product_price"><%= product.price %></td>
+          <td class="selection_product_price"><%= product.pricePerUnit %></td>
           <td><%= product.stock %></td>
           <td><%= product.description %></td>
           <td>
             <button
-              onclick="addProduct('<%= product.name %>','<%= product.price %>')"
+              onclick="addProduct('<%= product.name %>','<%= product.pricePerUnit %>')"
             >
               Add
             </button>
           </td>
           <td>
             <button
-              onclick="removeProduct('<%= product.name %>','<%= product.price %>')"
+              onclick="removeProduct('<%= product.name %>','<%= product.pricePerUnit %>')"
             >
               Remove
             </button>
