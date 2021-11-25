@@ -7,6 +7,7 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
+const ejsMate = require("ejs-mate");
 
 // MODEL
 const User = require("./models/user");
@@ -23,6 +24,8 @@ app.use(session({ secret: "SuperSecret" }));
 app.use(flash());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.engine("ejs", ejsMate);
 
 // PASSPORT
 app.use(passport.initialize());
