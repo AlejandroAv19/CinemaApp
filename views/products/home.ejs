@@ -43,12 +43,12 @@
         <input type="text" name="name" id="name" />
       </div>
       <div>
-        <label for="price">Price: </label>
-        <input type="number" name="price" id="price" />
+        <label for="price">Price Per Unit: </label>
+        <input type="number" name="pricePerUnit" id="pricePerUnit" />
       </div>
       <div>
-        <label for="stock">Stock: </label>
-        <input type="number" name="stock" id="stock" />
+        <label for="stock">Stock Limit: </label>
+        <input type="number" name="stockLimit" id="stockLimit" />
       </div>
       <div>
         <label for="description">Description: </label>
@@ -64,8 +64,9 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Price</th>
-          <th>Stock</th>
+          <th>Price Per Unit</th>
+          <th>Stock Limit</th>
+          <th>Available Stock</th>
           <th>Description</th>
           <th>Show</th>
           <th>Update</th>
@@ -76,7 +77,8 @@
         <% for(product of products){ %>
         <tr>
           <td><%= product.name %></td>
-          <td>$ <%= product.price %></td>
+          <td>$ <%= product.pricePerUnit %></td>
+          <td><%= product.stockLimit %></td>
           <td><%= product.stock %></td>
           <td><%= product.description %></td>
           <td>
