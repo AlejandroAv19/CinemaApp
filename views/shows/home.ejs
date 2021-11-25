@@ -99,6 +99,30 @@
     <form id="create_form" action="/shows" method="post">
       <button onclick="createShow()">Create Show</button>
     </form>
+    <!-- ALL SHOWS -->
+    <h1>Showing all Shows</h1>
+    <table>
+      <thead>
+        <tr>
+          <td>Movie</td>
+          <td>Auditorium</td>
+          <td>Day</td>
+          <td>Showtime</td>
+          <td>Available Seats</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(show of shows){ %>
+        <tr>
+          <td><%= show.movie %></td>
+          <td><%= show.auditorium %></td>
+          <td><%= show.day %></td>
+          <td><%= show.showtime %></td>
+          <td><%= show.availableSeats %></td>
+        </tr>
+        <%}%>
+      </tbody>
+    </table>
     <script src="/scripts/shows.js"></script>
   </body>
 </html>
