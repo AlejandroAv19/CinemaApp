@@ -53,6 +53,7 @@ confirmQuantityButton.addEventListener("click", function () {
   totalOverview.innerHTML = total;
 });
 
+// CONFIRM PURCHASE
 const purchaseButton = document.querySelector("#confirm_purchase_button");
 purchaseButton.addEventListener("click", function () {
   // PRODUCT NAME
