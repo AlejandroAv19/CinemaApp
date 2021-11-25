@@ -23,7 +23,7 @@ module.exports.create = async (req, res) => {
     providersCut,
     total,
   });
-  await productOrder.save();
+
   // -- SALE
   const user = await User.findOne({ username: req.cookies.username });
   const newSale = new sale({
@@ -33,7 +33,22 @@ module.exports.create = async (req, res) => {
     date: Date.now(),
     total,
   });
-  await newSale.save();
+
+  // ADDING THE PRODUCT TO THE STOCK
+  const actualStock = product.stock;
+  const newStock = parseInt(actualStock) + parseInt(quantity);
+
+  // IF THE NEW STOCK DOESNT GET ABOVE THE LIMIT
+  if (newStock <= parseInt(product.stockLimit)) {
+    const productUpdate = await Product.findOneAndUpdate(
+      { name: productName },
+      { stock: newStock }
+    );
+    await newSale.save();
+    await productOrder.save();
+  }
+
+  // REDIRECT
   res.redirect("/home");
 };
 
