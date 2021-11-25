@@ -1,5 +1,8 @@
 const Product = require("../models/product");
 const Provider = require("../models/provider");
+const ProductOrder = require("../models/productOrder");
+const sale = require("../models/sale");
+const User = require("../models/user");
 
 module.exports.home = async (req, res) => {
   const products = await Product.find({});
@@ -9,9 +12,15 @@ module.exports.home = async (req, res) => {
 
 module.exports.create = async (req, res) => {
   // RETRIEVING THE INFORMATION FROM THE FORM
-  const { name, price, stock, description, provider } = req.body;
+  const { name, pricePerUnit, stockLimit, description, provider } = req.body;
   // CREATING AND SAVING THE PRODUCT
-  const newProduct = new Product({ name, price, stock, description });
+  const newProduct = new Product({
+    name,
+    pricePerUnit,
+    stockLimit,
+    stock: 0,
+    description,
+  });
   await newProduct.save();
   // FINDING THE PROVIDER
   const providerFound = await Provider.findOne({ name: provider });
