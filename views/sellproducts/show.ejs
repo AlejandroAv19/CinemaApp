@@ -1,36 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Showing purchase details</h1>
-    <table>
-      <thead>
-        <tr>
-          <td>ID Product</td>
-          <td>Product Name</td>
-          <td>Quantity</td>
-          <td>Price per Unit</td>
-          <td>Subtotal</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(item of purchase.items){ %>
-        <tr>
-          <td>
-            <a href="/products/<%= item.item._id%> "><%= item.item._id %></a>
-          </td>
-          <td><%= item.item.name %></td>
-          <td><%= item.quantity %></td>
-          <td><%= item.item.pricePerUnit %></td>
-          <td><%= item.subtotal %></td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Showing purchase details</h1>
+<table>
+  <thead>
+    <tr>
+      <td>ID Product</td>
+      <td>Product Name</td>
+      <td>Quantity</td>
+      <td>Price per Unit</td>
+      <td>Subtotal</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(item of purchase.items){ %>
+    <tr>
+      <td>
+        <a href="/products/<%= item.item._id%> "><%= item.item._id %></a>
+      </td>
+      <td><%= item.item.name %></td>
+      <td><%= item.quantity %></td>
+      <td><%= item.item.pricePerUnit %></td>
+      <td><%= item.subtotal %></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

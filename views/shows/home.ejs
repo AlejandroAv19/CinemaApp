@@ -1,128 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Managing Shows!</h1>
-    <!-- MOVIE SELECTION -->
-    <h3>Step 1: Select the Movie</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Year</th>
-          <th>Sinposis</th>
-          <th>Rating</th>
-          <th>Language</th>
-          <th>Duration</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(movie of movies){ %>
-        <tr>
-          <td><%= movie.title %></td>
-          <td><%= movie.year %></td>
-          <td><%= movie.sinopsis %></td>
-          <td><%= movie.rating %></td>
-          <td><%= movie.language %></td>
-          <td><%= movie.duration %></td>
-          <td>
-            <button onclick="addMovie('<%= movie.title %>')">Select</button>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <!-- AUDITORIUM SELECTION -->
-    <h3>Step 2: Select the auditorium</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Number</th>
-          <th>Capacity</th>
-          <th>Proyection Type</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(auditorium of auditoriums){ %>
-        <tr>
-          <td><%= auditorium.number %></td>
-          <td><%= auditorium.capacity %></td>
-          <td><%= auditorium.proyectionType %></td>
-          <td>
-            <button
-              onclick="addAuditorium('<%= auditorium.number %>', '<%= auditorium.capacity %>')"
-            >
-              Select
-            </button>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <!-- DAY SELECTION -->
-    <h3>Step 3: Select the day</h3>
-    <input type="date" name="day" id="day" />
-    <button onclick="addDate()">Confirm</button>
-    <!-- SHOWTIMES SELECTION -->
-    <h3>Step 4: Add Showtime</h3>
-    <div>
-      <input type="text" id="showtime" />
-      <button onclick="addShowtime()">Add</button>
-    </div>
-    <!-- SHOW OVERVIEW -->
-    <h1>Show Overview</h1>
-    <table>
-      <thead>
-        <tr>
-          <td>Movie</td>
-          <td>Auditorium</td>
-          <td>Day</td>
-          <td>Showtime</td>
-          <td>Available Seats</td>
-        </tr>
-      </thead>
-      <tbody>
-        <td id="body_movie"></td>
-        <td id="body_auditorium"></td>
-        <td id="body_day"></td>
-        <td id="body_showtime"></td>
-        <td id="body_seats"></td>
-      </tbody>
-    </table>
-    <form id="create_form" action="/shows" method="post">
-      <button onclick="createShow()">Create Show</button>
-    </form>
-    <!-- ALL SHOWS -->
-    <h1>Showing all Shows</h1>
-    <table>
-      <thead>
-        <tr>
-          <td>Movie</td>
-          <td>Auditorium</td>
-          <td>Day</td>
-          <td>Showtime</td>
-          <td>Available Seats</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(show of shows){ %>
-        <tr>
-          <td><%= show.movie %></td>
-          <td><%= show.auditorium %></td>
-          <td><%= show.day %></td>
-          <td><%= show.showtime %></td>
-          <td><%= show.availableSeats %></td>
-        </tr>
-        <%}%>
-      </tbody>
-    </table>
-    <script src="/scripts/shows.js"></script>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Managing Shows!</h1>
+<!-- MOVIE SELECTION -->
+<h3>Step 1: Select the Movie</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Year</th>
+      <th>Sinposis</th>
+      <th>Rating</th>
+      <th>Language</th>
+      <th>Duration</th>
+      <th>Select</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(movie of movies){ %>
+    <tr>
+      <td><%= movie.title %></td>
+      <td><%= movie.year %></td>
+      <td><%= movie.sinopsis %></td>
+      <td><%= movie.rating %></td>
+      <td><%= movie.language %></td>
+      <td><%= movie.duration %></td>
+      <td>
+        <button onclick="addMovie('<%= movie.title %>')">Select</button>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<!-- AUDITORIUM SELECTION -->
+<h3>Step 2: Select the auditorium</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Capacity</th>
+      <th>Proyection Type</th>
+      <th>Select</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(auditorium of auditoriums){ %>
+    <tr>
+      <td><%= auditorium.number %></td>
+      <td><%= auditorium.capacity %></td>
+      <td><%= auditorium.proyectionType %></td>
+      <td>
+        <button
+          onclick="addAuditorium('<%= auditorium.number %>', '<%= auditorium.capacity %>')"
+        >
+          Select
+        </button>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<!-- DAY SELECTION -->
+<h3>Step 3: Select the day</h3>
+<input type="date" name="day" id="day" />
+<button onclick="addDate()">Confirm</button>
+<!-- SHOWTIMES SELECTION -->
+<h3>Step 4: Add Showtime</h3>
+<div>
+  <input type="text" id="showtime" />
+  <button onclick="addShowtime()">Add</button>
+</div>
+<!-- SHOW OVERVIEW -->
+<h1>Show Overview</h1>
+<table>
+  <thead>
+    <tr>
+      <td>Movie</td>
+      <td>Auditorium</td>
+      <td>Day</td>
+      <td>Showtime</td>
+      <td>Available Seats</td>
+    </tr>
+  </thead>
+  <tbody>
+    <td id="body_movie"></td>
+    <td id="body_auditorium"></td>
+    <td id="body_day"></td>
+    <td id="body_showtime"></td>
+    <td id="body_seats"></td>
+  </tbody>
+</table>
+<form id="create_form" action="/shows" method="post">
+  <button onclick="createShow()">Create Show</button>
+</form>
+<!-- ALL SHOWS -->
+<h1>Showing all Shows</h1>
+<table>
+  <thead>
+    <tr>
+      <td>Movie</td>
+      <td>Auditorium</td>
+      <td>Day</td>
+      <td>Showtime</td>
+      <td>Available Seats</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(show of shows){ %>
+    <tr>
+      <td><%= show.movie %></td>
+      <td><%= show.auditorium %></td>
+      <td><%= show.day %></td>
+      <td><%= show.showtime %></td>
+      <td><%= show.availableSeats %></td>
+    </tr>
+    <%}%>
+  </tbody>
+</table>
+<script src="/scripts/shows.js"></script>

@@ -1,80 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Auditoriums Home</h1>
-    <!-- BACK HOME LINK (TODO: BUTTON) -->
-    <a href="/home">Go back</a>
-    <!-- NEW AUDITORIUM FORM -->
-    <h2>New Auditorium</h2>
-    <form action="/auditoriums" method="POST">
-      <!-- NUMBER -->
-      <div>
-        <label for="number">Number: </label>
-        <input type="number" name="number" id="number" />
-      </div>
-      <!-- CAPACITY -->
-      <div>
-        <label for="capacity">Capacity: </label>
-        <input type="number" name="capacity" id="capacity" />
-      </div>
-      <!-- PROYECTION TYPE -->
-      <div>
-        <label for="proyectionType">Proyection Type: </label>
-        <input type="text" name="proyectionType" id="proyectionType" />
-      </div>
-      <!-- SUBMIT -->
-      <div>
-        <button>Create New Auditorium</button>
-      </div>
-    </form>
-    <!-- SHOWING ALL AUDITORIUMS -->
-    <h2>Showing all auditoriums</h2>
-    <table>
-      <!-- TABLE HEADERS -->
-      <thead>
-        <tr>
-          <th>Number</th>
-          <th>Capacity</th>
-          <th>Proyection Type</th>
-          <th>Show</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <!-- TABLE CONTENT -->
-      <tbody>
-        <% for(auditorium of auditoriums){ %>
-        <tr>
-          <td><%= auditorium.number %></td>
-          <td><%= auditorium.capacity %></td>
-          <td><%= auditorium.proyectionType %></td>
-          <td>
-            <form action="/auditoriums/<%= auditorium._id%>">
-              <button>Show</button>
-            </form>
-          </td>
-          <td>
-            <form action="/auditoriums/<%= auditorium._id%>/edit">
-              <button>Update</button>
-            </form>
-          </td>
-          <td>
-            <form
-              action="/auditoriums/<%= auditorium._id%>?_method=DELETE"
-              method="post"
-            >
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Auditoriums Home</h1>
+<!-- BACK HOME LINK (TODO: BUTTON) -->
+<a href="/home">Go back</a>
+<!-- NEW AUDITORIUM FORM -->
+<h2>New Auditorium</h2>
+<form action="/auditoriums" method="POST">
+  <!-- NUMBER -->
+  <div>
+    <label for="number">Number: </label>
+    <input type="number" name="number" id="number" />
+  </div>
+  <!-- CAPACITY -->
+  <div>
+    <label for="capacity">Capacity: </label>
+    <input type="number" name="capacity" id="capacity" />
+  </div>
+  <!-- PROYECTION TYPE -->
+  <div>
+    <label for="proyectionType">Proyection Type: </label>
+    <input type="text" name="proyectionType" id="proyectionType" />
+  </div>
+  <!-- SUBMIT -->
+  <div>
+    <button>Create New Auditorium</button>
+  </div>
+</form>
+<!-- SHOWING ALL AUDITORIUMS -->
+<h2>Showing all auditoriums</h2>
+<table>
+  <!-- TABLE HEADERS -->
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Capacity</th>
+      <th>Proyection Type</th>
+      <th>Show</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <!-- TABLE CONTENT -->
+  <tbody>
+    <% for(auditorium of auditoriums){ %>
+    <tr>
+      <td><%= auditorium.number %></td>
+      <td><%= auditorium.capacity %></td>
+      <td><%= auditorium.proyectionType %></td>
+      <td>
+        <form action="/auditoriums/<%= auditorium._id%>">
+          <button>Show</button>
+        </form>
+      </td>
+      <td>
+        <form action="/auditoriums/<%= auditorium._id%>/edit">
+          <button>Update</button>
+        </form>
+      </td>
+      <td>
+        <form
+          action="/auditoriums/<%= auditorium._id%>?_method=DELETE"
+          method="post"
+        >
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

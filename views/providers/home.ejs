@@ -1,71 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Providers Home</h1>
-    <h2>New User</h2>
-    <form action="/providers" method="POST">
-      <div>
-        <label for="name">Name: </label>
-        <input type="text" name="name" id="name" />
-      </div>
-      <div>
-        <label for="phone">Phone Number: </label>
-        <input type="number" name="phone" id="phone" />
-      </div>
-      <div>
-        <label for="email">Email: </label>
-        <input type="email" name="email" id="email" />
-      </div>
-      <div>
-        <button>Create New Provider</button>
-      </div>
-    </form>
-    <!---->
-    <h2>Showing all providers</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone Number</th>
-          <th>Email</th>
-          <th>Show</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(provider of providers){ %>
-        <tr>
-          <td><%= provider.name %></td>
-          <td><%= provider.phone %></td>
-          <td><%= provider.email %></td>
-          <td>
-            <form action="/providers/<%= provider._id%>">
-              <button>Show</button>
-            </form>
-          </td>
-          <td>
-            <form action="/providers/<%= provider._id%>/edit">
-              <button>Update</button>
-            </form>
-          </td>
-          <td>
-            <form
-              action="/providers/<%= provider._id%>?_method=DELETE"
-              method="post"
-            >
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Providers Home</h1>
+<h2>New User</h2>
+<form action="/providers" method="POST">
+  <div>
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" />
+  </div>
+  <div>
+    <label for="phone">Phone Number: </label>
+    <input type="number" name="phone" id="phone" />
+  </div>
+  <div>
+    <label for="email">Email: </label>
+    <input type="email" name="email" id="email" />
+  </div>
+  <div>
+    <button>Create New Provider</button>
+  </div>
+</form>
+<!---->
+<h2>Showing all providers</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone Number</th>
+      <th>Email</th>
+      <th>Show</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(provider of providers){ %>
+    <tr>
+      <td><%= provider.name %></td>
+      <td><%= provider.phone %></td>
+      <td><%= provider.email %></td>
+      <td>
+        <form action="/providers/<%= provider._id%>">
+          <button>Show</button>
+        </form>
+      </td>
+      <td>
+        <form action="/providers/<%= provider._id%>/edit">
+          <button>Update</button>
+        </form>
+      </td>
+      <td>
+        <form
+          action="/providers/<%= provider._id%>?_method=DELETE"
+          method="post"
+        >
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

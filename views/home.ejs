@@ -1,45 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-  </head>
-  <body>
-    <h1>Welcome!</h1>
-    <h2>PERMISSIONS: EMPLOYEE - ADMIN</h2>
-    <form action="/selltickets" method="get">
-      <button>Sell Tickets</button>
-    </form>
-    <form action="/sellproducts" method="get">
-      <button>Sell Products</button>
-    </form>
-    <h2>PERMISSIONS: STOCK MANAGER - ADMIN</h2>
-    <form action="/providers" method="get">
-      <button>Manage Providers</button>
-    </form>
-    <form action="/products" method="get">
-      <button>Manage Products</button>
-    </form>
-    <form action="/productorders" method="get">
-      <button>Order Product</button>
-    </form>
-    <h2>PERMISSIONS: ADMIN</h2>
-    <form action="/shows" method="get">
-      <button>Manage Shows</button>
-    </form>
-    <form action="/users" method="get">
-      <button>Manage Users</button>
-    </form>
-    <form action="/movies" method="get">
-      <button>Manage Movies</button>
-    </form>
-    <form action="/auditoriums" method="get">
-      <button>Manage Auditoriums</button>
-    </form>
-    <form action="/sales" method="get">
-      <button>Manage Sales & Purchases</button>
-    </form>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Welcome!</h1>
+<h2>PERMISSIONS: EMPLOYEE - ADMIN</h2>
+<form action="/selltickets" method="get">
+  <button>Sell Tickets</button>
+</form>
+<form action="/sellproducts" method="get">
+  <button>Sell Products</button>
+</form>
+<h2>PERMISSIONS: STOCK MANAGER - ADMIN</h2>
+<form action="/providers" method="get">
+  <button>Manage Providers</button>
+</form>
+<form action="/products" method="get">
+  <button>Manage Products</button>
+</form>
+<form action="/productorders" method="get">
+  <button>Order Product</button>
+</form>
+<h2>PERMISSIONS: ADMIN</h2>
+<form action="/shows" method="get">
+  <button>Manage Shows</button>
+</form>
+<form action="/users" method="get">
+  <button>Manage Users</button>
+</form>
+<form action="/movies" method="get">
+  <button>Manage Movies</button>
+</form>
+<form action="/auditoriums" method="get">
+  <button>Manage Auditoriums</button>
+</form>
+<form action="/sales" method="get">
+  <button>Manage Sales & Purchases</button>
+</form>

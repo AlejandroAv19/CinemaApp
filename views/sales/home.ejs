@@ -1,89 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Viewing Sales</h1>
-    <h2>Products Sales</h2>
-    <!-- VIEWING SALES -->
-    <table>
-      <thead>
-        <tr>
-          <td>Done By</td>
-          <td>Type</td>
-          <td>Date</td>
-          <td>Total</td>
-          <td>Details</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(sale of sales){ %> <% if(sale.type === "product"){ %>
-        <tr>
-          <td>
-            <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
-          </td>
-          <td><%= sale.type %></td>
-          <td><%= sale.date %></td>
-          <td><%= sale.total %></td>
-          <td><a href="/sellproducts/<%= sale.details._id %>">Show</a></td>
-        </tr>
-        <% } %> <% } %>
-      </tbody>
-    </table>
-    <h2>Tickets Sales</h2>
-    <table>
-      <thead>
-        <tr>
-          <td>Done By</td>
-          <td>Type</td>
-          <td>Date</td>
-          <td>Total</td>
-          <td>Details</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(sale of sales){ %> <% if(sale.type === "ticket"){ %>
-        <tr>
-          <td>
-            <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
-          </td>
-          <td><%= sale.type %></td>
-          <td><%= sale.date %></td>
-          <td><%= sale.total %></td>
-          <td><a href="/selltickets/<%= sale.details._id %>">Show</a></td>
-        </tr>
-        <% } %> <% } %>
-      </tbody>
-    </table>
-    <h1>Viewing Purchases</h1>
-    <h2>Product Orders</h2>
-    <table>
-      <thead>
-        <tr>
-          <td>Done By</td>
-          <td>Type</td>
-          <td>Date</td>
-          <td>Total</td>
-          <td>Details</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(sale of sales){ %> <% if(sale.type === "productOrder"){ %>
-        <tr>
-          <td>
-            <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
-          </td>
-          <td><%= sale.type %></td>
-          <td><%= sale.date %></td>
-          <td><%= sale.total %></td>
-          <td><a href="/productorders/<%= sale.details._id %>">Show</a></td>
-        </tr>
-        <% } %> <% } %>
-      </tbody>
-    </table>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Viewing Sales</h1>
+<h2>Products Sales</h2>
+<!-- VIEWING SALES -->
+<table>
+  <thead>
+    <tr>
+      <td>Done By</td>
+      <td>Type</td>
+      <td>Date</td>
+      <td>Total</td>
+      <td>Details</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(sale of sales){ %> <% if(sale.type === "product"){ %>
+    <tr>
+      <td>
+        <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
+      </td>
+      <td><%= sale.type %></td>
+      <td><%= sale.date %></td>
+      <td><%= sale.total %></td>
+      <td><a href="/sellproducts/<%= sale.details._id %>">Show</a></td>
+    </tr>
+    <% } %> <% } %>
+  </tbody>
+</table>
+<h2>Tickets Sales</h2>
+<table>
+  <thead>
+    <tr>
+      <td>Done By</td>
+      <td>Type</td>
+      <td>Date</td>
+      <td>Total</td>
+      <td>Details</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(sale of sales){ %> <% if(sale.type === "ticket"){ %>
+    <tr>
+      <td>
+        <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
+      </td>
+      <td><%= sale.type %></td>
+      <td><%= sale.date %></td>
+      <td><%= sale.total %></td>
+      <td><a href="/selltickets/<%= sale.details._id %>">Show</a></td>
+    </tr>
+    <% } %> <% } %>
+  </tbody>
+</table>
+<h1>Viewing Purchases</h1>
+<h2>Product Orders</h2>
+<table>
+  <thead>
+    <tr>
+      <td>Done By</td>
+      <td>Type</td>
+      <td>Date</td>
+      <td>Total</td>
+      <td>Details</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(sale of sales){ %> <% if(sale.type === "productOrder"){ %>
+    <tr>
+      <td>
+        <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
+      </td>
+      <td><%= sale.type %></td>
+      <td><%= sale.date %></td>
+      <td><%= sale.total %></td>
+      <td><a href="/productorders/<%= sale.details._id %>">Show</a></td>
+    </tr>
+    <% } %> <% } %>
+  </tbody>
+</table>

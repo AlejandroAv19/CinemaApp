@@ -1,86 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Movies Home</h1>
-    <h2>New Movie</h2>
-    <form action="/movies" method="POST">
-      <div>
-        <label for="title">Title: </label>
-        <input type="text" name="title" id="title" />
-      </div>
-      <div>
-        <label for="year">Year: </label>
-        <input type="number" name="year" id="year" />
-      </div>
-      <div>
-        <label for="sinopsis">Sinopsis: </label>
-        <input type="text" name="sinopsis" id="sinopsis" />
-      </div>
-      <div>
-        <label for="rating">Rating: </label>
-        <input type="text" name="rating" id="rating" />
-      </div>
-      <div>
-        <label for="language">language: </label>
-        <input type="text" name="language" id="language" />
-      </div>
-      <div>
-        <label for="duration">Duration (In mins): </label>
-        <input type="number" name="duration" id="duration" />
-      </div>
-      <div>
-        <button>Create New Movie</button>
-      </div>
-    </form>
-    <!---->
-    <h2>Showing all movies</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Year</th>
-          <th>Sinposis</th>
-          <th>Rating</th>
-          <th>Language</th>
-          <th>Duration</th>
-          <th>Show</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(movie of movies){ %>
-        <tr>
-          <td><%= movie.title %></td>
-          <td><%= movie.year %></td>
-          <td><%= movie.sinopsis %></td>
-          <td><%= movie.rating %></td>
-          <td><%= movie.language %></td>
-          <td><%= movie.duration %></td>
-          <td>
-            <form action="/movies/<%= movie._id%>">
-              <button>Show</button>
-            </form>
-          </td>
-          <td>
-            <form action="/movies/<%= movie._id%>/edit">
-              <button>Update</button>
-            </form>
-          </td>
-          <td>
-            <form action="/movies/<%= movie._id%>?_method=DELETE" method="post">
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Movies Home</h1>
+<h2>New Movie</h2>
+<form action="/movies" method="POST">
+  <div>
+    <label for="title">Title: </label>
+    <input type="text" name="title" id="title" />
+  </div>
+  <div>
+    <label for="year">Year: </label>
+    <input type="number" name="year" id="year" />
+  </div>
+  <div>
+    <label for="sinopsis">Sinopsis: </label>
+    <input type="text" name="sinopsis" id="sinopsis" />
+  </div>
+  <div>
+    <label for="rating">Rating: </label>
+    <input type="text" name="rating" id="rating" />
+  </div>
+  <div>
+    <label for="language">language: </label>
+    <input type="text" name="language" id="language" />
+  </div>
+  <div>
+    <label for="duration">Duration (In mins): </label>
+    <input type="number" name="duration" id="duration" />
+  </div>
+  <div>
+    <button>Create New Movie</button>
+  </div>
+</form>
+<!---->
+<h2>Showing all movies</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Year</th>
+      <th>Sinposis</th>
+      <th>Rating</th>
+      <th>Language</th>
+      <th>Duration</th>
+      <th>Show</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(movie of movies){ %>
+    <tr>
+      <td><%= movie.title %></td>
+      <td><%= movie.year %></td>
+      <td><%= movie.sinopsis %></td>
+      <td><%= movie.rating %></td>
+      <td><%= movie.language %></td>
+      <td><%= movie.duration %></td>
+      <td>
+        <form action="/movies/<%= movie._id%>">
+          <button>Show</button>
+        </form>
+      </td>
+      <td>
+        <form action="/movies/<%= movie._id%>/edit">
+          <button>Update</button>
+        </form>
+      </td>
+      <td>
+        <form action="/movies/<%= movie._id%>?_method=DELETE" method="post">
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

@@ -1,110 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Products Home</h1>
-    <div>
-      <h2>New Product</h2>
-      <!-- SHOWING PROVIDERS -->
-      <h3>(REQUIRED) Select a provider</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Select</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for(provider of providers){ %>
-          <tr>
-            <td><%= provider.name %></td>
-            <td>
-              <button onclick="setProvider('<%= provider.name %>')">
-                Select
-              </button>
-            </td>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
-    </div>
-    <!-- NEW PRODUCT INFORMATION -->
-    <h3>New Product Information</h3>
-    <form action="/products" method="POST">
-      <div>
-        <label for="provider">Provider: </label>
-        <input id="provider" type="text" name="provider" readonly />
-      </div>
-      <div>
-        <label for="name">Name: </label>
-        <input type="text" name="name" id="name" />
-      </div>
-      <div>
-        <label for="price">Price Per Unit: </label>
-        <input type="number" name="pricePerUnit" id="pricePerUnit" />
-      </div>
-      <div>
-        <label for="stock">Stock Limit: </label>
-        <input type="number" name="stockLimit" id="stockLimit" />
-      </div>
-      <div>
-        <label for="description">Description: </label>
-        <input type="text" name="description" id="description" />
-      </div>
-      <div>
-        <button>Create New Product</button>
-      </div>
-    </form>
-    <!-- SHOWING ALL PRODUCTS -->
-    <h2>Showing all products</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price Per Unit</th>
-          <th>Stock Limit</th>
-          <th>Available Stock</th>
-          <th>Description</th>
-          <th>Show</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(product of products){ %>
-        <tr>
-          <td><%= product.name %></td>
-          <td>$ <%= product.pricePerUnit %></td>
-          <td><%= product.stockLimit %></td>
-          <td><%= product.stock %></td>
-          <td><%= product.description %></td>
-          <td>
-            <form action="/products/<%= product._id%>">
-              <button>Show</button>
-            </form>
-          </td>
-          <td>
-            <form action="/products/<%= product._id%>/edit">
-              <button>Update</button>
-            </form>
-          </td>
-          <td>
-            <form
-              action="/products/<%= product._id%>?_method=DELETE"
-              method="post"
-            >
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <script src="/scripts/products.js"></script>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Products Home</h1>
+<div>
+  <h2>New Product</h2>
+  <!-- SHOWING PROVIDERS -->
+  <h3>(REQUIRED) Select a provider</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Select</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(provider of providers){ %>
+      <tr>
+        <td><%= provider.name %></td>
+        <td>
+          <button onclick="setProvider('<%= provider.name %>')">Select</button>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<!-- NEW PRODUCT INFORMATION -->
+<h3>New Product Information</h3>
+<form action="/products" method="POST">
+  <div>
+    <label for="provider">Provider: </label>
+    <input id="provider" type="text" name="provider" readonly />
+  </div>
+  <div>
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" />
+  </div>
+  <div>
+    <label for="price">Price Per Unit: </label>
+    <input type="number" name="pricePerUnit" id="pricePerUnit" />
+  </div>
+  <div>
+    <label for="stock">Stock Limit: </label>
+    <input type="number" name="stockLimit" id="stockLimit" />
+  </div>
+  <div>
+    <label for="description">Description: </label>
+    <input type="text" name="description" id="description" />
+  </div>
+  <div>
+    <button>Create New Product</button>
+  </div>
+</form>
+<!-- SHOWING ALL PRODUCTS -->
+<h2>Showing all products</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price Per Unit</th>
+      <th>Stock Limit</th>
+      <th>Available Stock</th>
+      <th>Description</th>
+      <th>Show</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(product of products){ %>
+    <tr>
+      <td><%= product.name %></td>
+      <td>$ <%= product.pricePerUnit %></td>
+      <td><%= product.stockLimit %></td>
+      <td><%= product.stock %></td>
+      <td><%= product.description %></td>
+      <td>
+        <form action="/products/<%= product._id%>">
+          <button>Show</button>
+        </form>
+      </td>
+      <td>
+        <form action="/products/<%= product._id%>/edit">
+          <button>Update</button>
+        </form>
+      </td>
+      <td>
+        <form action="/products/<%= product._id%>?_method=DELETE" method="post">
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+<script src="/scripts/products.js"></script>

@@ -1,89 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Users - Home</title>
-  </head>
-  <body>
-    <h1>Users Home</h1>
-    <h2>New User</h2>
-    <form action="/users" method="POST">
-      <!--NAME-->
-      <div>
-        <label for="name">Name: </label>
-        <input type="text" name="name" id="name" />
-      </div>
-      <!--HIRE DATE-->
-      <div>
-        <label for="hireDate">Hire Date: </label>
-        <input type="date" name="hireDate" id="hireDate" />
-      </div>
-      <!--USER TYPE-->
-      <div>
-        <p>User Type:</p>
-        <label for="employee">Employee: </label>
-        <input type="radio" name="userType" id="employee" value="employee" />
-        <label for="stock_manager">Stock Manager: </label>
-        <input
-          type="radio"
-          name="userType"
-          id="stock_manager"
-          value="stock manager"
-        />
-        <label for="admin">Admin: </label>
-        <input type="radio" name="userType" id="admin" value="admin" />
-      </div>
-      <!--USERNAME-->
-      <div>
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" />
-      </div>
-      <!--PASSWORD-->
-      <div>
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" />
-      </div>
-      <div>
-        <button>Create New User</button>
-      </div>
-    </form>
-    <!---->
-    <h2>Showing all users</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Hire Date</th>
-          <th>User Type</th>
-          <th>Show</th>
-          <th>Update</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(user of users){ %>
-        <tr>
-          <td><%= user.name %></td>
-          <td><%= user.hireDate %></td>
-          <td><%= user.userType %></td>
-          <td>
-            <form action="/users/<%= user._id%>"><button>Show</button></form>
-          </td>
-          <td>
-            <form action="/users/<%= user._id%>/edit">
-              <button>Update</button>
-            </form>
-          </td>
-          <td>
-            <form action="/users/<%= user._id%>?_method=DELETE" method="post">
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </body>
-</html>
+<% layout("layouts/boilerplate") %>
+<h1>Users Home</h1>
+<h2>New User</h2>
+<form action="/users" method="POST">
+  <!--NAME-->
+  <div>
+    <label for="name">Name: </label>
+    <input type="text" name="name" id="name" />
+  </div>
+  <!--HIRE DATE-->
+  <div>
+    <label for="hireDate">Hire Date: </label>
+    <input type="date" name="hireDate" id="hireDate" />
+  </div>
+  <!--USER TYPE-->
+  <div>
+    <p>User Type:</p>
+    <label for="employee">Employee: </label>
+    <input type="radio" name="userType" id="employee" value="employee" />
+    <label for="stock_manager">Stock Manager: </label>
+    <input
+      type="radio"
+      name="userType"
+      id="stock_manager"
+      value="stock manager"
+    />
+    <label for="admin">Admin: </label>
+    <input type="radio" name="userType" id="admin" value="admin" />
+  </div>
+  <!--USERNAME-->
+  <div>
+    <label for="username">Username: </label>
+    <input type="text" name="username" id="username" />
+  </div>
+  <!--PASSWORD-->
+  <div>
+    <label for="password">Password: </label>
+    <input type="password" name="password" id="password" />
+  </div>
+  <div>
+    <button>Create New User</button>
+  </div>
+</form>
+<!---->
+<h2>Showing all users</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Hire Date</th>
+      <th>User Type</th>
+      <th>Show</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(user of users){ %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.hireDate %></td>
+      <td><%= user.userType %></td>
+      <td>
+        <form action="/users/<%= user._id%>"><button>Show</button></form>
+      </td>
+      <td>
+        <form action="/users/<%= user._id%>/edit">
+          <button>Update</button>
+        </form>
+      </td>
+      <td>
+        <form action="/users/<%= user._id%>?_method=DELETE" method="post">
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
