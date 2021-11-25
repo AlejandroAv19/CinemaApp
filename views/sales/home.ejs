@@ -59,5 +59,30 @@
         <% } %> <% } %>
       </tbody>
     </table>
+    <h2>Product Orders Sales</h2>
+    <table>
+      <thead>
+        <tr>
+          <td>Done By</td>
+          <td>Type</td>
+          <td>Date</td>
+          <td>Total</td>
+          <td>Details</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(sale of sales){ %> <% if(sale.type === "productOrder"){ %>
+        <tr>
+          <td>
+            <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
+          </td>
+          <td><%= sale.type %></td>
+          <td><%= sale.date %></td>
+          <td><%= sale.total %></td>
+          <td><a href="/productorders/<%= sale.details._id %>">Show</a></td>
+        </tr>
+        <% } %> <% } %>
+      </tbody>
+    </table>
   </body>
 </html>
