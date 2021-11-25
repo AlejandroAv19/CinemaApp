@@ -19,5 +19,5 @@ module.exports.create = async (req, res) => {
     availableSeats,
   });
   await newShow.save();
-  res.redirect("/");
+  res.redirect("/home");
 };
