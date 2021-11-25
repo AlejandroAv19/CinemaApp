@@ -1,5 +1,5 @@
 const addProduct = (name, price) => {
-  const nameReplace = name.replace(" ", "_");
+  const nameReplace = name.replaceAll(" ", "_");
   const table = document.querySelector(".overview_table_body");
   // PRIMER ELEMENTO
   if (!table.hasChildNodes()) {
@@ -70,7 +70,7 @@ const addProduct = (name, price) => {
 };
 
 const removeProduct = (name, price) => {
-  const nameReplace = name.replace(" ", "_");
+  const nameReplace = name.replaceAll(" ", "_");
   let productRow = document.querySelector(`#${nameReplace}`);
   if (productRow) {
     let selectedQuantity = document.querySelector(`#${nameReplace}_quantity`);
