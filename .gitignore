@@ -1,6 +1,5 @@
 .vscode
-todo
-PolisCineInfo.txt
+*.txt
 
 # Logs
 logs
