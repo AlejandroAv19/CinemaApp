@@ -46,12 +46,12 @@
         value="1"
       />
       <button id="add_quantity_button">+</button>
-      <button id="confirm_quantity_button">Confirm</button>
     </div>
+    <button id="confirm_quantity_button">Confirm</button>
   </div>
   <!-- PURCHASE OVERVIEW -->
   <div class="container m-2 w-100">
-    <h2>Purchase Overview</h2>
+    <h2>Product Overview</h2>
     <table class="table">
       <thead>
         <tr>
@@ -59,8 +59,6 @@
           <th>Quantity</th>
           <th>Price Per Unit</th>
           <th>Subtotal</th>
-          <th>Provider's Cut (15%)</th>
-          <th>Total</th>
         </tr>
       </thead>
       <tbody>
@@ -69,11 +67,13 @@
           <td id="quantity_overview"></td>
           <td id="price_per_unit_overview"></td>
           <td id="subtotal_overview"></td>
-          <td id="provider_cut_overview"></td>
-          <td id="total_overview"></td>
         </tr>
       </tbody>
     </table>
+    <button class="btn btn-primary" id="add_to_order_button">
+      Add to Order
+    </button>
+    <!--
     <form action="/productorders" method="post" novalidate>
       <input type="text" name="product" id="product_form" hidden />
       <input type="number" name="quantity" id="quantity_form" hidden />
@@ -87,9 +87,42 @@
       <input type="number" name="providersCut" id="providers_cut_form" hidden />
       <input type="number" name="total" id="total_form" hidden />
       <button class="btn btn-primary" id="confirm_purchase_button">
-        Confirm Purchase
+        Add to Order
       </button>
     </form>
+    -->
+
+    <!-- ORDER OVERVIEW -->
+    <h2>Order Overview</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price Per Unit</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="order_table_body"></tbody>
+      <thead>
+        <tr>
+          <th>Subtotal</th>
+          <th>Provider's Cut (10%)</th>
+          <th>IVA (5%)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="totals_subtotal">0</td>
+          <td id="totals_providers_cut">0</td>
+          <td id="totals_iva">0</td>
+          <td id="totals_total">0</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <button>Confirm Order</button>
   </div>
 </div>
 
