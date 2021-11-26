@@ -37,12 +37,6 @@ module.exports.delete = async (req, res) => {
   res.redirect("/users");
 };
 
-/*
-module.exports.loginForm = (req, res) => {
-  res.render("users/login");
-};
-*/
-
 module.exports.login = (req, res) => {
   const userType = req.user.userType;
   res.cookie("userType", userType);
