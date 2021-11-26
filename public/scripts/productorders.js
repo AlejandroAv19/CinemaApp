@@ -164,38 +164,3 @@ addToOrderButton.addEventListener("click", function () {
     totalsIVA.innerHTML = iva;
   }
 });
-
-/*
-// CONFIRM PURCHASE
-const purchaseButton = document.querySelector("#confirm_purchase_button");
-purchaseButton.addEventListener("click", function () {
-  // PRODUCT NAME
-  const productName = document.querySelector("#product_overview").innerHTML;
-  const productForm = document.querySelector("#product_form");
-  productForm.value = productName;
-  //QUANTITY
-  const quantity = document.querySelector("#quantity_overview").innerHTML;
-  const quantityForm = document.querySelector("#quantity_form");
-  quantityForm.value = quantity;
-  // PRICE PER UNIT
-  const pricePerUnit = document.querySelector(
-    "#price_per_unit_overview"
-  ).innerHTML;
-  const PPUForm = document.querySelector("#price_per_unit_form");
-  PPUForm.value = pricePerUnit;
-  // SUBTOTAL
-  const subtotal = document.querySelector("#subtotal_overview").innerHTML;
-  const subtotalForm = document.querySelector("#subtotal_form");
-  subtotalForm.value = subtotal;
-  // PROVIDERS CUT
-  const providersCut = document.querySelector(
-    "#provider_cut_overview"
-  ).innerHTML;
-  const providersCutForm = document.querySelector("#providers_cut_form");
-  providersCutForm.value = providersCut;
-  // TOTAL
-  const total = document.querySelector("#total_overview").innerHTML;
-  const totalForm = document.querySelector("#total_form");
-  totalForm.value = total;
-});
-*/
