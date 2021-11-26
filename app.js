@@ -9,6 +9,9 @@ const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 const ejsMate = require("ejs-mate");
 
+// CUSTOM ERROR
+const CustomError = require("./config/CustomError");
+
 // MODEL
 const User = require("./models/user");
 
@@ -92,6 +95,16 @@ app.post(
 
 app.get("/home", isLoggedIn, (req, res) => {
   res.render("home");
+});
+
+app.get("/error", (req, res) => {
+  throw new CustomError(404, "Not Found");
+});
+
+// ERROR HANDLER
+app.use((err, req, res, next) => {
+  const { status = 500, message = "Something Went Wrong" } = err;
+  res.status(status).render("error", { status, message });
 });
 
 app.listen(3000, () => {
