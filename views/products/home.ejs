@@ -2,77 +2,69 @@
 <h1>Products Home</h1>
 <div class="container d-flex flex-row">
   <div class="container m-2 w-100">
-    <h2>New Product</h2>
-    <!-- SHOWING PROVIDERS -->
-    <h3>Select a provider</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(provider of providers){ %>
-        <tr>
-          <td><%= provider.name %></td>
-          <td>
-            <button
-              class="btn btn-outline-success btn-sm"
-              onclick="setProvider('<%= provider.name %>')"
-            >
-              Select
-            </button>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <!-- NEW PRODUCT INFORMATION -->
-    <h3>New Product Information</h3>
-    <form action="/products" method="POST">
-      <div>
-        <label class="form-label" for="provider">Provider: </label>
+    <h3>New Product</h3>
+    <form action="/products" method="POST" class="needs-validation" novalidate>
+      <div class="form-group p-2">
+        <label class="form-label" for="provider">Provider</label>
+        <!-- REQUIRES MONGOOSE VALIDATION -->
+        <select class="form-select" name="provider" id="provider" required>
+          <option value="" selected>Select Provider</option>
+          <% for(provider of providers){ %>
+          <option value="<%= provider.name %>"><%= provider.name %></option>
+          <% } %>
+        </select>
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Provider is Required</div>
+      </div>
+      <div class="form-group p-2">
+        <label class="form-label" for="name">Name</label>
         <input
           class="form-control mb-2"
-          id="provider"
           type="text"
-          name="provider"
-          readonly
+          name="name"
+          id="name"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Name is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="name">Name: </label>
-        <input class="form-control mb-2" type="text" name="name" id="name" />
-      </div>
-      <div>
-        <label class="form-label" for="price">Price Per Unit: </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="price">Price Per Unit</label>
         <input
           class="form-control mb-2"
           type="number"
           name="pricePerUnit"
           id="pricePerUnit"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">PPU is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="stock">Stock Limit: </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="stock">Stock Limit</label>
         <input
           class="form-control mb-2"
           type="number"
           name="stockLimit"
           id="stockLimit"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Stock Limit is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="description">Description: </label>
-        <input
+      <div class="form-group p-2">
+        <label class="form-label" for="description">Description</label>
+        <textarea
           class="form-control mb-2"
           type="text"
           name="description"
           id="description"
-        />
+          required
+        ></textarea>
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Description is Required</div>
       </div>
-      <div>
+      <div class="form-group p-2">
         <button class="btn btn-primary btn-sm">Create New Product</button>
       </div>
     </form>
@@ -126,3 +118,4 @@
   </div>
 </div>
 <script src="/scripts/products.js"></script>
+<script src="/scripts/formValidation.js"></script>
