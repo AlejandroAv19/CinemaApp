@@ -23,6 +23,7 @@ const showsAndOverview = (movieTitle, shows) => {
 
       const selectButton = document.createElement("button");
       selectButton.innerHTML = "Select";
+      selectButton.className = "btn btn-primary";
       selectButton.addEventListener("click", function () {
         // AUDITORIUM
         const auditoriumOverview = document.querySelector(
