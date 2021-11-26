@@ -1,61 +1,71 @@
 <% layout("layouts/boilerplate") %>
 <h1>Providers Home</h1>
-<h2>New User</h2>
-<form action="/providers" method="POST">
-  <div>
-    <label for="name">Name: </label>
-    <input type="text" name="name" id="name" />
+<div class="container d-flex flex-row">
+  <div class="container">
+    <h2>New User</h2>
+    <form action="/providers" method="POST">
+      <div>
+        <label class="form-label" for="name">Name: </label>
+        <input class="form-control mb-2" type="text" name="name" id="name" />
+      </div>
+      <div>
+        <label class="form-label" for="phone">Phone Number: </label>
+        <input
+          class="form-control mb-2"
+          type="number"
+          name="phone"
+          id="phone"
+        />
+      </div>
+      <div>
+        <label class="form-label" for="email">Email: </label>
+        <input class="form-control mb-2" type="email" name="email" id="email" />
+      </div>
+      <div>
+        <button class="btn btn-primary">Create New Provider</button>
+      </div>
+    </form>
   </div>
-  <div>
-    <label for="phone">Phone Number: </label>
-    <input type="number" name="phone" id="phone" />
+  <div class="container">
+    <h2>Showing all providers</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Show</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(provider of providers){ %>
+        <tr>
+          <td><%= provider.name %></td>
+          <td><%= provider.phone %></td>
+          <td><%= provider.email %></td>
+          <td>
+            <form action="/providers/<%= provider._id%>">
+              <button class="btn btn-outline-info btn-sm">Show</button>
+            </form>
+          </td>
+          <td>
+            <form action="/providers/<%= provider._id%>/edit">
+              <button class="btn btn-outline-warning btn-sm">Update</button>
+            </form>
+          </td>
+          <td>
+            <form
+              action="/providers/<%= provider._id%>?_method=DELETE"
+              method="post"
+            >
+              <button class="btn btn-outline-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
   </div>
-  <div>
-    <label for="email">Email: </label>
-    <input type="email" name="email" id="email" />
-  </div>
-  <div>
-    <button>Create New Provider</button>
-  </div>
-</form>
-<!---->
-<h2>Showing all providers</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Phone Number</th>
-      <th>Email</th>
-      <th>Show</th>
-      <th>Update</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for(provider of providers){ %>
-    <tr>
-      <td><%= provider.name %></td>
-      <td><%= provider.phone %></td>
-      <td><%= provider.email %></td>
-      <td>
-        <form action="/providers/<%= provider._id%>">
-          <button>Show</button>
-        </form>
-      </td>
-      <td>
-        <form action="/providers/<%= provider._id%>/edit">
-          <button>Update</button>
-        </form>
-      </td>
-      <td>
-        <form
-          action="/providers/<%= provider._id%>?_method=DELETE"
-          method="post"
-        >
-          <button>Delete</button>
-        </form>
-      </td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
+</div>

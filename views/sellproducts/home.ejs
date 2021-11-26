@@ -1,62 +1,72 @@
 <% layout("layouts/boilerplate") %>
 <!-- SHOWING ALL PRODUCTS -->
-<h1>List of products</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Stock</th>
-      <th>Description</th>
-      <th>Add</th>
-      <th>Remove</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for(product of products){ %>
-    <tr>
-      <td class="selection_product_name"><%= product.name %></td>
-      <td class="selection_product_price"><%= product.pricePerUnit %></td>
-      <td><%= product.stock %></td>
-      <td><%= product.description %></td>
-      <td>
-        <button
-          onclick="addProduct('<%= product.name %>','<%= product.pricePerUnit %>')"
-        >
-          Add
-        </button>
-      </td>
-      <td>
-        <button
-          onclick="removeProduct('<%= product.name %>','<%= product.pricePerUnit %>')"
-        >
-          Remove
-        </button>
-      </td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
-<!-- PURCHASE OVERVIEW -->
-<h1>Purchase Overview</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
-    </tr>
-  </thead>
-  <tbody class="overview_table_body"></tbody>
-</table>
-<!-- CONFIRM PURCHASE -->
-<div>
-  <p>
-    <strong>Total: <ins id="total">0</ins> </strong>
-  </p>
+<div class="container d-flex flex-row">
+  <div class="container m-2 w-100">
+    <h1>List of products</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Description</th>
+          <th>Add</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(product of products){ %>
+        <tr>
+          <td class="selection_product_name"><%= product.name %></td>
+          <td class="selection_product_price"><%= product.pricePerUnit %></td>
+          <td><%= product.stock %></td>
+          <td><%= product.description %></td>
+          <td>
+            <button
+              class="btn btn-outline-success btn-sm"
+              onclick="addProduct('<%= product.name %>','<%= product.pricePerUnit %>')"
+            >
+              Add
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-warning btn-sm"
+              onclick="removeProduct('<%= product.name %>','<%= product.pricePerUnit %>')"
+            >
+              Remove
+            </button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <!-- PURCHASE OVERVIEW -->
+  <div class="container m-2 w-100">
+    <h1>Purchase Overview</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody class="overview_table_body"></tbody>
+    </table>
+    <!-- CONFIRM PURCHASE -->
+    <div>
+      <p>
+        <strong>Total: <ins id="total">0</ins> </strong>
+      </p>
+    </div>
+    <form id="form_purchase" action="/sellproducts" method="post" novalidate>
+      <button class="btn btn-outline-primary" onclick="purchase()">
+        Confirm Purchase
+      </button>
+    </form>
+  </div>
 </div>
-<form id="form_purchase" action="/sellproducts" method="post" novalidate>
-  <button onclick="purchase()">Confirm Purchase</button>
-</form>
 
 <script src="/scripts/sellproducts.js"></script>

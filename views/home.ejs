@@ -1,35 +1,55 @@
-<% layout("layouts/boilerplate") %>
-<h1>Welcome!</h1>
-<h2>PERMISSIONS: EMPLOYEE - ADMIN</h2>
-<form action="/selltickets" method="get">
-  <button>Sell Tickets</button>
-</form>
-<form action="/sellproducts" method="get">
-  <button>Sell Products</button>
-</form>
-<h2>PERMISSIONS: STOCK MANAGER - ADMIN</h2>
-<form action="/providers" method="get">
-  <button>Manage Providers</button>
-</form>
-<form action="/products" method="get">
-  <button>Manage Products</button>
-</form>
-<form action="/productorders" method="get">
-  <button>Order Product</button>
-</form>
-<h2>PERMISSIONS: ADMIN</h2>
-<form action="/shows" method="get">
-  <button>Manage Shows</button>
-</form>
-<form action="/users" method="get">
-  <button>Manage Users</button>
-</form>
-<form action="/movies" method="get">
-  <button>Manage Movies</button>
-</form>
-<form action="/auditoriums" method="get">
-  <button>Manage Auditoriums</button>
-</form>
-<form action="/sales" method="get">
-  <button>Manage Sales & Purchases</button>
-</form>
+<% layout("layouts/boilerplate") %> <% console.log(userType) %>
+<h1>Main Menu</h1>
+
+<div class="d-flex flex-row justify-content-center">
+  <!-- EMPLOYEE -->
+  <% if(userType === "employee" || userType === "admin" ){ %>
+  <div class="container w-100">
+    <h2>Employee</h2>
+    <form action="/selltickets" method="get">
+      <button class="btn btn-primary btn-lg m-1">Sell Tickets</button>
+    </form>
+    <form action="/sellproducts" method="get">
+      <button class="btn btn-primary btn-lg m-1">Sell Products</button>
+    </form>
+  </div>
+  <% } %>
+  <!-- STOCK MANAGER -->
+  <% if(userType === "stock manager" || userType === "admin"){ %>
+  <div class="column w-100 justify-content-center align-items-center">
+    <h2>Stock Manager</h2>
+    <form action="/providers" method="get">
+      <button class="btn btn-primary btn-lg m-1">Manage Providers</button>
+    </form>
+    <form action="/products" method="get">
+      <button class="btn btn-primary btn-lg m-1">Manage Products</button>
+    </form>
+    <form action="/productorders" method="get">
+      <button class="btn btn-primary btn-lg m-1">Order Product</button>
+    </form>
+  </div>
+  <% } %>
+  <!-- ADMIN -->
+  <% if(userType === "admin"){ %>
+  <div class="column w-100">
+    <h2>Admin</h2>
+    <form action="/shows" method="get">
+      <button class="btn btn-primary btn-lg m-1">Manage Shows</button>
+    </form>
+    <form action="/users" method="get">
+      <button class="btn btn-primary btn-lg m-1">Manage Users</button>
+    </form>
+    <form action="/movies" method="get">
+      <button class="btn btn-primary btn-lg m-1">Manage Movies</button>
+    </form>
+    <form action="/auditoriums" method="get">
+      <button class="btn btn-primary btn-lg m-1">Manage Auditoriums</button>
+    </form>
+    <form action="/sales" method="get">
+      <button class="btn btn-primary btn-lg m-1">
+        Manage Sales & Purchases
+      </button>
+    </form>
+  </div>
+  <% } %>
+</div>

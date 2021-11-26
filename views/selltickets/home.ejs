@@ -1,88 +1,106 @@
 <% layout("layouts/boilerplate") %>
-<h1>Selling tickets!</h1>
 <!-- SELECTING THE MOVIE -->
-<h2>Select The Movie</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Year</th>
-      <th>Sinposis</th>
-      <th>Rating</th>
-      <th>Language</th>
-      <th>Duration</th>
-      <th>Select</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for(movie of movies){ %>
-    <tr>
-      <td><%= movie.title %></td>
-      <td><%= movie.year %></td>
-      <td><%= movie.sinopsis %></td>
-      <td><%= movie.rating %></td>
-      <td><%= movie.language %></td>
-      <td><%= movie.duration %></td>
-      <td>
-        <button onclick="showsAndOverview('<%= movie.title%>', '<%=shows%>')">
-          Select
-        </button>
-      </td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
-<!-- SELECTING SHOW -->
-<h2>Shows Available</h2>
-<table>
-  <thead>
-    <tr>
-      <td>Auditorium</td>
-      <td>Day</td>
-      <td>Showtime</td>
-      <td>Seats Available</td>
-      <td>Select</td>
-    </tr>
-  </thead>
-  <tbody id="shows_body"></tbody>
-</table>
-<!-- SELECTING TICKETS -->
-<h2>Number of tickets</h2>
-<button id="substract">-</button>
-<input id="number_tickets" type="number" value="1" readonly />
-<button id="add">+</button>
-<button id="confirm_number_tickets">Confirm</button>
-<!-- PURCHASE OVERVIEW -->
-<h2>Purchase Overview</h2>
-<table>
-  <thead>
-    <tr>
-      <td>Movie</td>
-      <td>Auditorium</td>
-      <td>Day</td>
-      <td>Showtime</td>
-      <td>Number of tickets</td>
-      <td>Total</td>
-    </tr>
-  </thead>
-  <tbody id="purchase_overview">
-    <tr>
-      <td id="overview_movie"></td>
-      <td id="overview_auditorium"></td>
-      <td id="overview_day"></td>
-      <td id="overview_showtime"></td>
-      <td id="overview_number_tickets"></td>
-      <td id="overview_total"></td>
-    </tr>
-  </tbody>
-</table>
-<form action="/selltickets" method="post" novalidate>
-  <input type="text" name="movie" id="movie_form" hidden />
-  <input type="number" name="auditorium" id="auditorium_form" hidden />
-  <input type="text" name="day" id="day_form" hidden />
-  <input type="text" name="showtime" id="showtime_form" hidden />
-  <input type="number" name="ticketsNumber" id="tickets_number_form" hidden />
-  <input type="number" name="total" id="total_form" hidden />
-  <button id="confirm_purchase">Confirm Purchase</button>
-</form>
-<script src="/scripts/selltickets.js"></script>
+<h1>Selling tickets!</h1>
+<div class="container d-flex flex-row">
+  <div class="container m-2 w-100">
+    <h2>Select The Movie</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Sinposis</th>
+          <th>Rating</th>
+          <th>Language</th>
+          <th>Duration</th>
+          <th>Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(movie of movies){ %>
+        <tr>
+          <td><%= movie.title %></td>
+          <td><%= movie.year %></td>
+          <td><%= movie.sinopsis %></td>
+          <td><%= movie.rating %></td>
+          <td><%= movie.language %></td>
+          <td><%= movie.duration %></td>
+          <td>
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="showsAndOverview('<%= movie.title%>', '<%=shows%>')"
+            >
+              Select
+            </button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <!-- SELECTING SHOW -->
+    <h2>Shows Available</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Auditorium</td>
+          <td>Day</td>
+          <td>Showtime</td>
+          <td>Seats Available</td>
+          <td>Select</td>
+        </tr>
+      </thead>
+      <tbody id="shows_body"></tbody>
+    </table>
+    <!-- SELECTING TICKETS -->
+    <h2>Number of tickets</h2>
+    <button class="btn btn-primary btn-sm" id="substract">-</button>
+    <input id="number_tickets" type="number" value="1" readonly />
+    <button class="btn btn-primary btn-sm" id="add">+</button>
+    <button class="btn btn-primary btn-sm" id="confirm_number_tickets">
+      Confirm
+    </button>
+  </div>
+  <!-- PURCHASE OVERVIEW -->
+  <div class="container m-2 w-100">
+    <h2>Purchase Overview</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Movie</td>
+          <td>Auditorium</td>
+          <td>Day</td>
+          <td>Showtime</td>
+          <td>Number of tickets</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody id="purchase_overview">
+        <tr>
+          <td id="overview_movie"></td>
+          <td id="overview_auditorium"></td>
+          <td id="overview_day"></td>
+          <td id="overview_showtime"></td>
+          <td id="overview_number_tickets"></td>
+          <td id="overview_total"></td>
+        </tr>
+      </tbody>
+    </table>
+    <form action="/selltickets" method="post" novalidate>
+      <input type="text" name="movie" id="movie_form" hidden />
+      <input type="number" name="auditorium" id="auditorium_form" hidden />
+      <input type="text" name="day" id="day_form" hidden />
+      <input type="text" name="showtime" id="showtime_form" hidden />
+      <input
+        type="number"
+        name="ticketsNumber"
+        id="tickets_number_form"
+        hidden
+      />
+      <input type="number" name="total" id="total_form" hidden />
+      <button class="btn btn-primary btn-sm" id="confirm_purchase">
+        Confirm Purchase
+      </button>
+    </form>
+  </div>
+  <script src="/scripts/selltickets.js"></script>
+</div>

@@ -1,82 +1,96 @@
 <% layout("layouts/boilerplate") %>
 <!-- ADDING THE PRODUCT -->
 <h1>Adding Product</h1>
-<h2>Select the product</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price Per Unit</th>
-      <th>Stock Limit</th>
-      <th>Available Stock</th>
-      <th>Description</th>
-      <th>Select</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for(product of products){ %>
-    <tr>
-      <td><%= product.name %></td>
-      <td>$ <%= product.pricePerUnit %></td>
-      <td><%= product.stockLimit %></td>
-      <td><%= product.stock %></td>
-      <td><%= product.description %></td>
-      <td>
-        <button
-          onclick="addProduct('<%= product.name %>', '<%= product.pricePerUnit %>')"
-        >
-          Select
-        </button>
-      </td>
-    </tr>
-    <% } %>
-  </tbody>
-</table>
-<!-- QUANTITY TO BUY -->
-<h2>Quantity</h2>
-<div>
-  <button id="substract_quantity_button">-</button>
-  <input
-    id="product_quantity"
-    type="number"
-    name="product_quantity"
-    value="1"
-  />
-  <button id="add_quantity_button">+</button>
-  <button id="confirm_quantity_button">Confirm</button>
+<div class="container d-flex flex-row">
+  <div class="container m-2 w-100">
+    <h2>Select the product</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price Per Unit</th>
+          <th>Stock Limit</th>
+          <th>Available Stock</th>
+          <th>Description</th>
+          <th>Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(product of products){ %>
+        <tr>
+          <td><%= product.name %></td>
+          <td>$ <%= product.pricePerUnit %></td>
+          <td><%= product.stockLimit %></td>
+          <td><%= product.stock %></td>
+          <td><%= product.description %></td>
+          <td>
+            <button
+              class="btn btn-outline-success btn-sm"
+              onclick="addProduct('<%= product.name %>', '<%= product.pricePerUnit %>')"
+            >
+              Select
+            </button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <!-- QUANTITY TO BUY -->
+    <h2>Quantity</h2>
+    <div>
+      <button id="substract_quantity_button">-</button>
+      <input
+        id="product_quantity"
+        type="number"
+        name="product_quantity"
+        value="1"
+      />
+      <button id="add_quantity_button">+</button>
+      <button id="confirm_quantity_button">Confirm</button>
+    </div>
+  </div>
+  <!-- PURCHASE OVERVIEW -->
+  <div class="container m-2 w-100">
+    <h2>Purchase Overview</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price Per Unit</th>
+          <th>Subtotal</th>
+          <th>Provider's Cut (15%)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="product_overview"></td>
+          <td id="quantity_overview"></td>
+          <td id="price_per_unit_overview"></td>
+          <td id="subtotal_overview"></td>
+          <td id="provider_cut_overview"></td>
+          <td id="total_overview"></td>
+        </tr>
+      </tbody>
+    </table>
+    <form action="/productorders" method="post" novalidate>
+      <input type="text" name="product" id="product_form" hidden />
+      <input type="number" name="quantity" id="quantity_form" hidden />
+      <input
+        type="number"
+        name="pricePerUnit"
+        id="price_per_unit_form"
+        hidden
+      />
+      <input type="number" name="subtotal" id="subtotal_form" hidden />
+      <input type="number" name="providersCut" id="providers_cut_form" hidden />
+      <input type="number" name="total" id="total_form" hidden />
+      <button class="btn btn-primary" id="confirm_purchase_button">
+        Confirm Purchase
+      </button>
+    </form>
+  </div>
 </div>
-<!-- PURCHASE OVERVIEW -->
-<h2>Purchase Overview</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>Price Per Unit</th>
-      <th>Subtotal</th>
-      <th>Provider's Cut (15%)</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td id="product_overview"></td>
-      <td id="quantity_overview"></td>
-      <td id="price_per_unit_overview"></td>
-      <td id="subtotal_overview"></td>
-      <td id="provider_cut_overview"></td>
-      <td id="total_overview"></td>
-    </tr>
-  </tbody>
-</table>
-<form action="/productorders" method="post" novalidate>
-  <input type="text" name="product" id="product_form" hidden />
-  <input type="number" name="quantity" id="quantity_form" hidden />
-  <input type="number" name="pricePerUnit" id="price_per_unit_form" hidden />
-  <input type="number" name="subtotal" id="subtotal_form" hidden />
-  <input type="number" name="providersCut" id="providers_cut_form" hidden />
-  <input type="number" name="total" id="total_form" hidden />
-  <button id="confirm_purchase_button">Confirm Purchase</button>
-</form>
 
 <script src="/scripts/productorders.js"></script>
