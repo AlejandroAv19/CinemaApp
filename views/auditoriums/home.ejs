@@ -4,39 +4,55 @@
   <div class="container m-2 w-100">
     <!-- NEW AUDITORIUM FORM -->
     <h2>New Auditorium</h2>
-    <form action="/auditoriums" method="POST">
+    <form
+      action="/auditoriums"
+      method="POST"
+      class="needs-validation"
+      novalidate
+    >
       <!-- NUMBER -->
-      <div>
-        <label class="form-label" for="number">Number: </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="number">Number</label>
         <input
           class="form-control mb-2"
           type="number"
           name="number"
           id="number"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Number is Required</div>
       </div>
       <!-- CAPACITY -->
-      <div>
-        <label class="form-label" for="capacity">Capacity: </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="capacity">Capacity</label>
         <input
           class="form-control mb-2"
           type="number"
           name="capacity"
           id="capacity"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Capacity is Required</div>
       </div>
       <!-- PROYECTION TYPE -->
-      <div>
-        <label class="form-label" for="proyectionType">Proyection Type: </label>
-        <input
-          class="form-control mb-2"
-          type="text"
+      <div class="form-group p-2">
+        <label class="form-label" for="proyectionType">Proyection Type</label>
+        <select
+          class="form-select"
           name="proyectionType"
           id="proyectionType"
-        />
+          required
+        >
+          <option value="employee">2D</option>
+          <option value="stock manager">3D</option>
+        </select>
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Proyectio Type is Required</div>
       </div>
       <!-- SUBMIT -->
-      <div>
+      <div class="form-group p-2">
         <button>Create New Auditorium</button>
       </div>
     </form>
@@ -87,3 +103,4 @@
     </table>
   </div>
 </div>
+<script src="/scripts/formValidation.js"></script>
