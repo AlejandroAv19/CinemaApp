@@ -3,52 +3,80 @@
 <div class="container d-flex flex-row">
   <div class="container m-2 w-100">
     <h2>New Movie</h2>
-    <form action="/movies" method="POST">
-      <div>
-        <label class="form-label" for="title">Title: </label>
-        <input class="form-control mb-2" type="text" name="title" id="title" />
+    <form action="/movies" method="POST" class="needs-validation" novalidate>
+      <div class="form-group p-2">
+        <label class="form-label" for="title">Title</label>
+        <input
+          class="form-control mb-2"
+          type="text"
+          name="title"
+          id="title"
+          required
+        />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Title is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="year">Year: </label>
-        <input class="form-control mb-2" type="number" name="year" id="year" />
+      <div class="form-group p-2">
+        <label class="form-label" for="year">Year</label>
+        <input
+          class="form-control mb-2"
+          type="number"
+          name="year"
+          id="year"
+          required
+        />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Year is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="sinopsis">Sinopsis: </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="sinopsis">Sinopsis</label>
         <input
           class="form-control mb-2"
           type="text"
           name="sinopsis"
           id="sinopsis"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Year is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="rating">Rating: </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="rating">Rating</label>
         <input
           class="form-control mb-2"
           type="text"
           name="rating"
           id="rating"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Rating is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="language">language: </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="language">Language</label>
         <input
           class="form-control mb-2"
           type="text"
           name="language"
           id="language"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Language is Required</div>
       </div>
-      <div>
-        <label class="form-label" for="duration">Duration (In mins): </label>
+      <div class="form-group p-2">
+        <label class="form-label" for="duration">Duration (In mins)</label>
         <input
           class="form-control mb-2"
           type="number"
           name="duration"
           id="duration"
+          required
         />
+        <div class="valid-feedback">Everything's Good</div>
+        <div class="invalid-feedback">Language is Required</div>
       </div>
-      <div>
+      <div class="form-group p-2">
         <button>Create New Movie</button>
       </div>
     </form>
@@ -100,3 +128,4 @@
     </table>
   </div>
 </div>
+<script src="/scripts/formValidation.js"></script>
