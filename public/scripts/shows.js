@@ -11,6 +11,28 @@ const addAuditorium = (auditoriumName, auditoriumSeats) => {
   seatsOverview.innerHTML = auditoriumSeats;
 };
 
+// SHOWTIME DAY
+const confirmShowtimeDayButton = document.querySelector("#confirmShowtimeDay");
+
+confirmShowtimeDayButton.addEventListener("click", function () {
+  const day = document.querySelector("#day");
+  console.dir(day);
+});
+
+// SHOWTIME WEEK
+const confirmShowtimeWeekButton = document.querySelector(
+  "#confirmShowtimeWeek"
+);
+
+confirmShowtimeWeekButton.addEventListener("click", function () {
+  const week = document.querySelector("#week");
+  console.dir(week);
+  console.log(week.value);
+  const date = new Date(week.value);
+  console.log(date);
+});
+
+/*
 const addDate = () => {
   const calendarDay = document.querySelector("#day");
   const dayOverview = document.querySelector("#body_day");
@@ -74,3 +96,4 @@ const createShow = () => {
   seats.hidden = true;
   form.appendChild(seats);
 };
+*/
