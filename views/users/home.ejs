@@ -4,7 +4,6 @@
   <div class="container">
     <h2>New User</h2>
     <form action="/users" method="POST" class="needs-validation" novalidate>
-      <!--NAME-->
       <div class="form-group p-2">
         <label class="form-label" for="name">Name</label>
         <input
@@ -17,7 +16,6 @@
         <div class="valid-feedback">Everything's Good</div>
         <div class="invalid-feedback">Name is Required</div>
       </div>
-      <!--HIRE DATE-->
       <div class="form-group p-2">
         <label class="form-label" for="hireDate">Hire Date </label>
         <input
@@ -30,7 +28,6 @@
         <div class="valid-feedback">Everything's Good</div>
         <div class="invalid-feedback">Hire Date is Required</div>
       </div>
-      <!--USER TYPE-->
       <div class="form-group p-2">
         <label class="form-label" for="userType">User Type</label>
         <select class="form-select" name="userType" id="userType" required>
@@ -41,7 +38,6 @@
         <div class="valid-feedback">Everything's Good</div>
         <div class="invalid-feedback">User Type is Required</div>
       </div>
-      <!--USERNAME-->
       <div class="form-group p-2">
         <label class="form-label" for="username">Username </label>
         <input
@@ -54,7 +50,6 @@
         <div class="valid-feedback">Everything's Good</div>
         <div class="invalid-feedback">Username is Required</div>
       </div>
-      <!--PASSWORD-->
       <div class="form-group p-2">
         <label class="form-label" for="password">Password </label>
         <input
@@ -79,7 +74,6 @@
       <thead>
         <tr>
           <th scope="col">Name</th>
-          <th scope="col">Hire Date</th>
           <th scope="col">User Type</th>
           <th scope="col">Show</th>
           <th scope="col">Update</th>
@@ -88,9 +82,8 @@
       </thead>
       <tbody>
         <% for(user of users){ %>
-        <tr>
+        <tr id="<%=user._id%>">
           <td scope="row"><%= user.name %></td>
-          <td scope="row"><%= user.hireDate %></td>
           <td scope="row"><%= user.userType %></td>
           <td scope="row">
             <button
@@ -144,26 +137,19 @@
       </div>
       <div class="modal-body">
         <!-- MODAL BODY -->
-        <div>
-          <label>ID</label>
-          <p id="show_id"></p>
-        </div>
-        <div>
-          <label>Name</label>
-          <p id="show_name"></p>
-        </div>
-        <div>
-          <label>Hire Date</label>
-          <p id="show_hire_date"></p>
-        </div>
-        <div>
-          <label>User Type</label>
-          <p id="show_user_type"></p>
-        </div>
-        <div>
-          <label>User Name</label>
-          <p id="show_user_name"></p>
-        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>User Type</th>
+              <th>User Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for() %>
+          </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
