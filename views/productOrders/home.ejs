@@ -58,7 +58,7 @@
           <th>Product</th>
           <th>Quantity</th>
           <th>Price Per Unit</th>
-          <th>Subtotal</th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody>
@@ -73,25 +73,6 @@
     <button class="btn btn-primary" id="add_to_order_button">
       Add to Order
     </button>
-    <!--
-    <form action="/productorders" method="post" novalidate>
-      <input type="text" name="product" id="product_form" hidden />
-      <input type="number" name="quantity" id="quantity_form" hidden />
-      <input
-        type="number"
-        name="pricePerUnit"
-        id="price_per_unit_form"
-        hidden
-      />
-      <input type="number" name="subtotal" id="subtotal_form" hidden />
-      <input type="number" name="providersCut" id="providers_cut_form" hidden />
-      <input type="number" name="total" id="total_form" hidden />
-      <button class="btn btn-primary" id="confirm_purchase_button">
-        Add to Order
-      </button>
-    </form>
-    -->
-
     <!-- ORDER OVERVIEW -->
     <h2>Order Overview</h2>
     <table class="table">
@@ -100,13 +81,13 @@
           <th>Product</th>
           <th>Quantity</th>
           <th>Price Per Unit</th>
-          <th>Subtotal</th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody id="order_table_body"></tbody>
       <thead>
         <tr>
-          <th>Subtotal</th>
+          <th>Total Price</th>
           <th>Provider's Cut (10%)</th>
           <th>IVA (5%)</th>
           <th>Total</th>
