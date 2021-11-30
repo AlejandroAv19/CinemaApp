@@ -90,20 +90,30 @@
               class="btn btn-outline-info"
               data-bs-toggle="modal"
               data-bs-target="#showModal"
-              id="show_button"
+              onclick="showModal('<%=JSON.stringify(user)%>')"
             >
               Show
             </button>
           </td>
           <td scope="row">
-            <form action="/users/<%= user._id%>/edit">
-              <button class="btn btn-outline-warning">Update</button>
-            </form>
+            <button
+              class="btn btn-outline-warning"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+              onclick="updateModal('<%=JSON.stringify(user)%>')"
+            >
+              Update
+            </button>
           </td>
           <td scope="row">
-            <form action="/users/<%= user._id%>?_method=DELETE" method="post">
-              <button class="btn btn-outline-danger">Delete</button>
-            </form>
+            <button
+              class="btn btn-outline-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+              onclick="deleteModal('<%=JSON.stringify(user)%>')"
+            >
+              Delete
+            </button>
           </td>
         </tr>
         <% } %>
@@ -146,8 +156,8 @@
               <th>User Name</th>
             </tr>
           </thead>
-          <tbody>
-            <% for() %>
+          <tbody id="modalBody">
+            <tr id="rowBody"></tr>
           </tbody>
         </table>
       </div>
@@ -155,12 +165,139 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE MODAL -->
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Updating User</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- MODAL BODY -->
+        <form
+          action="/users/<%=user._id%>?_method=PATCH"
+          method="post"
+          class="needs-validation"
+          id="update_form"
+          novalidate
+        >
+          <div class="form-group p-2">
+            <label class="form-label" for="name">Name</label>
+            <input
+              class="form-control"
+              type="text"
+              name="name"
+              id="update_name"
+              required
+            />
+            <div class="valid-feedback">Everything's Good</div>
+            <div class="invalid-feedback">Name is Required</div>
+          </div>
+          <div class="form-group p-2">
+            <label class="form-label" for="hireDate">Hire Date </label>
+            <input
+              class="form-control"
+              type="date"
+              name="hireDate"
+              id="update_hireDate"
+              required
+            />
+            <div class="valid-feedback">Everything's Good</div>
+            <div class="invalid-feedback">Hire Date is Required</div>
+          </div>
+          <div class="form-group p-2">
+            <label class="form-label" for="userType">User Type</label>
+            <select
+              class="form-select"
+              name="userType"
+              id="update_userType"
+              required
+            >
+              <option value="employee">Employee</option>
+              <option value="stock manager">Stock Manager</option>
+              <option value="admin">Admin</option>
+            </select>
+            <div class="valid-feedback">Everything's Good</div>
+            <div class="invalid-feedback">User Type is Required</div>
+          </div>
+          <div class="form-group p-2">
+            <label class="form-label" for="username">Username </label>
+            <input
+              class="form-control"
+              type="text"
+              name="username"
+              id="update_username"
+              required
+            />
+            <div class="valid-feedback">Everything's Good</div>
+            <div class="invalid-feedback">Username is Required</div>
+          </div>
+          <div class="form-group p-2">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deleting User</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Are you sure you want to delete this user?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <form id="delete_form" method="post">
+          <button class="btn btn-danger">Delete</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
 <!-- SCRIPTS -->
-<script src="/scripts/users_home.js"></script>
+<script src="/scripts/users.js"></script>
 <script src="/scripts/formValidation.js"></script>

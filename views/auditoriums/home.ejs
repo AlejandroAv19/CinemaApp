@@ -45,11 +45,11 @@
           id="proyectionType"
           required
         >
-          <option value="employee">2D</option>
-          <option value="stock manager">3D</option>
+          <option value="2D">2D</option>
+          <option value="3D">3D</option>
         </select>
         <div class="valid-feedback">Everything's Good</div>
-        <div class="invalid-feedback">Proyectio Type is Required</div>
+        <div class="invalid-feedback">Proyection Type is Required</div>
       </div>
       <!-- SUBMIT -->
       <div class="form-group p-2">
@@ -80,22 +80,34 @@
           <td><%= auditorium.capacity %></td>
           <td><%= auditorium.proyectionType %></td>
           <td>
-            <form action="/auditoriums/<%= auditorium._id%>">
-              <button>Show</button>
-            </form>
-          </td>
-          <td>
-            <form action="/auditoriums/<%= auditorium._id%>/edit">
-              <button>Update</button>
-            </form>
-          </td>
-          <td>
-            <form
-              action="/auditoriums/<%= auditorium._id%>?_method=DELETE"
-              method="post"
+            <button
+              class="btn btn-outline-info"
+              data-bs-toggle="modal"
+              data-bs-target="#showModal"
+              onclick="showModal('<%=JSON.stringify(auditorium)%>')"
             >
-              <button>Delete</button>
-            </form>
+              Show
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-warning"
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+              onclick="updateModal('<%=JSON.stringify(auditorium)%>')"
+            >
+              Update
+            </button>
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+              onclick="deleteModal('<%=JSON.stringify(auditorium)%>')"
+            >
+              Delete
+            </button>
           </td>
         </tr>
         <% } %>
@@ -103,4 +115,143 @@
     </table>
   </div>
 </div>
+
+<!-- MODALS -->
+<!-- SHOW MODAL -->
+<div
+  class="modal fade"
+  id="showModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Showing Auditorium</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- MODAL BODY -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Number</th>
+              <th>Capacity</th>
+              <th>Proyection Type</th>
+            </tr>
+          </thead>
+          <tbody id="modalBody">
+            <tr id="rowBody"></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE MODAL -->
+<div
+  class="modal fade"
+  id="updateModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Updating User</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="update_form">
+          <!-- NUMBER -->
+          <div>
+            <label for="number">Number: </label>
+            <input type="number" name="number" id="update_number" />
+          </div>
+          <!-- CAPACITY -->
+          <div>
+            <label for="capacity">Capacity: </label>
+            <input type="number" name="capacity" id="update_capacity" />
+          </div>
+          <!-- PROYECTION TYPE -->
+          <div>
+            <label for="proyectionType">Proyection Type: </label>
+            <input
+              type="text"
+              name="proyectionType"
+              id="update_proyectionType"
+            />
+          </div>
+          <div>
+            <button>Update auditorium</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deleting Auditorium</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Are you sure you want to delete this auditorium?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <form id="delete_form" method="post">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/scripts/auditoriums.js"></script>
 <script src="/scripts/formValidation.js"></script>
