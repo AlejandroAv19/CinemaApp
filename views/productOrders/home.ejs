@@ -1,8 +1,28 @@
 <% layout("layouts/boilerplate") %>
 <!-- ADDING THE PRODUCT -->
-<h1>Adding Product</h1>
+<h1>Product Orders</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Invoice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%=new Date().getMonth()%>-<%=new Date().getDate()%>-<%=new
+        Date().getFullYear()%>
+      </td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
 <div class="container d-flex flex-row">
   <div class="container m-2 w-100">
+    <h2>Product ID</h2>
+    <input type="number" id="search_product_id" />
+    <!--
     <h2>Select the product</h2>
     <table class="table">
       <thead>
@@ -35,22 +55,24 @@
         <% } %>
       </tbody>
     </table>
+    -->
     <!-- QUANTITY TO BUY -->
     <h2>Quantity</h2>
     <div>
-      <button id="substract_quantity_button">-</button>
       <input
         id="product_quantity"
         type="number"
         name="product_quantity"
         value="1"
       />
-      <button id="add_quantity_button">+</button>
     </div>
-    <button id="confirm_quantity_button">Confirm</button>
+    <button onclick="addProduct('<%= JSON.stringify(products) %>')">
+      Add Product
+    </button>
   </div>
   <!-- PURCHASE OVERVIEW -->
   <div class="container m-2 w-100">
+    <!--
     <h2>Product Overview</h2>
     <table class="table">
       <thead>
@@ -73,6 +95,7 @@
     <button class="btn btn-primary" id="add_to_order_button">
       Add to Order
     </button>
+    -->
     <!-- ORDER OVERVIEW -->
     <h2>Order Overview</h2>
     <table class="table">
@@ -87,7 +110,7 @@
       <tbody id="order_table_body"></tbody>
       <thead>
         <tr>
-          <th>Total Price</th>
+          <th>Subtotal</th>
           <th>Provider's Cut (10%)</th>
           <th>IVA (5%)</th>
           <th>Total</th>
