@@ -1,166 +1,131 @@
-// PRODUCT SELECTION
-const addProduct = (productName, pricePerUnit) => {
-  const productOverview = document.querySelector("#product_overview");
-  const pricePerUnitOverview = document.querySelector(
-    "#price_per_unit_overview"
-  );
-  productOverview.innerHTML = productName;
-  pricePerUnitOverview.innerHTML = pricePerUnit;
-};
+const addProduct = (products) => {
+  // SETTING THE OBJECT
+  const productsObject = JSON.parse(products);
 
-// ADD QUANTITY BUTTON
-const addQuantity = document.querySelector("#add_quantity_button");
-addQuantity.addEventListener("click", function () {
-  const numberDisplay = document.querySelector("#product_quantity");
-  numberDisplay.value = parseInt(numberDisplay.value) + 1;
-});
+  // GETTING THE PRODUCT ID
+  const productID = document.querySelector("#search_product_id").value;
 
-// SUBSTRACT QUANTITY BUTTON
-const substractQuantity = document.querySelector("#substract_quantity_button");
-substractQuantity.addEventListener("click", function () {
-  const numberDisplay = document.querySelector("#product_quantity");
-  if (numberDisplay.value != "1") {
-    numberDisplay.value = parseInt(numberDisplay.value) - 1;
-  }
-});
-
-// CONFIRM QUANTITY
-const confirmQuantityButton = document.querySelector(
-  "#confirm_quantity_button"
-);
-confirmQuantityButton.addEventListener("click", function () {
-  // ADD QUANTITY TO OVERVIEW
+  // GETTING THE QUANTITY
   const quantity = document.querySelector("#product_quantity").value;
-  const quantityOverview = document.querySelector("#quantity_overview");
-  quantityOverview.innerHTML = quantity;
-  // SUBTOTAL
-  const pricePerUnit = document.querySelector(
-    "#price_per_unit_overview"
-  ).innerHTML;
-  const subtotalOverview = document.querySelector("#subtotal_overview");
-  subtotalOverview.innerHTML = parseInt(quantity) * parseInt(pricePerUnit);
-});
 
-// ADD TO ORDER
-const addToOrderButton = document.querySelector("#add_to_order_button");
+  // GETTING THE PRODUCT
+  for (product of productsObject) {
+    if (product.productId == productID) {
+      // IF THE ROW ALREADY EXIST
+      const rowAvailable = document.querySelector(
+        `#product_${product.productId}`
+      );
 
-// ADD THE PRODUCT TO THE ORDER
-addToOrderButton.addEventListener("click", function () {
-  const tableBody = document.querySelector("#order_table_body");
-  const productNameID = document
-    .querySelector("#product_overview")
-    .innerHTML.replaceAll(" ", "_");
+      if (!rowAvailable) {
+        // SETTING THE ORDER OVERVIEW
+        const tableBody = document.querySelector("#order_table_body");
+        const productRow = document.createElement("tr");
 
-  const productName = document.querySelector("#product_overview");
-  const quantity = document.querySelector("#quantity_overview");
-  const PPU = document.querySelector("#price_per_unit_overview");
-  const subtotal = document.querySelector("#subtotal_overview");
+        // SETTING THE ID
+        productRow.id = "product_" + product.productId;
 
-  // IF THE ROW IS ALREADY THERE
-  const rowAvailable = document.querySelector(
-    "#row_order_overview_" + productNameID
-  );
+        // PRODUCT NAME
+        const productNameColumn = document.createElement("td");
+        productNameColumn.innerHTML = product.name;
+        productRow.appendChild(productNameColumn);
 
-  if (!rowAvailable) {
-    const row = document.createElement("tr");
-    row.id = "row_order_overview_" + productNameID;
+        // QUANTITY
+        const quantityColumn = document.createElement("td");
+        quantityColumn.innerHTML = quantity;
+        productRow.appendChild(quantityColumn);
 
-    // PRODUCT NAME
-    const productTD = document.createElement("td");
-    productTD.innerHTML = productName.innerHTML;
-    row.appendChild(productTD);
+        // PRICE PER UNIT
+        const PPUColumn = document.createElement("td");
+        PPUColumn.innerHTML = product.pricePerUnit;
+        productRow.appendChild(PPUColumn);
 
-    // QUANTITY
-    const quantityTD = document.createElement("td");
-    quantityTD.innerHTML = quantity.innerHTML;
-    row.appendChild(quantityTD);
+        // PRICE
+        const priceColumn = document.createElement("td");
+        priceColumn.innerHTML =
+          parseInt(quantityColumn.innerHTML) * parseInt(PPUColumn.innerHTML);
+        productRow.appendChild(priceColumn);
 
-    // PPU
-    const PPUTD = document.createElement("td");
-    PPUTD.innerHTML = PPU.innerHTML;
-    row.appendChild(PPUTD);
+        tableBody.appendChild(productRow);
 
-    // SUBTOTAL
-    const subtotalTD = document.createElement("td");
-    subtotalTD.innerHTML = subtotal.innerHTML;
-    row.appendChild(subtotalTD);
+        // ADD VALUES TO TOTALS
+        // SUBTOTAL
+        const totalsSubtotal = document.querySelector("#totals_subtotal");
+        totalsSubtotal.innerHTML = 0;
+        const orderTable = document.querySelector("#order_table_body");
+        const orderTableChilds = orderTable.childNodes;
+        for (product of orderTableChilds) {
+          const childs = product.childNodes;
+          totalsSubtotal.innerHTML =
+            parseInt(totalsSubtotal.innerHTML) + parseInt(childs[3].innerHTML);
+        }
 
-    tableBody.appendChild(row);
+        // PROVIDERS CUT
+        const totalsProvidersCut = document.querySelector(
+          "#totals_providers_cut"
+        );
+        const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
+        totalsProvidersCut.innerHTML = cut;
 
-    // CLEANING THE OVERVIEW TABLE
-    productName.innerHTML = "";
-    quantity.innerHTML = "";
-    PPU.innerHTML = "";
-    subtotal.innerHTML = "";
+        // IVA
+        const totalsIVA = document.querySelector("#totals_iva");
+        const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
+        totalsIVA.innerHTML = iva;
 
-    // ADD VALUES TO TOTALS
-    // SUBTOTAL
-    const totalsSubtotal = document.querySelector("#totals_subtotal");
-    totalsSubtotal.innerHTML =
-      parseFloat(totalsSubtotal.innerHTML) + parseFloat(subtotalTD.innerHTML);
+        // TOTAL
+        const totalsTotal = document.querySelector("#totals_total");
+        const total =
+          parseFloat(totalsSubtotal.innerHTML) +
+          parseFloat(totalsProvidersCut.innerHTML) +
+          parseFloat(totalsIVA.innerHTML);
+        totalsTotal.innerHTML = total.toFixed(1);
+      } else {
+        const productRow = document.querySelector(
+          "#product_" + product.productId
+        );
+        const rowChilds = productRow.childNodes;
 
-    // PROVIDERS CUT
-    const totalsProvidersCut = document.querySelector("#totals_providers_cut");
-    const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
-    totalsProvidersCut.innerHTML = cut;
+        // SETTING THE QUANTITY
+        rowChilds[1].innerHTML =
+          parseInt(rowChilds[1].innerHTML) + parseInt(quantity);
 
-    // IVA
-    const totalsIVA = document.querySelector("#totals_iva");
-    const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
-    totalsIVA.innerHTML = iva;
+        // SETTING THE PRICE
+        rowChilds[3].innerHTML =
+          parseInt(rowChilds[1].innerHTML) *
+          parseInt(parseInt(rowChilds[2].innerHTML));
 
-    // TOTAL
-    const totalsTotal = document.querySelector("#totals_total");
-    const total =
-      parseFloat(totalsSubtotal.innerHTML) +
-      parseFloat(totalsProvidersCut.innerHTML) +
-      parseFloat(totalsIVA.innerHTML);
-    totalsTotal.innerHTML = total.toFixed(1);
-  } else {
-    const productRow = document.querySelector(
-      "#row_order_overview_" + productNameID
-    );
-    const rowChilds = productRow.childNodes;
+        // ADD VALUES TO TOTALS
+        // SUBTOTAL
+        const totalsSubtotal = document.querySelector("#totals_subtotal");
+        totalsSubtotal.innerHTML = 0;
+        const orderTable = document.querySelector("#order_table_body");
+        const orderTableChilds = orderTable.childNodes;
+        for (product of orderTableChilds) {
+          const childs = product.childNodes;
+          totalsSubtotal.innerHTML =
+            parseInt(totalsSubtotal.innerHTML) + parseInt(childs[3].innerHTML);
+        }
 
-    // QUANTITY
-    const overviewQuantity =
-      document.querySelector("#quantity_overview").innerHTML;
-    const orderQuantity = rowChilds[1].innerHTML;
-    rowChilds[1].innerHTML =
-      parseInt(overviewQuantity) + parseInt(orderQuantity);
+        // PROVIDERS CUT
+        const totalsProvidersCut = document.querySelector(
+          "#totals_providers_cut"
+        );
+        const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
+        totalsProvidersCut.innerHTML = cut;
 
-    // Subtotal
-    const overviewSubtotal =
-      document.querySelector("#subtotal_overview").innerHTML;
-    const orderSubtotal = rowChilds[3].innerHTML;
-    rowChilds[3].innerHTML =
-      parseInt(overviewSubtotal) + parseInt(orderSubtotal);
+        // IVA
+        const totalsIVA = document.querySelector("#totals_iva");
+        const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
+        totalsIVA.innerHTML = iva;
 
-    // CLEANING THE OVERVIEW TABLE
-    productName.innerHTML = "";
-    quantity.innerHTML = "";
-    PPU.innerHTML = "";
-    subtotal.innerHTML = "";
-
-    // ADD VALUES TO TOTALS
-    // SUBTOTAL
-    const totalsSubtotal = document.querySelector("#totals_subtotal");
-    totalsSubtotal.innerHTML = 0;
-    const orderTable = document.querySelector("#order_table_body");
-    const tableEl = orderTable.childNodes;
-    for (el of tableEl) {
-      const data = el.childNodes;
-      totalsSubtotal.innerHTML =
-        parseInt(totalsSubtotal.innerHTML) + parseInt(data[3].innerHTML);
+        // TOTAL
+        const totalsTotal = document.querySelector("#totals_total");
+        const total =
+          parseFloat(totalsSubtotal.innerHTML) +
+          parseFloat(totalsProvidersCut.innerHTML) +
+          parseFloat(totalsIVA.innerHTML);
+        totalsTotal.innerHTML = total.toFixed(1);
+      }
+    } else {
     }
-    // PROVIDERS CUT
-    const totalsProvidersCut = document.querySelector("#totals_providers_cut");
-    const cut = (parseInt(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
-    totalsProvidersCut.innerHTML = cut;
-
-    // IVA
-    const totalsIVA = document.querySelector("#totals_iva");
-    const iva = (parseInt(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
-    totalsIVA.innerHTML = iva;
   }
-});
+};
