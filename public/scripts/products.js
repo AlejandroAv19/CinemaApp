@@ -10,7 +10,7 @@ const showModal = (product) => {
 
   if (!rowBody.hasChildNodes()) {
     const tdID = document.createElement("td");
-    tdID.innerHTML = productObject._id;
+    tdID.innerHTML = productObject.productId;
     rowBody.appendChild(tdID);
 
     const tdName = document.createElement("td");
@@ -35,7 +35,7 @@ const showModal = (product) => {
   } else {
     while (rowBody.firstChild) rowBody.removeChild(rowBody.firstChild);
     const tdID = document.createElement("td");
-    tdID.innerHTML = productObject._id;
+    tdID.innerHTML = productObject.productId;
     rowBody.appendChild(tdID);
 
     const tdName = document.createElement("td");
