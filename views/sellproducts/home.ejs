@@ -1,85 +1,48 @@
 <% layout("layouts/boilerplate") %>
+<h1>Product Purchase</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Invoice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%=new Date().getMonth()%>-<%=new Date().getDate()%>-<%=new
+        Date().getFullYear()%>
+      </td>
+      <td>AAAA</td>
+    </tr>
+  </tbody>
+</table>
 <div class="container d-flex flex-row">
   <div class="container m-2 w-100">
-    <h2>Selling Product</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price Per Unit</th>
-          <th>Stock Limit</th>
-          <th>Available Stock</th>
-          <th>Description</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(product of products){ %>
-        <tr>
-          <td><%= product.name %></td>
-          <td>$ <%= product.pricePerUnit %></td>
-          <td><%= product.stockLimit %></td>
-          <td><%= product.stock %></td>
-          <td><%= product.description %></td>
-          <td>
-            <button
-              class="btn btn-outline-success btn-sm"
-              onclick="addProduct('<%= product.name %>', '<%= product.pricePerUnit %>')"
-            >
-              Select
-            </button>
-          </td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <!-- QUANTITY TO BUY -->
+    <h2>Product ID</h2>
+    <input type="number" id="search_product_id" />
     <h2>Quantity</h2>
     <div>
-      <button id="substract_quantity_button">-</button>
       <input
         id="product_quantity"
         type="number"
         name="product_quantity"
         value="1"
       />
-      <button id="add_quantity_button">+</button>
     </div>
-    <button id="confirm_quantity_button">Confirm</button>
-  </div>
-  <!-- PURCHASE OVERVIEW -->
-  <div class="container m-2 w-100">
-    <h2>Product Overview</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Price Per Unit</th>
-          <th>Subtotal</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="product_overview"></td>
-          <td id="quantity_overview"></td>
-          <td id="price_per_unit_overview"></td>
-          <td id="subtotal_overview"></td>
-        </tr>
-      </tbody>
-    </table>
-    <button class="btn btn-primary" id="add_to_order_button">
-      Add to Order
+    <button onclick="addProduct('<%= JSON.stringify(products) %>')">
+      Add Product
     </button>
-    <!-- ORDER OVERVIEW -->
-    <h2>Purchase Overview</h2>
+  </div>
+  <div class="container m-2 w-100">
+    <h2>Order Overview</h2>
     <table class="table">
       <thead>
         <tr>
           <th>Product</th>
           <th>Quantity</th>
           <th>Price Per Unit</th>
-          <th>Subtotal</th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody id="order_table_body"></tbody>
@@ -97,11 +60,10 @@
           <td id="totals_subtotal">0</td>
           <td id="totals_iva">0</td>
           <td id="totals_total">0</td>
-          <td></td>
         </tr>
       </tbody>
     </table>
-    <button>Go to check</button>
+    <button>Go to checkout</button>
   </div>
 </div>
 
