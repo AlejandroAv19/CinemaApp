@@ -2,87 +2,76 @@ const Product = require("../models/product");
 const ProductPurchase = require("../models/productPurchase");
 const Sale = require("../models/sale");
 const User = require("../models/user");
+const SaleInvoice = require("../models/sale_invoice_counter");
 
 module.exports.home = async (req, res) => {
   const products = await Product.find({});
-  res.render("sellproducts/home", { products });
+  const invoiceCounter = await SaleInvoice.find({});
+  // ---
+  const a = JSON.stringify(invoiceCounter);
+  const b = JSON.parse(a);
+  // ---
+  const nextInvoice = parseInt(b[0].seq_value) + 1;
+
+  res.render("sellproducts/home", { products, nextInvoice });
 };
 
 module.exports.create = async (req, res) => {
-  // RETRIEVING THE INFORMATION FROM THE PURCHASE
-  const { name, quantity, subtotal } = req.body;
-  // RETRIEVING LENGHT TO CHECK IF IT IS AN ARRAY OR NOT | HOW MANY TIMES WE NEED TO ITERATE
-  const length = name.length;
-  // CREATING OUR PURCHASE
-  const purchase = new ProductPurchase({});
-  // IF THERE IS ONLY ONE ELEMENT
-  if (typeof name === "string") {
-    // FIND THE PRODUCT
-    const item = await Product.findOne({ name });
-    // PUSH THE ELEMENT TO THE ELEMENTS ARRAY OF THE PURCHASE
-    purchase.items.push({ item, quantity, subtotal });
-    // SAVE THE DOCUMENT
-    await purchase.save();
+  const { _product, quantity, pricePerUnit, date } = req.body;
 
-    //SALE CREATION
-    // SEARCH USER
-    const user = await User.findOne({ username: req.cookies.username });
-    const total = req.body.total;
-    const sale = new Sale({
-      details: purchase,
-      madeBy: user,
-      type: "product",
-      date: Date.now(),
-      total,
-    });
-    await sale.save();
+  // NEW PRODUCT PURCHASE
+  const productPurchase = new ProductPurchase();
 
-    // SUBSTRACTING STOCK FOR THE PRODUCT
-    const actualStock = item.stock;
-    const newStock = parseInt(actualStock) - parseInt(quantity);
-    const productUpdate = await Product.findOneAndUpdate(
-      { name },
-      { stock: newStock }
-    );
-    await productUpdate.save();
-  } else {
-    // IF THERE IS MORE THAN ONE ELEMENT
-    for (let i = 0; i < length; i++) {
+  if (Array.isArray(_product)) {
+    for (let i = 0; i < _product.length; i++) {
+      const _name = _product[i];
+      const _quantity = quantity[i];
+      const _ppu = pricePerUnit[i];
+
+      // SEARCHING FOR THE PRODUCT
+      const productObject = await Product.findOne({ name: _name });
+
+      // productId
+      const a = JSON.stringify(productObject);
+      const b = JSON.parse(a);
+
+      const product = {
+        product: productObject,
+        productId: b.productId,
+        quantity: _quantity,
+        pricePerUnit: _ppu,
+      };
+      productPurchase.products.push(product);
+      // SUBSTRACTING THE PRODUCT TO THE AVAILABLE STOCK
       // FINDING THE PRODUCT
-      const item = await Product.findOne({ name: name[i] });
-      // PUSHING THE ITEMS TO THE ARRAY IN PURCHASE
-      purchase.items.push({
-        item,
-        quantity: quantity[i],
-        subtotal: subtotal[i],
-      });
-
-      // SUBSTRACTING STOCK FOR THE PRODUCT
-      const actualStock = item.stock;
-      const newStock = parseInt(actualStock) - parseInt(quantity[i]);
+      const addProduct = await Product.findOne({ name: _name });
+      const actualStock = addProduct.stock;
+      const newStock = parseInt(actualStock) - parseInt(_quantity);
       const productUpdate = await Product.findOneAndUpdate(
-        { name: name[i] },
+        { name: _name },
         { stock: newStock }
       );
       await productUpdate.save();
     }
 
-    // ONCE FINISHED PUSHEN SAVE THE DOCUMENT
-    await purchase.save();
-
-    //SALE CREATION
-    // SEARCH USER
-    const user = await User.findOne({ username: req.cookies.username });
-    const total = req.body.total;
-    const sale = new Sale({
-      details: purchase,
-      madeBy: user,
-      type: "product",
-      date: Date.now(),
-      total,
-    });
-    await sale.save();
+    await productPurchase.save();
+  } else {
+    console.log("NOT ARRAY");
   }
+
+  // FINDING THE USER
+  const user = await User.findOne({ username: req.cookies.username });
+
+  // CREATING THE ORDER
+  const newSale = new Sale({
+    details: productPurchase,
+    madeBy: user,
+    type: "product",
+    date,
+  });
+
+  await newSale.save();
+
   res.redirect("/home");
 };
 
