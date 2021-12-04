@@ -1,62 +1,6 @@
 <% layout("layouts/boilerplate") %>
-<h1>Viewing Sales</h1>
+<h1>Viewing Sales & Orders</h1>
 <div class="container d-flex flex-row">
-  <div class="container m-2 w-100">
-    <h2>Products Sales</h2>
-    <!-- VIEWING SALES -->
-    <table class="table">
-      <thead>
-        <tr>
-          <td>Done By</td>
-          <td>Type</td>
-          <td>Date</td>
-          <td>Total</td>
-          <td>Details</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(sale of sales){ %> <% if(sale.type === "product"){ %>
-        <tr>
-          <td>
-            <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
-          </td>
-          <td><%= sale.type %></td>
-          <td><%= sale.date %></td>
-          <td><%= sale.total %></td>
-          <td><a href="/sellproducts/<%= sale.details._id %>">Show</a></td>
-        </tr>
-        <% } %> <% } %>
-      </tbody>
-    </table>
-  </div>
-  <div class="container m-2 w-100">
-    <h2>Tickets Sales</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <td>Done By</td>
-          <td>Type</td>
-          <td>Date</td>
-          <td>Total</td>
-          <td>Details</td>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(sale of sales){ %> <% if(sale.type === "ticket"){ %>
-        <tr>
-          <td>
-            <a href="/users/<%= sale.madeBy._id %>"><%= sale.madeBy.name %></a>
-          </td>
-          <td><%= sale.type %></td>
-          <td><%= sale.date %></td>
-          <td><%= sale.total %></td>
-          <td><a href="/selltickets/<%= sale.details._id %>">Show</a></td>
-        </tr>
-        <% } %> <% } %>
-      </tbody>
-    </table>
-  </div>
-  <!------------------------------------------------------------------------------------->
   <div class="container m-2 w-100">
     <div>
       <label for="order_search">Search By Invoice</label>
@@ -65,8 +9,57 @@
         Search
       </button>
     </div>
+    <h2>Sales</h2>
+    <!-- VIEWING SALES -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Invoice</th>
+          <th>Made By</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(sale of sales){ %>
+          <% console.log(sale) %> 
+        <tr>
+          <td><%=JSON.parse(JSON.stringify(sale)).invoice %></td>
+          <td><%= sale.madeBy.name %></td>
+          <td><%= sale.type %></td>
+          <td><%= sale.date %></td>
+          <td>
+            <button
+              class="btn btn-outline-info"
+              data-bs-toggle="modal"      
+              <% if(sale.type == "product"){ %> 
+                data-bs-target="#showProductSaleModal"
+                onclick="showProductSaleModal('<%=JSON.stringify(sale.details)%>', '<%=JSON.stringify(products)%>')"
+              <% }else{ %> 
+                data-bs-target="#showTicketSaleModal"
+                onclick="showTicketSaleModal('<%=JSON.stringify(sale.details)%>', '<%=JSON.stringify(products)%>')"
+              <% }%>
+            >
+              Details
+            </button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <!------------------------------------------------------------------------------------->
+  <div class="container m-2 w-100">
+    <div>
+      <label for="order_search">Search By Invoice</label>
+      <input type="number" id="order_search" />
+      <button class="btn btn-outline-info" onclick="searchOrderButton()">
+        Search
+      </button>
+    </div>
 
-    <h2>Product Orders</h2>
+    <h2>Orders</h2>
     <table class="table">
       <thead>
         <tr>
@@ -112,6 +105,140 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Showing Order</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Descripcion</th>
+              <th>Price Per Unit</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="products_table_body"></tbody>
+        </table>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Subtotal</th>
+              <th>Provider's Cut (%10)</th>
+              <th>IVA (%5)</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="totals_subtotal">0</td>
+              <td id="totals_providers_cut">0</td>
+              <td id="totals_iva">0</td>
+              <td id="totals_total">0</td>
+
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOW PRODUCT SALE MODAL -->
+<div
+  class="modal fade"
+  id="showProductSaleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Showing product sell</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Descripcion</th>
+              <th>Price Per Unit</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="products_table_body"></tbody>
+        </table>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Subtotal</th>
+              <th>Provider's Cut (%10)</th>
+              <th>IVA (%5)</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="totals_subtotal">0</td>
+              <td id="totals_providers_cut">0</td>
+              <td id="totals_iva">0</td>
+              <td id="totals_total">0</td>
+
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHOW TICKET SALE MODAL -->
+<div
+  class="modal fade"
+  id="showTicketSaleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Showing ticket sell</h5>
         <button
           type="button"
           class="close"
