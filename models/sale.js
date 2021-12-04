@@ -8,12 +8,11 @@ const saleSchema = new Schema({
   },
   Purchase: {
     type: String,
-    enum: ["ProductPurchase", "TicketPurchase", "ProductOrder"],
+    enum: ["ProductPurchase", "TicketPurchase"],
   },
   madeBy: { type: Schema.Types.ObjectId, ref: "User" },
-  type: { type: String, enum: ["product", "ticket", "productOrder"] },
+  type: { type: String, enum: ["product", "ticket"] },
   date: { type: String },
-  total: { type: Number },
 });
 
 module.exports = mongoose.model("Sale", saleSchema);
