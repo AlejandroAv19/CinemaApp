@@ -3,7 +3,7 @@
 <!-- MOVIE SELECTION -->
 <div class="container d-flex flex-row">
   <div class="container m-2 w-100">
-    <h1>Select the Movie</h1>
+    <h3>Step 1: Select the Movie</h3>
     <table class="table">
       <thead>
         <tr>
@@ -33,7 +33,7 @@
       </tbody>
     </table>
     <!-- AUDITORIUM SELECTION -->
-    <h1>Select the auditorium</h1>
+    <h3>Step 2: Select the auditorium</h3>
     <table class="table">
       <thead>
         <tr>
@@ -60,155 +60,65 @@
         <% } %>
       </tbody>
     </table>
-    <!--
+    <!-- DAY SELECTION -->
     <h3>Step 3: Select the day</h3>
     <input type="date" name="day" id="day" />
     <button onclick="addDate()">Confirm</button>
+    <!-- SHOWTIMES SELECTION -->
     <h3>Step 4: Add Showtime</h3>
     <div>
       <input type="text" id="showtime" />
       <button onclick="addShowtime()">Add</button>
     </div>
-    -->
   </div>
-  
   <div class="container m-2 w-100">
-    <h1>Select Showtimes</h1>
-    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#dayShowtime">Day</button>
-    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#weekShowtime">Week</button>
-
-    <h1>Shows Overview</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <td>Movie</td>
-            <td>Auditorium</td>
-            <td>Day</td>
-            <td>Showtime</td>
-            <td>Available Seats</td>
-          </tr>
-        </thead>
-        <tbody>
-          <td id="body_movie"></td>
-          <td id="body_auditorium"></td>
-          <td id="body_day"></td>
-          <td id="body_showtime"></td>
-          <td id="body_seats"></td>
-        </tbody>
-      </table>
-      <form id="create_form" action="/shows" method="post">
-        <button onclick="createShow()">Create Show</button>
-      </form>
-      <!-- 
-      <h1>Showing all Shows</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <td>Movie</td>
-            <td>Auditorium</td>
-            <td>Day</td>
-            <td>Showtime</td>
-            <td>Available Seats</td>
-          </tr>
-        </thead>
-        <tbody>
-          <% for(show of shows){ %>
-          <tr>
-            <td><%= show.movie %></td>
-            <td><%= show.auditorium %></td>
-            <td><%= show.day %></td>
-            <td><%= show.showtime %></td>
-            <td><%= show.availableSeats %></td>
-          </tr>
-          <%}%>
-        </tbody>
-      </table>
-      -->
-    </div>
+    <!-- SHOW OVERVIEW -->
+    <h1>Show Overview</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Movie</td>
+          <td>Auditorium</td>
+          <td>Day</td>
+          <td>Showtime</td>
+          <td>Available Seats</td>
+        </tr>
+      </thead>
+      <tbody>
+        <td id="body_movie"></td>
+        <td id="body_auditorium"></td>
+        <td id="body_day"></td>
+        <td id="body_showtime"></td>
+        <td id="body_seats"></td>
+      </tbody>
+    </table>
+    <form id="create_form" action="/shows" method="post">
+      <button onclick="createShow()">Create Show</button>
+    </form>
+    <!-- ALL SHOWS -->
+    <h1>Showing all Shows</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Movie</td>
+          <td>Auditorium</td>
+          <td>Day</td>
+          <td>Showtime</td>
+          <td>Available Seats</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(show of shows){ %>
+        <tr>
+          <td><%= show.movie %></td>
+          <td><%= show.auditorium %></td>
+          <td><%= show.day %></td>
+          <td><%= show.showtime %></td>
+          <td><%= show.availableSeats %></td>
+        </tr>
+        <%}%>
+      </tbody>
+    </table>
   </div>
 </div>
-
-<!-- MODALS -->
-<!-- SHOWTIME BY DAY -->
-<div
-  class="modal fade"
-  id="dayShowtime"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Showtime by Day</h5>
-        <button
-          type="button"
-          class="close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- MODAL BODY -->
-        <h3>Select the day</h3>
-        <input type="date" name="day" id="day" />
-    <h3>Add Showtime</h3>
-    <div>
-      <input type="text" id="showtime" />
-    </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" id="confirmShowtimeDay">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SHOWTIME BY DAY -->
-<div
-  class="modal fade"
-  id="weekShowtime"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Showtime by Week</h5>
-        <button
-          type="button"
-          class="close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- MODAL BODY -->
-        <h3>Select the week</h3>
-        <input id="week" type="week" name="week"/>
-    <h3>Add Showtime</h3>
-    <div>
-      <input type="text" id="showtime" />
-    </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" id="confirmShowtimeWeek">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script src="/scripts/shows.js"></script>
