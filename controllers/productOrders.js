@@ -21,7 +21,7 @@ module.exports.home = async (req, res) => {
 };
 
 module.exports.create = async (req, res) => {
-  const { _product, quantity, pricePerUnit, date, invoice } = req.body;
+  const { _product, quantity, pricePerUnit, date } = req.body;
   console.log(req.body);
 
   // NEW PRODUCT ORDER
@@ -79,6 +79,7 @@ module.exports.create = async (req, res) => {
   });
 
   await newOrder.save();
+  res.redirect("/home");
 };
 
 module.exports.show = async (req, res) => {
