@@ -1,3 +1,5 @@
+// ORDERS ---------------------------------------------------------------------------------
+// SHOW ORDER MODAL -----------------------------------------------------------------------
 const showOrderModal = (order, products) => {
   let ppu = "";
   // ORDER
@@ -6,9 +8,8 @@ const showOrderModal = (order, products) => {
 
   // PRODUCTS
   const parseProductsObject = JSON.parse(products);
-  console.log(parseProductsObject);
   // PRODUCTS TABLE
-  const productsTable = document.querySelector("#products_table_body");
+  const productsTable = document.querySelector("#order_products_table_body");
 
   // CLEANING THE TABLE BEFORE SHOW
   while (productsTable.firstChild) {
@@ -60,9 +61,9 @@ const showOrderModal = (order, products) => {
 
   // TOTALS
   // SUBTOTAL
-  const totalsSubtotal = document.querySelector("#totals_subtotal");
+  const totalsSubtotal = document.querySelector("#order_totals_subtotal");
   totalsSubtotal.innerHTML = 0;
-  const orderTable = document.querySelector("#products_table_body");
+  const orderTable = document.querySelector("#order_products_table_body");
   const orderTableChilds = orderTable.childNodes;
   for (product of orderTableChilds) {
     const childs = product.childNodes;
@@ -71,73 +72,72 @@ const showOrderModal = (order, products) => {
   }
 
   // PROVIDERS CUT
-  const totalsProvidersCut = document.querySelector("#totals_providers_cut");
+  const totalsProvidersCut = document.querySelector(
+    "#order_totals_providers_cut"
+  );
   const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
   totalsProvidersCut.innerHTML = cut;
 
   // IVA
-  const totalsIVA = document.querySelector("#totals_iva");
+  const totalsIVA = document.querySelector("#order_totals_iva");
   const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
   totalsIVA.innerHTML = iva;
 
   // TOTAL
-  const totalsTotal = document.querySelector("#totals_total");
+  const totalsTotal = document.querySelector("#order_totals_total");
   const total =
     parseFloat(totalsSubtotal.innerHTML) +
     parseFloat(totalsProvidersCut.innerHTML) +
     parseFloat(totalsIVA.innerHTML);
   totalsTotal.innerHTML = total.toFixed(1);
 };
-
+// ----------------------------------------------------------------------------------------
+// SEARCH ORDER BUTTON --------------------------------------------------------------------
 const searchOrderButton = () => {
   const searchInvoice = document.querySelector("#order_search").value;
   const ordersTable = document.querySelector("#orders_body");
   const tableChilds = ordersTable.childNodes;
   for (order of tableChilds) {
     if (order.tagName == "TR") {
-      console.log(order);
       childs = order.childNodes;
-      console.log(childs);
       if (childs[1].innerHTML == searchInvoice) {
         childs[7].children[0].click();
       }
     }
   }
 };
-
-//-----------------------------------------------
+// ----------------------------------------------------------------------------------------
+// SALES ----------------------------------------------------------------------------------
+// SHOW PRODUCT SALE MODAL ----------------------------------------------------------------
 const showProductSaleModal = (sale, products) => {
   let ppu = "";
-  // ORDER
+  // SALE
   const parseObject = JSON.parse(sale);
-  console.log(parseObject);
-  /*
-  const orderObject = parseObject.products;
+  const saleObject = parseObject.products;
 
   // PRODUCTS
   const parseProductsObject = JSON.parse(products);
-  console.log(parseProductsObject);
   // PRODUCTS TABLE
-  const productsTable = document.querySelector("#products_table_body");
+  const saleProductsTable = document.querySelector("#sale_product_table_body");
 
   // CLEANING THE TABLE BEFORE SHOW
-  while (productsTable.firstChild) {
-    productsTable.removeChild(productsTable.firstChild);
+  while (saleProductsTable.firstChild) {
+    saleProductsTable.removeChild(saleProductsTable.firstChild);
   }
 
-  // FOR EVERY PRODUCT IN THE ORDER
-  for (_order of orderObject) {
+  // FOR EVERY PRODUCT IN THE SALE
+  for (_sale of saleObject) {
     // ROW
     const row = document.createElement("tr");
 
     // PRODUCT ID COL
     const productIDCol = document.createElement("td");
-    productIDCol.innerHTML = _order.productId;
+    productIDCol.innerHTML = _sale.productId;
     row.appendChild(productIDCol);
 
     // NAME, DESCRIPTION & PRICE PER UNIT
     for (product of parseProductsObject) {
-      if (product._id == _order.product) {
+      if (product._id == _sale.product) {
         // NAME
         const nameCol = document.createElement("td");
         nameCol.innerHTML = product.name;
@@ -156,7 +156,7 @@ const showProductSaleModal = (sale, products) => {
 
     // QUANTITY
     const quantityCol = document.createElement("td");
-    quantityCol.innerHTML = _order.quantity;
+    quantityCol.innerHTML = _sale.quantity;
     row.appendChild(quantityCol);
 
     //PRICE
@@ -165,52 +165,45 @@ const showProductSaleModal = (sale, products) => {
       parseInt(quantityCol.innerHTML) * parseInt(ppu.innerHTML);
     row.appendChild(priceCol);
 
-    productsTable.appendChild(row);
+    saleProductsTable.appendChild(row);
   }
 
   // TOTALS
   // SUBTOTAL
-  const totalsSubtotal = document.querySelector("#totals_subtotal");
+  const totalsSubtotal = document.querySelector(
+    "#sale_product_totals_subtotal"
+  );
   totalsSubtotal.innerHTML = 0;
-  const orderTable = document.querySelector("#products_table_body");
-  const orderTableChilds = orderTable.childNodes;
-  for (product of orderTableChilds) {
+  const saleTable = document.querySelector("#sale_product_table_body");
+  const saleTableChilds = saleTable.childNodes;
+  for (product of saleTableChilds) {
     const childs = product.childNodes;
     totalsSubtotal.innerHTML =
       parseInt(totalsSubtotal.innerHTML) + parseInt(childs[5].innerHTML);
   }
 
-  // PROVIDERS CUT
-  const totalsProvidersCut = document.querySelector("#totals_providers_cut");
-  const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
-  totalsProvidersCut.innerHTML = cut;
-
   // IVA
-  const totalsIVA = document.querySelector("#totals_iva");
+  const totalsIVA = document.querySelector("#sale_product_totals_iva");
   const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
   totalsIVA.innerHTML = iva;
 
   // TOTAL
-  const totalsTotal = document.querySelector("#totals_total");
+  const totalsTotal = document.querySelector("#sale_product_totals_total");
   const total =
-    parseFloat(totalsSubtotal.innerHTML) +
-    parseFloat(totalsProvidersCut.innerHTML) +
-    parseFloat(totalsIVA.innerHTML);
+    parseFloat(totalsSubtotal.innerHTML) + parseFloat(totalsIVA.innerHTML);
   totalsTotal.innerHTML = total.toFixed(1);
-  */
 };
-
+// ----------------------------------------------------------------------------------------
+// SEARCH SALE BUTTON ---------------------------------------------------------------------
 const searchSaleButton = () => {
-  const searchInvoice = document.querySelector("#order_search").value;
-  const ordersTable = document.querySelector("#orders_body");
+  const searchInvoice = document.querySelector("#sale_search").value;
+  const ordersTable = document.querySelector("#sales_body");
   const tableChilds = ordersTable.childNodes;
-  for (order of tableChilds) {
-    if (order.tagName == "TR") {
-      console.log(order);
-      childs = order.childNodes;
-      console.log(childs);
+  for (sale of tableChilds) {
+    if (sale.tagName == "TR") {
+      childs = sale.childNodes;
       if (childs[1].innerHTML == searchInvoice) {
-        childs[7].children[0].click();
+        childs[9].children[0].click();
       }
     }
   }
