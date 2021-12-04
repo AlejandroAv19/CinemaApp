@@ -94,7 +94,7 @@ app.post(
 );
 
 app.get("/home", isLoggedIn, (req, res) => {
-  res.render("home");
+  res.render("home", { userType: req.user.userType });
 });
 
 app.get("/error", (req, res) => {
