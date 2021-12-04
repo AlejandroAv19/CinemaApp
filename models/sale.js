@@ -4,10 +4,12 @@ const { Schema } = mongoose;
 const saleSchema = new Schema({
   details: {
     type: Schema.Types.ObjectId,
-    refPath: "Purchase",
+    required: true,
+    refPath: "onModel",
   },
-  Purchase: {
+  onModel: {
     type: String,
+    required: true,
     enum: ["ProductPurchase", "TicketPurchase"],
   },
   madeBy: { type: Schema.Types.ObjectId, ref: "User" },
