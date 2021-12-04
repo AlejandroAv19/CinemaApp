@@ -1,16 +1,16 @@
 <% layout("layouts/boilerplate") %>
 <h1>Viewing Sales & Orders</h1>
 <div class="container d-flex flex-row">
+  <!-- SALES ------------------------------------------------------------------------>
   <div class="container m-2 w-100">
     <div>
-      <label for="order_search">Search By Invoice</label>
-      <input type="number" id="order_search" />
-      <button class="btn btn-outline-info" onclick="searchButton()">
+      <label for="sale_search">Search By Invoice</label>
+      <input type="number" id="sale_search" />
+      <button class="btn btn-outline-info" onclick="searchSaleButton()">
         Search
       </button>
     </div>
     <h2>Sales</h2>
-    <!-- VIEWING SALES -->
     <table class="table">
       <thead>
         <tr>
@@ -21,9 +21,8 @@
           <th>Details</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="sales_body">
         <% for(sale of sales){ %>
-          <% console.log(sale) %> 
         <tr>
           <td><%=JSON.parse(JSON.stringify(sale)).invoice %></td>
           <td><%= sale.madeBy.name %></td>
@@ -50,6 +49,7 @@
     </table>
   </div>
   <!------------------------------------------------------------------------------------->
+  <!-- ORDERS --------------------------------------------------------------------------->
   <div class="container m-2 w-100">
     <div>
       <label for="order_search">Search By Invoice</label>
@@ -91,8 +91,8 @@
     </table>
   </div>
 </div>
-
-<!-- SHOW PRODUCT ORDER MODAL -->
+<!------------------------------------------------------------------------------------->
+<!-- SHOW PRODUCT ORDER MODAL --------------------------------------------------------->
 <div
   class="modal fade"
   id="showOrderModal"
@@ -126,7 +126,7 @@
               <th>Price</th>
             </tr>
           </thead>
-          <tbody id="products_table_body"></tbody>
+          <tbody id="order_products_table_body"></tbody>
         </table>
         <table class="table">
           <thead>
@@ -139,13 +139,10 @@
           </thead>
           <tbody>
             <tr>
-              <td id="totals_subtotal">0</td>
-              <td id="totals_providers_cut">0</td>
-              <td id="totals_iva">0</td>
-              <td id="totals_total">0</td>
-
-              <td></td>
-              <td></td>
+              <td id="order_totals_subtotal">0</td>
+              <td id="order_totals_providers_cut">0</td>
+              <td id="order_totals_iva">0</td>
+              <td id="order_totals_total">0</td>
             </tr>
           </tbody>
         </table>
@@ -193,26 +190,23 @@
               <th>Price</th>
             </tr>
           </thead>
-          <tbody id="products_table_body"></tbody>
+          <tbody id="sale_product_table_body"></tbody>
         </table>
         <table class="table">
           <thead>
             <tr>
+              <th></th>
               <th>Subtotal</th>
-              <th>Provider's Cut (%10)</th>
               <th>IVA (%5)</th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td id="totals_subtotal">0</td>
-              <td id="totals_providers_cut">0</td>
-              <td id="totals_iva">0</td>
-              <td id="totals_total">0</td>
-
               <td></td>
-              <td></td>
+              <td id="sale_product_totals_subtotal">0</td>
+              <td id="sale_product_totals_iva">0</td>
+              <td id="sale_product_totals_total">0</td>
             </tr>
           </tbody>
         </table>
