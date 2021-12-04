@@ -66,6 +66,7 @@ module.exports.create = async (req, res) => {
   const newSale = new Sale({
     details: productPurchase,
     madeBy: user,
+    onModel: "ProductPurchase",
     type: "product",
     date,
   });
