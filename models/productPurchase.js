@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const productPurchaseSchema = new Schema({
-  items: [
+  products: [
     {
-      item: { type: Schema.Types.ObjectId, ref: "Product" },
+      product: { type: Schema.Types.ObjectId, ref: "Product" },
+      productId: { type: Number },
       quantity: { type: Number },
-      subtotal: { type: Number },
+      pricePerUnit: { type: Number },
     },
   ],
 });
