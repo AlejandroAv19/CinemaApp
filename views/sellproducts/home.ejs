@@ -9,18 +9,22 @@
   </thead>
   <tbody>
     <tr>
-      <td>
-        <%=new Date().getMonth()%>-<%=new Date().getDate()%>-<%=new
+      <td id="date">
+        <%=new Date().getMonth() + 1%>-<%= new Date().getDate()%>-<%= new
         Date().getFullYear()%>
       </td>
-      <td>AAAA</td>
+      <td id="invoice"><%= nextInvoice %></td>
     </tr>
   </tbody>
 </table>
 <div class="container d-flex flex-row">
   <div class="container m-2 w-100">
     <h2>Product ID</h2>
-    <input type="number" id="search_product_id" />
+    <input
+      type="number"
+      id="search_product_id"
+      onchange="productIdChange('<%= JSON.stringify(products) %>')"
+    />
     <h2>Quantity</h2>
     <div>
       <input
@@ -33,9 +37,27 @@
     <button onclick="addProduct('<%= JSON.stringify(products) %>')">
       Add Product
     </button>
+    <!-- PRODUCT PREVIEW -->
+    <h2>Product Preview</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Stock Limit</th>
+          <th>Available Stock</th>
+        </tr>
+      </thead>
+      <tbody id="preview_body">
+        <tr>
+          <td id="preview_name"></td>
+          <td id="preview_stock_limit"></td>
+          <td id="preview_stock"></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="container m-2 w-100">
-    <h2>Order Overview</h2>
+    <h2>Purchase Overview</h2>
     <table class="table">
       <thead>
         <tr>
@@ -60,10 +82,13 @@
           <td id="totals_subtotal">0</td>
           <td id="totals_iva">0</td>
           <td id="totals_total">0</td>
+          <td></td>
         </tr>
       </tbody>
     </table>
-    <button>Go to checkout</button>
+    <form action="/sellproducts" method="post" id="output_form">
+      <button onclick="submitForm()">Confirm Order</button>
+    </form>
   </div>
 </div>
 
