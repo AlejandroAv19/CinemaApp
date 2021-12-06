@@ -100,6 +100,7 @@
     <table class="table">
       <thead>
         <tr>
+          <td>ID</td>
           <td>Movie</td>
           <td>Auditorium</td>
           <td>Day</td>
@@ -108,8 +109,10 @@
         </tr>
       </thead>
       <tbody>
-        <% for(show of shows){ %>
+        <% for(show of shows){ %> <% const objectParse =
+        JSON.parse(JSON.stringify(show)) %> <% const ID = objectParse.showId%>
         <tr>
+          <td><%= ID %></td>
           <td><%= show.movie %></td>
           <td><%= show.auditorium %></td>
           <td><%= show.day %></td>
