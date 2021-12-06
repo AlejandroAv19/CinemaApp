@@ -194,6 +194,50 @@ const showProductSaleModal = (sale, products) => {
   totalsTotal.innerHTML = total.toFixed(1);
 };
 // ----------------------------------------------------------------------------------------
+// SHOW TICKET SALE MODAL -----------------------------------------------------------------
+const showTicketSaleModal = (sale) => {
+  const objectParse = JSON.parse(sale);
+
+  // MOVIE NAME
+  const name = document.querySelector("#show_movie");
+  name.innerHTML = objectParse.movie;
+
+  // AUDITORIUM
+  const auditorium = document.querySelector("#show_auditorium");
+  auditorium.innerHTML = objectParse.auditorium;
+
+  // DAY
+  const day = document.querySelector("#show_day");
+  day.innerHTML = objectParse.day;
+
+  // SHOWTIME
+  const showtime = document.querySelector("#show_showtime");
+  showtime.innerHTML = objectParse.showtime;
+
+  // NUMBER OF TICKETS
+  const ticketsNumber = document.querySelector("#show_number_tickets");
+  ticketsNumber.innerHTML = objectParse.ticketsNumber;
+
+  // PRICE
+  const price = document.querySelector("#show_price");
+  price.innerHTML = (parseFloat(ticketsNumber.innerHTML) * 9.16).toFixed(1);
+
+  // TOTALS
+  // SUBTOTAL
+  const subtotal = document.querySelector("#totals_subtotal");
+  subtotal.innerHTML = price.innerHTML;
+
+  // IVA
+  const iva = document.querySelector("#totals_iva");
+  iva.innerHTML = (parseFloat(subtotal.innerHTML) * 0.05).toFixed(1);
+
+  // TOTAL
+  const total = document.querySelector("#totals_total");
+  total.innerHTML = (
+    parseFloat(iva.innerHTML) + parseFloat(subtotal.innerHTML)
+  ).toFixed(1);
+};
+// ----------------------------------------------------------------------------------------
 // SEARCH SALE BUTTON ---------------------------------------------------------------------
 const searchSaleButton = () => {
   const searchInvoice = document.querySelector("#sale_search").value;
