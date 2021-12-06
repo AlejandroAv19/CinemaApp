@@ -93,6 +93,11 @@ app.post(
   }
 );
 
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/");
+});
+
 app.get("/home", isLoggedIn, (req, res) => {
   res.render("home", { userType: req.user.userType });
 });
