@@ -80,9 +80,21 @@ buttonConfirmTickets.addEventListener("click", function () {
   const ticketsOverview = document.querySelector("#overview_number_tickets");
   ticketsOverview.innerHTML = numberDisplay.value;
 
+  // SUBTOTAL
+  const subtotalOverview = document.querySelector("#overview_subtotal");
+  subtotalOverview.innerHTML = parseInt(ticketsOverview.innerHTML) * 9.16;
+
+  // IVA
+  const ivaOverview = document.querySelector("#overview_iva");
+  ivaOverview.innerHTML = (
+    parseFloat(subtotalOverview.innerHTML) * 0.05
+  ).toFixed(1);
+
   // DISPLAYING THE TOTAL
   const totalOverview = document.querySelector("#overview_total");
-  totalOverview.innerHTML = parseInt(ticketsOverview.innerHTML) * 9.16;
+  totalOverview.innerHTML = (
+    parseFloat(subtotalOverview.innerHTML) + parseFloat(ivaOverview.innerHTML)
+  ).toFixed(1);
 });
 
 // CONFIRM PURCHASE
@@ -118,4 +130,8 @@ buttonConfirmPurchase.addEventListener("click", function () {
   const totalOverview = document.querySelector("#overview_total").innerHTML;
   const totalForm = document.querySelector("#total_form");
   totalForm.value = totalOverview;
+  // DAY
+  const date = document.querySelector("#date").innerHTML.trim();
+  const dateForm = document.querySelector("#date_form");
+  dateForm.value = date;
 });
