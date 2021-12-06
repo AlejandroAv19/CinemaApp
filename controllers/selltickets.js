@@ -25,39 +25,42 @@ module.exports.home = async (req, res) => {
 module.exports.create = async (req, res) => {
   const { movie, auditorium, day, showtime, ticketsNumber, date } = req.body;
 
-  const newTicketPurchase = new TicketPurchase({
-    movie,
-    auditorium,
-    day,
-    showtime,
-    ticketsNumber,
-  });
+  if (!movie) {
+    console.log("NO MOVIE");
+  } else {
+    const newTicketPurchase = new TicketPurchase({
+      movie,
+      auditorium,
+      day,
+      showtime,
+      ticketsNumber,
+    });
 
-  // MAKING THE SALE
-  const user = await User.findOne({ username: req.cookies.username });
-  const newSale = new Sale({
-    details: newTicketPurchase,
-    madeBy: user,
-    type: "ticket",
-    onModel: "TicketPurchase",
-    date,
-  });
+    // MAKING THE SALE
+    const user = await User.findOne({ username: req.cookies.username });
+    const newSale = new Sale({
+      details: newTicketPurchase,
+      madeBy: user,
+      type: "ticket",
+      onModel: "TicketPurchase",
+      date,
+    });
 
-  const showFound = await Show.findOne({ auditorium, day, showtime });
+    const showFound = await Show.findOne({ auditorium, day, showtime });
 
-  // IF THERE ARE AVAILABLE SEATS
-  if (parseInt(ticketsNumber) <= parseInt(showFound.availableSeats)) {
-    await newTicketPurchase.save();
-    await newSale.save();
-    const updateShow = await Show.findOneAndUpdate(
-      { auditorium, day, showtime },
-      {
-        availableSeats:
-          parseInt(showFound.availableSeats) - parseInt(ticketsNumber),
-      }
-    );
+    // IF THERE ARE AVAILABLE SEATS
+    if (parseInt(ticketsNumber) <= parseInt(showFound.availableSeats)) {
+      await newTicketPurchase.save();
+      await newSale.save();
+      const updateShow = await Show.findOneAndUpdate(
+        { auditorium, day, showtime },
+        {
+          availableSeats:
+            parseInt(showFound.availableSeats) - parseInt(ticketsNumber),
+        }
+      );
+    }
   }
-
   res.redirect("/home");
 };
 

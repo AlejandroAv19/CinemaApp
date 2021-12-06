@@ -22,63 +22,65 @@ module.exports.home = async (req, res) => {
 
 module.exports.create = async (req, res) => {
   const { _product, quantity, pricePerUnit, date } = req.body;
-  console.log(req.body);
+  if (!req.body._product) {
+    console.log("NO PRODUCTS");
+  } else {
+    // NEW PRODUCT ORDER
+    const productOrder = new ProductOrder({ date });
 
-  // NEW PRODUCT ORDER
-  const productOrder = new ProductOrder({ date });
+    if (Array.isArray(_product)) {
+      for (let i = 0; i < _product.length; i++) {
+        const _name = _product[i];
+        const _quantity = quantity[i];
+        const _ppu = pricePerUnit[i];
 
-  if (Array.isArray(_product)) {
-    for (let i = 0; i < _product.length; i++) {
-      const _name = _product[i];
-      const _quantity = quantity[i];
-      const _ppu = pricePerUnit[i];
+        // SEARCHING FOR THE PRODUCT
+        const productObject = await Product.findOne({ name: _name });
 
-      // SEARCHING FOR THE PRODUCT
-      const productObject = await Product.findOne({ name: _name });
+        // productId
+        const a = JSON.stringify(productObject);
+        const b = JSON.parse(a);
 
-      // productId
-      const a = JSON.stringify(productObject);
-      const b = JSON.parse(a);
+        const product = {
+          product: productObject,
+          productId: b.productId,
+          quantity: _quantity,
+          pricePerUnit: _ppu,
+        };
+        productOrder.products.push(product);
+        // ADDING THE PRODUCT TO THE STOCK
+        // FINDING THE PRODUCT
+        const addProduct = await Product.findOne({ name: _name });
+        const actualStock = addProduct.stock;
+        const newStock = parseInt(actualStock) + parseInt(_quantity);
 
-      const product = {
-        product: productObject,
-        productId: b.productId,
-        quantity: _quantity,
-        pricePerUnit: _ppu,
-      };
-      productOrder.products.push(product);
-      // ADDING THE PRODUCT TO THE STOCK
-      // FINDING THE PRODUCT
-      const addProduct = await Product.findOne({ name: _name });
-      const actualStock = addProduct.stock;
-      const newStock = parseInt(actualStock) + parseInt(_quantity);
-
-      // IF THE NEW STOCK DOESNT GET ABOVE THE LIMIT
-      if (newStock <= parseInt(addProduct.stockLimit)) {
-        const productUpdate = await Product.findOneAndUpdate(
-          { name: _name },
-          { stock: newStock }
-        );
-        await productUpdate.save();
+        // IF THE NEW STOCK DOESNT GET ABOVE THE LIMIT
+        if (newStock <= parseInt(addProduct.stockLimit)) {
+          const productUpdate = await Product.findOneAndUpdate(
+            { name: _name },
+            { stock: newStock }
+          );
+          await productUpdate.save();
+        }
       }
+
+      await productOrder.save();
+    } else {
+      console.log("NOT ARRAY");
     }
 
-    await productOrder.save();
-  } else {
-    console.log("NOT ARRAY");
+    // FINDING THE USER
+    const user = await User.findOne({ username: req.cookies.username });
+
+    // CREATING THE ORDER
+    const newOrder = new Order({
+      details: productOrder,
+      madeBy: user,
+      date,
+    });
+
+    await newOrder.save();
   }
-
-  // FINDING THE USER
-  const user = await User.findOne({ username: req.cookies.username });
-
-  // CREATING THE ORDER
-  const newOrder = new Order({
-    details: productOrder,
-    madeBy: user,
-    date,
-  });
-
-  await newOrder.save();
   res.redirect("/home");
 };
 
