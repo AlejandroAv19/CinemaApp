@@ -58,7 +58,9 @@
       </div>
       <!-- SUBMIT -->
       <div class="form-group p-2">
-        <button>Create New Auditorium</button>
+        <button class="btn btn-outline-dark btn-sm">
+          Create New Auditorium
+        </button>
       </div>
     </form>
     <!-- SHOWING ALL AUDITORIUMS -->
@@ -86,7 +88,7 @@
           <td><%= auditorium.proyectionType %></td>
           <td>
             <button
-              class="btn btn-outline-info"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#showModal"
               onclick="showModal('<%=JSON.stringify(auditorium)%>')"
@@ -96,7 +98,7 @@
           </td>
           <td>
             <button
-              class="btn btn-outline-warning"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#updateModal"
               onclick="updateModal('<%=JSON.stringify(auditorium)%>')"
@@ -106,7 +108,7 @@
           </td>
           <td>
             <button
-              class="btn btn-outline-danger"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#deleteModal"
               onclick="deleteModal('<%=JSON.stringify(auditorium)%>')"

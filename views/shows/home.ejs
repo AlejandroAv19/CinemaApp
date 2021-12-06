@@ -31,7 +31,12 @@
           <td><%= movie.language %></td>
           <td><%= movie.duration %></td>
           <td>
-            <button onclick="addMovie('<%= movie.title %>')">Select</button>
+            <button
+              class="btn btn-outline-dark btn-sm"
+              onclick="addMovie('<%= movie.title %>')"
+            >
+              Select
+            </button>
           </td>
         </tr>
         <% } %>
@@ -56,6 +61,7 @@
           <td><%= auditorium.proyectionType %></td>
           <td>
             <button
+              class="btn btn-outline-dark btn-sm"
               onclick="addAuditorium('<%= auditorium.number %>', '<%= auditorium.capacity %>')"
             >
               Select
@@ -68,12 +74,16 @@
     <!-- DAY SELECTION -->
     <h3>Step 3: Select the day</h3>
     <input type="date" name="day" id="day" />
-    <button onclick="addDate()">Confirm</button>
+    <button class="btn btn-outline-dark btn-sm" onclick="addDate()">
+      Confirm
+    </button>
     <!-- SHOWTIMES SELECTION -->
     <h3>Step 4: Add Showtime</h3>
     <div>
       <input type="text" id="showtime" />
-      <button onclick="addShowtime()">Add</button>
+      <button class="btn btn-outline-dark btn-sm" onclick="addShowtime()">
+        Add
+      </button>
     </div>
   </div>
   <div class="container m-2 w-100">
@@ -98,7 +108,9 @@
       </tbody>
     </table>
     <form id="create_form" action="/shows" method="post">
-      <button onclick="createShow()">Create Show</button>
+      <button class="btn btn-outline-dark btn-sm" onclick="createShow()">
+        Create Show
+      </button>
     </form>
     <!-- ALL SHOWS -->
     <h1>Showing all Shows</h1>

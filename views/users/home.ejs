@@ -68,7 +68,9 @@
         <div class="invalid-feedback">Password is Required</div>
       </div>
       <div class="form-group p-2">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-outline-dark btn-sm">
+          Create
+        </button>
       </div>
     </form>
   </div>
@@ -92,7 +94,7 @@
           <td scope="row"><%= user.userType %></td>
           <td scope="row">
             <button
-              class="btn btn-outline-info"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#showModal"
               onclick="showModal('<%=JSON.stringify(user)%>')"
@@ -102,7 +104,7 @@
           </td>
           <td scope="row">
             <button
-              class="btn btn-outline-warning"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#updateModal"
               onclick="updateModal('<%=JSON.stringify(user)%>')"
@@ -112,7 +114,7 @@
           </td>
           <td scope="row">
             <button
-              class="btn btn-outline-danger"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#deleteModal"
               onclick="deleteModal('<%=JSON.stringify(user)%>')"

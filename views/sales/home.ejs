@@ -11,7 +11,7 @@
     <div>
       <label for="sale_search">Search By Invoice</label>
       <input type="number" id="sale_search" />
-      <button class="btn btn-outline-info" onclick="searchSaleButton()">
+      <button class="btn btn-outline-dark btn-sm" onclick="searchSaleButton()">
         Search
       </button>
     </div>
@@ -35,7 +35,7 @@
           <td><%= sale.date %></td>
           <td>
             <button
-              class="btn btn-outline-info"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"      
               <% if(sale.type == "product"){ %> 
                 data-bs-target="#showProductSaleModal"
@@ -59,7 +59,7 @@
     <div>
       <label for="order_search">Search By Invoice</label>
       <input type="number" id="order_search" />
-      <button class="btn btn-outline-info" onclick="searchOrderButton()">
+      <button class="btn btn-outline-dark btn-sm" onclick="searchOrderButton()">
         Search
       </button>
     </div>
@@ -82,7 +82,7 @@
           <td><%=order.date %></td>
           <td>
             <button
-              class="btn btn-outline-info"
+              class="btn btn-outline-dark btn-sm"
               data-bs-toggle="modal"
               data-bs-target="#showOrderModal"
               onclick="showOrderModal('<%=JSON.stringify(order.details)%>', '<%=JSON.stringify(products)%>')"

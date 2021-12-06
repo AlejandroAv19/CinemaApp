@@ -39,7 +39,10 @@
         value="1"
       />
     </div>
-    <button onclick="addProduct('<%= JSON.stringify(products) %>')">
+    <button
+      class="btn btn-outline-dark btn-sm"
+      onclick="addProduct('<%= JSON.stringify(products) %>')"
+    >
       Add Product
     </button>
     <!-- PRODUCT PREVIEW -->
@@ -92,7 +95,9 @@
       </tbody>
     </table>
     <form action="/productorders" method="post" id="output_form">
-      <button onclick="submitForm()">Confirm Order</button>
+      <button class="btn btn-outline-dark btn-sm" onclick="submitForm()">
+        Confirm Order
+      </button>
     </form>
   </div>
 </div>

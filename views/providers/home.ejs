@@ -48,7 +48,7 @@
         <div class="invalid-feedback">Email is Required | Check the format</div>
       </div>
       <div>
-        <button class="btn btn-primary">Create New Provider</button>
+        <button class="btn btn-outline-dark btn-sm">Create New Provider</button>
       </div>
     </form>
   </div>
@@ -73,12 +73,12 @@
           <td><%= provider.email %></td>
           <td>
             <form action="/providers/<%= provider._id%>">
-              <button class="btn btn-outline-info btn-sm">Show</button>
+              <button class="btn btn-outline-dark btn-sm">Show</button>
             </form>
           </td>
           <td>
             <form action="/providers/<%= provider._id%>/edit">
-              <button class="btn btn-outline-warning btn-sm">Update</button>
+              <button class="btn btn-outline-dark btn-sm">Update</button>
             </form>
           </td>
           <td>
@@ -86,7 +86,7 @@
               action="/providers/<%= provider._id%>?_method=DELETE"
               method="post"
             >
-              <button class="btn btn-outline-danger btn-sm">Delete</button>
+              <button class="btn btn-outline-dark btn-sm">Delete</button>
             </form>
           </td>
         </tr>

@@ -53,7 +53,7 @@
           <td><%= movie.duration %></td>
           <td>
             <button
-              class="btn btn-primary btn-sm"
+              class="btn btn-outline-dark btn-sm"
               onclick="showsAndOverview('<%= movie.title%>', '<%=shows%>')"
             >
               Select
@@ -79,10 +79,10 @@
     </table>
     <!-- SELECTING TICKETS -->
     <h2>Number of tickets</h2>
-    <button class="btn btn-primary btn-sm" id="substract">-</button>
+    <button class="btn btn-outline-dark btn-sm" id="substract">-</button>
     <input id="number_tickets" type="number" value="1" readonly />
-    <button class="btn btn-primary btn-sm" id="add">+</button>
-    <button class="btn btn-primary btn-sm" id="confirm_number_tickets">
+    <button class="btn btn-outline-dark btn-sm" id="add">+</button>
+    <button class="btn btn-outline-dark btn-sm" id="confirm_number_tickets">
       Confirm
     </button>
   </div>
@@ -128,7 +128,7 @@
         hidden
       />
       <input type="number" name="total" id="total_form" hidden />
-      <button class="btn btn-primary btn-sm" id="confirm_purchase">
+      <button class="btn btn-outline-dark btn-sm" id="confirm_purchase">
         Purchase
       </button>
     </form>
