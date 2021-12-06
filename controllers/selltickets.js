@@ -3,16 +3,35 @@ const Show = require("../models/show");
 const TicketPurchase = require("../models/ticketPurchase");
 const Sale = require("../models/sale");
 const User = require("../models/user");
+const SaleInvoice = require("../models/sale_invoice_counter");
 
 module.exports.home = async (req, res) => {
   const movies = await Movie.find({});
   const shows = await Show.find({});
-  res.render("selltickets/home", { movies, shows: JSON.stringify(shows) });
+  const invoiceCounter = await SaleInvoice.find({});
+  // ---
+  const a = JSON.stringify(invoiceCounter);
+  const b = JSON.parse(a);
+  // ---
+  const nextInvoice = parseInt(b[0].seq_value) + 1;
+
+  res.render("selltickets/home", {
+    movies,
+    shows: JSON.stringify(shows),
+    nextInvoice,
+  });
 };
 
 module.exports.create = async (req, res) => {
-  // MAKING THE TICKET PURCHASE
-  const newTicketPurchase = new TicketPurchase(req.body);
+  const { movie, auditorium, day, showtime, ticketsNumber, date } = req.body;
+
+  const newTicketPurchase = new TicketPurchase({
+    movie,
+    auditorium,
+    day,
+    showtime,
+    ticketsNumber,
+  });
 
   // MAKING THE SALE
   const user = await User.findOne({ username: req.cookies.username });
@@ -20,12 +39,10 @@ module.exports.create = async (req, res) => {
     details: newTicketPurchase,
     madeBy: user,
     type: "ticket",
-    date: Date.now(),
-    total: req.body.total,
+    onModel: "TicketPurchase",
+    date,
   });
 
-  // SUBSTRACT SEATS AVAILABLE
-  const { auditorium, day, showtime, ticketsNumber } = req.body;
   const showFound = await Show.findOne({ auditorium, day, showtime });
 
   // IF THERE ARE AVAILABLE SEATS
