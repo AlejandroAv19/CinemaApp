@@ -37,7 +37,7 @@
                 onclick="showProductSaleModal('<%=JSON.stringify(sale.details)%>', '<%=JSON.stringify(products)%>')"
               <% }else{ %> 
                 data-bs-target="#showTicketSaleModal"
-                onclick="showTicketSaleModal('<%=JSON.stringify(sale.details)%>', '<%=JSON.stringify(products)%>')"
+                onclick="showTicketSaleModal('<%=JSON.stringify(sale.details)%>')"
               <% }%>
             >
               Details
@@ -155,8 +155,8 @@
     </div>
   </div>
 </div>
-
-<!-- SHOW PRODUCT SALE MODAL -->
+<!------------------------------------------------------------------------------------->
+<!-- SHOW PRODUCT SALE MODAL ---------------------------------------------------------->
 <div
   class="modal fade"
   id="showProductSaleModal"
@@ -219,8 +219,8 @@
     </div>
   </div>
 </div>
-
-<!-- SHOW TICKET SALE MODAL -->
+<!------------------------------------------------------------------------------------->
+<!-- SHOW TICKET SALE MODAL ----------------------------------------------------------->
 <div
   class="modal fade"
   id="showTicketSaleModal"
@@ -246,34 +246,44 @@
         <table class="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Descripcion</th>
-              <th>Price Per Unit</th>
-              <th>Quantity</th>
+              <th>Movie</th>
+              <th>Auditorium</th>
+              <th>Day</th>
+              <th>Showtime</th>
+              <th>Number Of Tickets</th>
               <th>Price</th>
             </tr>
           </thead>
-          <tbody id="products_table_body"></tbody>
+          <tbody id="tickets_table_body">
+            <tr>
+              <td id="show_movie"></td>
+              <td id="show_auditorium"></td>
+              <td id="show_day"></td>
+              <td id="show_showtime"></td>
+              <td id="show_number_tickets"></td>
+              <td id="show_price"></td>
+            </tr>
+          </tbody>
         </table>
         <table class="table">
           <thead>
             <tr>
+              <th></th>
+              <th></th>
+              <th></th>
               <th>Subtotal</th>
-              <th>Provider's Cut (%10)</th>
               <th>IVA (%5)</th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
+              <td></td>
+              <td></td>
+              <td></td>
               <td id="totals_subtotal">0</td>
-              <td id="totals_providers_cut">0</td>
               <td id="totals_iva">0</td>
               <td id="totals_total">0</td>
-
-              <td></td>
-              <td></td>
             </tr>
           </tbody>
         </table>
