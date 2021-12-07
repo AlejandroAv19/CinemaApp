@@ -1,48 +1,101 @@
 const addProduct = (products) => {
-  // SETTING THE OBJECT
-  const productsObject = JSON.parse(products);
+  const checkQuantity = parseInt(
+    document.querySelector("#product_quantity").value
+  );
 
-  // GETTING THE PRODUCT ID
-  const productID = document.querySelector("#search_product_id").value;
+  if (checkQuantity <= 0) {
+  } else {
+    // SETTING THE OBJECT
+    const productsObject = JSON.parse(products);
 
-  // GETTING THE QUANTITY
-  const quantity = document.querySelector("#product_quantity").value;
+    // GETTING THE PRODUCT ID
+    const productID = document.querySelector("#search_product_id").value;
 
-  // GETTING THE PRODUCT
-  for (product of productsObject) {
-    if (product.productId == productID) {
-      // IF THE ROW ALREADY EXIST
-      const rowAvailable = document.querySelector(
-        `#product_${product.productId}`
-      );
+    // GETTING THE QUANTITY
+    const quantity = document.querySelector("#product_quantity").value;
 
-      if (!rowAvailable) {
-        // SETTING THE ORDER OVERVIEW
-        const tableBody = document.querySelector("#order_table_body");
-        const productRow = document.createElement("tr");
-        productRow.id = productID;
+    // GETTING THE PRODUCT
+    for (product of productsObject) {
+      if (product.productId == productID) {
+        // IF THE ROW ALREADY EXIST
+        const rowAvailable = document.querySelector(
+          `#product_${product.productId}`
+        );
 
-        // SETTING THE ID
-        productRow.id = "product_" + product.productId;
+        if (!rowAvailable) {
+          // SETTING THE ORDER OVERVIEW
+          const tableBody = document.querySelector("#order_table_body");
+          const productRow = document.createElement("tr");
+          productRow.id = productID;
 
-        // PRODUCT NAME
-        const productNameColumn = document.createElement("td");
-        productNameColumn.innerHTML = product.name;
-        productRow.appendChild(productNameColumn);
+          // SETTING THE ID
+          productRow.id = "product_" + product.productId;
 
-        // QUANTITY
-        const quantityColumn = document.createElement("td");
-        quantityColumn.innerHTML = quantity;
-        productRow.appendChild(quantityColumn);
+          // PRODUCT NAME
+          const productNameColumn = document.createElement("td");
+          productNameColumn.innerHTML = product.name;
+          productRow.appendChild(productNameColumn);
 
-        // IF THE QUANTITY EXCEEDS THE STOCK LIMIT
-        if (
-          parseInt(quantityColumn.innerHTML) + parseInt(product.stock) >
-          parseInt(product.stockLimit)
-        ) {
-          alert("The Order Exceeds the Stock Limit");
-          productRow.remove();
+          // QUANTITY
+          const quantityColumn = document.createElement("td");
+          quantityColumn.innerHTML = quantity;
+          productRow.appendChild(quantityColumn);
 
+          // IF THE QUANTITY EXCEEDS THE STOCK LIMIT
+          if (
+            parseInt(quantityColumn.innerHTML) + parseInt(product.stock) >
+            parseInt(product.stockLimit)
+          ) {
+            alert("The Order Exceeds the Stock Limit");
+            productRow.remove();
+
+            const totalsSubtotal = document.querySelector("#totals_subtotal");
+            totalsSubtotal.innerHTML = 0;
+            const orderTable = document.querySelector("#order_table_body");
+            const orderTableChilds = orderTable.childNodes;
+            for (product of orderTableChilds) {
+              const childs = product.childNodes;
+              totalsSubtotal.innerHTML =
+                parseInt(totalsSubtotal.innerHTML) +
+                parseInt(childs[3].innerHTML);
+            }
+
+            const totalsProvidersCut = document.querySelector(
+              "#totals_providers_cut"
+            );
+            const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
+            totalsProvidersCut.innerHTML = cut;
+
+            const totalsIVA = document.querySelector("#totals_iva");
+            const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(
+              1
+            );
+            totalsIVA.innerHTML = iva;
+
+            const totalsTotal = document.querySelector("#totals_total");
+            const total =
+              parseFloat(totalsSubtotal.innerHTML) +
+              parseFloat(totalsProvidersCut.innerHTML) +
+              parseFloat(totalsIVA.innerHTML);
+            totalsTotal.innerHTML = total.toFixed(1);
+            break;
+          }
+
+          // PRICE PER UNIT
+          const PPUColumn = document.createElement("td");
+          PPUColumn.innerHTML = product.pricePerUnit;
+          productRow.appendChild(PPUColumn);
+
+          // PRICE
+          const priceColumn = document.createElement("td");
+          priceColumn.innerHTML =
+            parseInt(quantityColumn.innerHTML) * parseInt(PPUColumn.innerHTML);
+          productRow.appendChild(priceColumn);
+
+          tableBody.appendChild(productRow);
+
+          // ADD VALUES TO TOTALS
+          // SUBTOTAL
           const totalsSubtotal = document.querySelector("#totals_subtotal");
           totalsSubtotal.innerHTML = 0;
           const orderTable = document.querySelector("#order_table_body");
@@ -54,87 +107,82 @@ const addProduct = (products) => {
               parseInt(childs[3].innerHTML);
           }
 
+          // PROVIDERS CUT
           const totalsProvidersCut = document.querySelector(
             "#totals_providers_cut"
           );
           const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
           totalsProvidersCut.innerHTML = cut;
 
+          // IVA
           const totalsIVA = document.querySelector("#totals_iva");
           const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
           totalsIVA.innerHTML = iva;
 
+          // TOTAL
           const totalsTotal = document.querySelector("#totals_total");
           const total =
             parseFloat(totalsSubtotal.innerHTML) +
             parseFloat(totalsProvidersCut.innerHTML) +
             parseFloat(totalsIVA.innerHTML);
           totalsTotal.innerHTML = total.toFixed(1);
-          break;
-        }
+        } else {
+          const productRow = document.querySelector(
+            "#product_" + product.productId
+          );
+          const rowChilds = productRow.childNodes;
 
-        // PRICE PER UNIT
-        const PPUColumn = document.createElement("td");
-        PPUColumn.innerHTML = product.pricePerUnit;
-        productRow.appendChild(PPUColumn);
+          // SETTING THE QUANTITY
+          rowChilds[1].innerHTML =
+            parseInt(rowChilds[1].innerHTML) + parseInt(quantity);
 
-        // PRICE
-        const priceColumn = document.createElement("td");
-        priceColumn.innerHTML =
-          parseInt(quantityColumn.innerHTML) * parseInt(PPUColumn.innerHTML);
-        productRow.appendChild(priceColumn);
+          // IF THE QUANTITY EXCEEDS THE STOCK LIMIT
+          if (
+            parseInt(rowChilds[1].innerHTML) + parseInt(product.stock) >
+            parseInt(product.stockLimit)
+          ) {
+            alert("The Order Exceeds the Stock Limit");
+            productRow.remove();
 
-        tableBody.appendChild(productRow);
+            const totalsSubtotal = document.querySelector("#totals_subtotal");
+            totalsSubtotal.innerHTML = 0;
+            const orderTable = document.querySelector("#order_table_body");
+            const orderTableChilds = orderTable.childNodes;
+            for (product of orderTableChilds) {
+              const childs = product.childNodes;
+              totalsSubtotal.innerHTML =
+                parseInt(totalsSubtotal.innerHTML) +
+                parseInt(childs[3].innerHTML);
+            }
 
-        // ADD VALUES TO TOTALS
-        // SUBTOTAL
-        const totalsSubtotal = document.querySelector("#totals_subtotal");
-        totalsSubtotal.innerHTML = 0;
-        const orderTable = document.querySelector("#order_table_body");
-        const orderTableChilds = orderTable.childNodes;
-        for (product of orderTableChilds) {
-          const childs = product.childNodes;
-          totalsSubtotal.innerHTML =
-            parseInt(totalsSubtotal.innerHTML) + parseInt(childs[3].innerHTML);
-        }
+            const totalsProvidersCut = document.querySelector(
+              "#totals_providers_cut"
+            );
+            const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
+            totalsProvidersCut.innerHTML = cut;
 
-        // PROVIDERS CUT
-        const totalsProvidersCut = document.querySelector(
-          "#totals_providers_cut"
-        );
-        const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
-        totalsProvidersCut.innerHTML = cut;
+            const totalsIVA = document.querySelector("#totals_iva");
+            const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(
+              1
+            );
+            totalsIVA.innerHTML = iva;
 
-        // IVA
-        const totalsIVA = document.querySelector("#totals_iva");
-        const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
-        totalsIVA.innerHTML = iva;
+            const totalsTotal = document.querySelector("#totals_total");
+            const total =
+              parseFloat(totalsSubtotal.innerHTML) +
+              parseFloat(totalsProvidersCut.innerHTML) +
+              parseFloat(totalsIVA.innerHTML);
+            totalsTotal.innerHTML = total.toFixed(1);
+            break;
+          }
 
-        // TOTAL
-        const totalsTotal = document.querySelector("#totals_total");
-        const total =
-          parseFloat(totalsSubtotal.innerHTML) +
-          parseFloat(totalsProvidersCut.innerHTML) +
-          parseFloat(totalsIVA.innerHTML);
-        totalsTotal.innerHTML = total.toFixed(1);
-      } else {
-        const productRow = document.querySelector(
-          "#product_" + product.productId
-        );
-        const rowChilds = productRow.childNodes;
+          // SETTING THE PRICE
+          rowChilds[3].innerHTML =
+            parseInt(rowChilds[1].innerHTML) *
+            parseInt(parseInt(rowChilds[2].innerHTML));
 
-        // SETTING THE QUANTITY
-        rowChilds[1].innerHTML =
-          parseInt(rowChilds[1].innerHTML) + parseInt(quantity);
-
-        // IF THE QUANTITY EXCEEDS THE STOCK LIMIT
-        if (
-          parseInt(rowChilds[1].innerHTML) + parseInt(product.stock) >
-          parseInt(product.stockLimit)
-        ) {
-          alert("The Order Exceeds the Stock Limit");
-          productRow.remove();
-
+          // ADD VALUES TO TOTALS
+          // SUBTOTAL
           const totalsSubtotal = document.querySelector("#totals_subtotal");
           totalsSubtotal.innerHTML = 0;
           const orderTable = document.querySelector("#order_table_body");
@@ -146,61 +194,26 @@ const addProduct = (products) => {
               parseInt(childs[3].innerHTML);
           }
 
+          // PROVIDERS CUT
           const totalsProvidersCut = document.querySelector(
             "#totals_providers_cut"
           );
           const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
           totalsProvidersCut.innerHTML = cut;
 
+          // IVA
           const totalsIVA = document.querySelector("#totals_iva");
           const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
           totalsIVA.innerHTML = iva;
 
+          // TOTAL
           const totalsTotal = document.querySelector("#totals_total");
           const total =
             parseFloat(totalsSubtotal.innerHTML) +
             parseFloat(totalsProvidersCut.innerHTML) +
             parseFloat(totalsIVA.innerHTML);
           totalsTotal.innerHTML = total.toFixed(1);
-          break;
         }
-
-        // SETTING THE PRICE
-        rowChilds[3].innerHTML =
-          parseInt(rowChilds[1].innerHTML) *
-          parseInt(parseInt(rowChilds[2].innerHTML));
-
-        // ADD VALUES TO TOTALS
-        // SUBTOTAL
-        const totalsSubtotal = document.querySelector("#totals_subtotal");
-        totalsSubtotal.innerHTML = 0;
-        const orderTable = document.querySelector("#order_table_body");
-        const orderTableChilds = orderTable.childNodes;
-        for (product of orderTableChilds) {
-          const childs = product.childNodes;
-          totalsSubtotal.innerHTML =
-            parseInt(totalsSubtotal.innerHTML) + parseInt(childs[3].innerHTML);
-        }
-
-        // PROVIDERS CUT
-        const totalsProvidersCut = document.querySelector(
-          "#totals_providers_cut"
-        );
-        const cut = (parseFloat(totalsSubtotal.innerHTML) * 0.1).toFixed(1);
-        totalsProvidersCut.innerHTML = cut;
-
-        // IVA
-        const totalsIVA = document.querySelector("#totals_iva");
-        const iva = (parseFloat(totalsSubtotal.innerHTML) * 0.05).toFixed(1);
-        totalsIVA.innerHTML = iva;
-
-        // TOTAL
-        const totalsTotal = document.querySelector("#totals_total");
-        const total =
-          parseFloat(totalsSubtotal.innerHTML) +
-          parseFloat(totalsProvidersCut.innerHTML) +
-          parseFloat(totalsIVA.innerHTML);
-        totalsTotal.innerHTML = total.toFixed(1);
       }
     }
   }
