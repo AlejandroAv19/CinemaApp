@@ -11,14 +11,19 @@ module.exports.home = async (req, res) => {
 
 module.exports.create = async (req, res) => {
   const { movie, auditorium, day, showtime, availableSeats } = req.body;
-  // CREATING SHOW
-  const newShow = new Show({
-    movie,
-    auditorium,
-    day,
-    showtime,
-    availableSeats,
-  });
-  await newShow.save();
+
+  if (!movie || !auditorium || !day || !showtime) {
+    console.log("INCOMPLETE REQUEST");
+  } else {
+    // CREATING SHOW
+    const newShow = new Show({
+      movie,
+      auditorium,
+      day,
+      showtime,
+      availableSeats,
+    });
+    await newShow.save();
+  }
   res.redirect("/home");
 };
