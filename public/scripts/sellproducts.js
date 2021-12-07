@@ -214,7 +214,7 @@ const submitForm = () => {
   }
 
   // DATE
-  let date = document.querySelector("#date").innerHTML;
+  let date = document.querySelector("#date").innerHTML.trim();
   const dateInput = document.createElement("input");
   dateInput.value = date;
   dateInput.name = "date";
