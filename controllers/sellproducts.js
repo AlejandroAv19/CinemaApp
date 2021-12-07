@@ -58,7 +58,34 @@ module.exports.create = async (req, res) => {
 
       await productPurchase.save();
     } else {
-      console.log("NOT ARRAY");
+      // ONLY ONE PRODUCT
+
+      // SEARCHING FOR THE PRODUCT
+      const productObject = await Product.findOne({ name: _product });
+
+      // productId
+      const a = JSON.stringify(productObject);
+      const b = JSON.parse(a);
+
+      const product = {
+        product: productObject,
+        productId: b.productId,
+        quantity: quantity,
+        pricePerUnit: pricePerUnit,
+      };
+
+      productPurchase.products.push(product);
+      // SUBSTRACTING THE PRODUCT TO THE AVAILABLE STOCK
+      // FINDING THE PRODUCT
+      const addProduct = await Product.findOne({ name: _product });
+      const actualStock = addProduct.stock;
+      const newStock = parseInt(actualStock) - parseInt(quantity);
+      const productUpdate = await Product.findOneAndUpdate(
+        { name: _product },
+        { stock: newStock }
+      );
+      await productUpdate.save();
+      await productPurchase.save();
     }
 
     // FINDING THE USER
