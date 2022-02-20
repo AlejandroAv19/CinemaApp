@@ -1,2 +1,3 @@
-# PolisCine
-Final proyect app for the seminar of software engineering I
+# CinemaApp
+
+Unfinished cinema management application...
